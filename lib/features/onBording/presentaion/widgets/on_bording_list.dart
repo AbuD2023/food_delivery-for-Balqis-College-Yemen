@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 
+import '../../../auth/presentaion/page/login_page.dart';
 import '../../domain/entities/on_bording.dart';
 import 'on_bording_content.dart';
 import 'on_bording_hedar.dart';
@@ -36,14 +37,19 @@ class OnBordingList extends StatelessWidget {
                               if (currentIndex < onBordingList.length - 1) {
                                 tabController.animateTo(currentIndex + 1);
                               } else {
-                                // آخر صفحة → قم بعمل حدث معين
-                                print(
-                                  "تم الوصول لآخر صفحة. تنفيذ حدث معين هنا",
+                                Navigator.pushAndRemoveUntil(
+                                  context,
+                                  MaterialPageRoute(
+                                    builder: (context) => LoginPage(),
+                                  ),
+                                  (route) => false,
                                 );
                               }
                             },
-
-                            buttonText: 'Let’s Continue',
+                            buttonText:
+                                (currentIndex < onBordingList.length - 1)
+                                ? 'Next'
+                                : 'Let’s Continue',
                           ),
                         ),
                       ],
@@ -55,10 +61,7 @@ class OnBordingList extends StatelessWidget {
                           onPressed: () {
                             if (currentIndex == onBordingList.length - 1) {
                               tabController.animateTo(currentIndex - 1);
-                            } else {
-                              // آخر صفحة → قم بعمل حدث معين
-                              print("تم الوصول لآخر صفحة. تنفيذ حدث معين هنا");
-                            }
+                            } else {}
                           },
                           icon: Icon(Icons.arrow_back),
                         ),
@@ -71,10 +74,7 @@ class OnBordingList extends StatelessWidget {
                           onPressed: () {
                             if (currentIndex < onBordingList.length - 1) {
                               tabController.animateTo(onBordingList.length - 1);
-                            } else {
-                              // آخر صفحة → قم بعمل حدث معين
-                              print("تم الوصول لآخر صفحة. تنفيذ حدث معين هنا");
-                            }
+                            } else {}
                           },
                           icon: Text('Skip'),
                         ),
