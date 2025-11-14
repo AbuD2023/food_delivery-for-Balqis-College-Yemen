@@ -3,15 +3,17 @@ import 'package:food_delivery/core/constants/app_them.dart';
 
 class CustomTextFild extends StatelessWidget {
   final TextEditingController controller;
-  final String hintText;
+  final String? hintText;
   final String? Function(String?)? validator;
   final bool obscureText;
+  final InputDecoration? decoration;
   const CustomTextFild({
     super.key,
     required this.controller,
-    required this.hintText,
+    this.hintText,
     this.validator,
     this.obscureText = false,
+    this.decoration,
   });
 
   @override
@@ -19,12 +21,14 @@ class CustomTextFild extends StatelessWidget {
     return TextFormField(
       obscureText: obscureText,
       controller: controller,
-      decoration: InputDecoration(
-        hintText: hintText,
-        // border: OutlineInputBorder(),
-        filled: true,
-        fillColor: AppTheme.shadow,
-      ),
+      decoration:
+          decoration ??
+          InputDecoration(
+            hintText: hintText,
+            // border: OutlineInputBorder(),
+            filled: true,
+            fillColor: AppTheme.shadow,
+          ),
       validator: validator,
     );
   }

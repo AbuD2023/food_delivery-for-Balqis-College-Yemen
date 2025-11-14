@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:food_delivery/features/home/presentaion/page/home_page.dart';
 
 class CustomDrawer extends StatefulWidget {
   const CustomDrawer({super.key});
@@ -48,6 +49,13 @@ class _CustomDrawerState extends State<CustomDrawer> {
   void initState() {
     setStatusBarColor(appStore.scaffoldBackground!);
     super.initState();
+    getData.add(
+      SampleListModel(
+        title: "Home",
+        icon: Icons.home,
+        launchWidget: const HomePage(),
+      ),
+    );
     getData.add(
       SampleListModel(
         title: "Payment",
