@@ -8,8 +8,6 @@ class LoginHedar extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Column(
-      children: [OnBordingHedar(imageSrc: Assets.images.splash.welcome2.path)],
-    );
+    return OnBordingHedar(imageSrc: Assets.images.splash.welcome2.path);
   }
 }
