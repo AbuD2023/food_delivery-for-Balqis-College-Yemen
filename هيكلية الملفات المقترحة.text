@@ -1,0 +1,86 @@
+lib/
+ ├── core/
+ │    ├── errors/                 # exceptions, failures
+ │    ├── network/                # api client, interceptors, connectivity utils
+ │    ├── utils/                  # helpers (formatters, validators)
+ │    ├── constants/              # app constants, routes, keys
+ │    └── widgets/                # reusable UI widgets (buttons, inputs)
+ │
+ ├── features/
+ │    ├── auth/
+ │    │    ├── domain/
+ │    │    │    ├── entities/         # User, AuthSession
+ │    │    │    ├── repositories/     # AuthRepository (abstract)
+ │    │    │    └── usecases/         # login, register, logout, updateProfile
+ │    │    ├── data/
+ │    │    │    ├── models/           # UserModel, AuthModel
+ │    │    │    ├── datasources/      # auth_remote, auth_local (token storage)
+ │    │    │    └── repositories/     # AuthRepositoryImpl
+ │    │    └── presentation/
+ │    │         ├── pages/            # welcome, auth input screens
+ │    │         ├── state/            # cubit/bloc/providers
+ │    │         └── widgets/
+ │    │
+ │    ├── home/
+ │    │    ├── domain/
+ │    │    │    ├── entities/         # Banner, Category, ProductSummary
+ │    │    │    ├── repositories/
+ │    │    │    └── usecases/         # getHomeData, search
+ │    │    ├── data/
+ │    │    │    ├── models/
+ │    │    │    ├── datasources/      # products_remote, local cache
+ │    │    │    └── repositories/
+ │    │    └── presentation/
+ │    │         ├── pages/            # home_screen
+ │    │         ├── widgets/          # search_bar, product_card
+ │    │         └── state/
+ │    │
+ │    ├── product/
+ │    │    ├── domain/
+ │    │    │    ├── entities/         # Product, ProductDetail
+ │    │    │    ├── repositories/
+ │    │    │    └── usecases/         # getProductDetail, toggleWishlist
+ │    │    ├── data/
+ │    │    │    ├── models/
+ │    │    │    ├── datasources/
+ │    │    │    └── repositories/
+ │    │    └── presentation/
+ │    │         ├── pages/            # product_detail (Add to basket)
+ │    │         └── widgets/
+ │    │
+ │    ├── cart/
+ │    │    ├── domain/
+ │    │    │    ├── entities/         # Cart, CartItem
+ │    │    │    ├── repositories/
+ │    │    │    └── usecases/         # getCart, addToCart, updateQty, remove
+ │    │    ├── data/
+ │    │    │    ├── models/
+ │    │    │    ├── datasources/      # cart_local, cart_remote (if server side)
+ │    │    │    └── repositories/
+ │    │    └── presentation/
+ │    │         ├── pages/            # my_basket
+ │    │         └── widgets/
+ │    │
+ │    ├── checkout/
+ │    │    ├── domain/
+ │    │    │    ├── entities/         # Order, PaymentInfo, Address
+ │    │    │    ├── repositories/
+ │    │    │    └── usecases/         # createOrder, calculateTotal
+ │    │    ├── data/
+ │    │    │    ├── models/
+ │    │    │    ├── datasources/      # payment_remote, orders_remote
+ │    │    │    └── repositories/
+ │    │    └── presentation/
+ │    │         ├── pages/            # checkout_details, card_input, order_complete
+ │    │         └── widgets/
+ │    │
+ │    └── orders/
+ │         ├── domain/
+ │         │   ├── entities/          # OrderSummary, TrackingStep
+ │         │   ├── repositories/
+ │         │   └── usecases/          # getOrders, trackOrder
+ │         ├── data/
+ │         └── presentation/
+ │              └── pages/            # track_order, order_list
+ │
+ └── main.dart

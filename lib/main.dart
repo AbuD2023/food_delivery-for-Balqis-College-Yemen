@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:food_delivery/core/constans/app_them.dart';
+import 'package:food_delivery/core/constants/app_them.dart';
 
 import 'features/splash/presentaion/page/splash_page.dart';
 

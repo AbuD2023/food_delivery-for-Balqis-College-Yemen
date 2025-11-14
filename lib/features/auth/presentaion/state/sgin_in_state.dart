@@ -1,45 +1,51 @@
 import 'package:flutter/widgets.dart';
-import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:riverpod_annotation/riverpod_annotation.dart';
 
 import '../../domain/entities/user.dart';
-import '../../domain/usecases/sign_in_usecase.dart';
 import 'auth_state.dart';
 
-/// Text Editing Controller Providers
-final firstNameControllerProvider = StateProvider<TextEditingController>((ref) {
-  return TextEditingController();
-});
-final passControllerProvider = StateProvider<TextEditingController>((ref) {
-  return TextEditingController();
-});
+part 'sgin_in_state.g.dart';
 
-/// StateNotifier for loading state
-class SignInNotifier extends StateNotifier<AsyncValue<User>> {
-  final SignInUsecase useCase;
-  final User user;
+/// Text Editing Controller Providers with proper disposal
+@riverpod
+class FirstNameController extends _$FirstNameController {
+  @override
+  TextEditingController build() {
+    final controller = TextEditingController();
+    ref.onDispose(() => controller.dispose());
+    return controller;
+  }
+}
 
-  SignInNotifier(this.useCase, this.user) : super(const AsyncLoading()) {
-    signIn();
+@riverpod
+class PassController extends _$PassController {
+  @override
+  TextEditingController build() {
+    final controller = TextEditingController();
+    ref.onDispose(() => controller.dispose());
+    return controller;
+  }
+}
+
+/// Sign In State Notifier - Fixed version
+@riverpod
+class SignInNotifier extends _$SignInNotifier {
+  @override
+  AsyncValue<User> build() {
+    // Initial state - don't call signIn automatically
+    return AsyncValue.data(User(firstName: '', pass: ''));
   }
 
-  Future<void> signIn() async {
-    state = AsyncLoading();
+  /// Sign in method - called manually when user clicks the button
+  Future<void> signIn(String firstName, String password) async {
+    state = const AsyncLoading();
     try {
+      final useCase = ref.read(signInUsecaseProvider);
+      final user = User(firstName: firstName, pass: password);
       final data = await useCase(user);
-
       state = AsyncData(data);
     } catch (e, st) {
       state = AsyncError(e, st);
     }
   }
 }
-
-/// Provider for OrganicNotifier
-final signInProvider = StateNotifierProvider<SignInNotifier, AsyncValue<User>>((
-  ref,
-) {
-  final useCase = ref.watch(signInUsecaseProvider);
-  final firstName = ref.watch(firstNameControllerProvider).text;
-  final pass = ref.watch(passControllerProvider).text;
-  return SignInNotifier(useCase, User(firstName: firstName, pass: pass));
-});

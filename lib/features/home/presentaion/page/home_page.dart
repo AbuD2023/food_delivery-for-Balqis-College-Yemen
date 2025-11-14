@@ -11,16 +11,16 @@ class HomePage extends StatelessWidget {
       appBar: AppBar(
         title: Consumer(
           builder: (context, ref, child) =>
-              Text(ref.watch(firstNameControllerProvider.notifier).state.text),
+              Text(ref.watch(firstNameControllerProvider).text),
         ),
       ),
       body: Consumer(
         builder: (context, ref, child) => ref
-            .read(signInProvider)
+            .watch(signInProvider)
             .when(
               data: (data) => Text('${data.firstName}\n${data.pass}'),
               error: (error, stackTrace) => Text(error.toString()),
-              loading: () => CircularProgressIndicator(),
+              loading: () => const CircularProgressIndicator(),
             ),
       ),
     );

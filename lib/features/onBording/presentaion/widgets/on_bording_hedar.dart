@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 
-import '../../../../core/constans/app_them.dart';
+import '../../../../core/constants/app_them.dart';
 
 class OnBordingHedar extends StatelessWidget {
   final String imageSrc;

@@ -11,7 +11,10 @@ class AuthRepositoryImpl extends AuthRepository {
   Future<User> signIn(User user) async {
     return await Future.delayed(
       Duration(seconds: 5),
-      () => User(firstName: 'Ali', pass: 'kjakjd@#@#(!@*n,asd)'),
+      () => User(
+        firstName: '${user.firstName}__TEST__',
+        pass: '${user.pass}__TEST__',
+      ),
     );
   }
 }
