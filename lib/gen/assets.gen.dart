@@ -43,6 +43,17 @@ class $AssetsIconsGen {
   /// File path: assets/icons/Taken.png
   AssetGenImage get taken => const AssetGenImage('assets/icons/Taken.png');
 
+  /// File path: assets/icons/drawer.png
+  AssetGenImage get drawer => const AssetGenImage('assets/icons/drawer.png');
+
+  /// File path: assets/icons/fa_shopping-basket.png
+  AssetGenImage get faShoppingBasket =>
+      const AssetGenImage('assets/icons/fa_shopping-basket.png');
+
+  /// File path: assets/icons/list_sarch.png
+  AssetGenImage get listSarch =>
+      const AssetGenImage('assets/icons/list_sarch.png');
+
   /// List of all assets
   List<AssetGenImage> get values => [
     beingDelivered,
@@ -53,6 +64,9 @@ class $AssetsIconsGen {
     received,
     succses,
     taken,
+    drawer,
+    faShoppingBasket,
+    listSarch,
   ];
 }
 
