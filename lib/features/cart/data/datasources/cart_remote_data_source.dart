@@ -69,7 +69,7 @@ class CartRemoteDataSourceImpl implements CartRemoteDataSource {
           )
           .timeout(const Duration(seconds: 10));
 
-      if (response.statusCode != 200) {
+      if (response.statusCode != 200 && response.statusCode != 201) {
         throw Exception('Failed to update quantity: ${response.statusCode}');
       }
     } catch (e) {
@@ -84,7 +84,7 @@ class CartRemoteDataSourceImpl implements CartRemoteDataSource {
           .delete(Uri.parse('$baseUrl/cart/remove/$productId'))
           .timeout(const Duration(seconds: 10));
 
-      if (response.statusCode != 200) {
+      if (response.statusCode != 200 && response.statusCode != 201) {
         throw Exception('Failed to remove from cart: ${response.statusCode}');
       }
     } catch (e) {
@@ -99,7 +99,7 @@ class CartRemoteDataSourceImpl implements CartRemoteDataSource {
           .delete(Uri.parse('$baseUrl/cart/clear'))
           .timeout(const Duration(seconds: 10));
 
-      if (response.statusCode != 200) {
+      if (response.statusCode != 200 && response.statusCode != 201) {
         throw Exception('Failed to clear cart: ${response.statusCode}');
       }
     } catch (e) {
