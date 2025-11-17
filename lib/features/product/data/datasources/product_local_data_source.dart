@@ -5,6 +5,8 @@ abstract class ProductLocalDataSource {
   List<ProductModel> getProducts();
   ProductModel? getProductById(String id);
   Future<void> updateProduct(ProductModel product);
+  // إضافة دالة البحث
+  Future<List<ProductModel>> searchProducts(String query);
 }
 
 class ProductLocalDataSourceImpl implements ProductLocalDataSource {
@@ -111,5 +113,10 @@ class ProductLocalDataSourceImpl implements ProductLocalDataSource {
     if (index != -1) {
       _products[index] = product;
     }
+  }
+
+  @override
+  Future<List<ProductModel>> searchProducts(String query) async {
+    return _products.where((p) => p.name.toLowerCase().contains(query.toLowerCase())).toList();
   }
 }

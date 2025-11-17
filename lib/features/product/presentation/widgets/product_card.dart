@@ -22,6 +22,7 @@ class ProductCard extends StatelessWidget {
       margin: const EdgeInsets.only(right: 16),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
+        mainAxisSize: MainAxisSize.min,
         children: [
           // Product Image (Clickable to navigate to detail)
           GestureDetector(
@@ -93,7 +94,7 @@ class ProductCard extends StatelessWidget {
               ],
             ),
           ),
-          const SizedBox(height: 12),
+          const SizedBox(height: 8),
           // Product Name
           MyText(
             text: product.name,
@@ -101,7 +102,7 @@ class ProductCard extends StatelessWidget {
             color: const Color(0xFF2C2C2C),
             isTitle: true,
           ),
-          const SizedBox(height: 8),
+          const SizedBox(height: 6),
           // Price and Add Button
           Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,

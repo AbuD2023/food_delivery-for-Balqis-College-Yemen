@@ -7,4 +7,7 @@ abstract class ProductRepository {
   Future<ProductResult> getProductsByCategory(String category);
   Future<Product> toggleFavorite(String productId);
   Future<Product> getProductById(String productId);
+
+  // إضافة دالة البحث
+  Future<ProductResult> searchProducts(String query);
 }

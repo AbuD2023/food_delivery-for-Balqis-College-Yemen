@@ -1,14 +1,20 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:food_delivery/gen/assets.gen.dart';
+import 'package:riverpod_annotation/riverpod_annotation.dart';
 
 import '../../../../core/constants/app_them.dart';
 import '../../../../core/widgets/custom_text_fild.dart';
+import '../../../product/presentation/state/product_state.dart';
 
-class HomeSearchBar extends StatelessWidget {
+class HomeSearchBar extends ConsumerWidget {
   const HomeSearchBar({super.key});
 
   @override
-  Widget build(BuildContext context) {
+  Widget build(BuildContext context, WidgetRef ref) {
+    final searchController = ref.watch(searchControllerProvider);
+    final searchQuery = ref.watch(searchQueryProvider);
+
     return Padding(
       padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 16),
       child: Row(
@@ -20,7 +26,10 @@ class HomeSearchBar extends StatelessWidget {
                 borderRadius: BorderRadius.circular(12),
               ),
               child: CustomTextFild(
-                controller: TextEditingController(),
+                controller: searchController,
+                onChanged: (value) {
+                  ref.read(searchQueryProvider.notifier).setQuery(value);
+                },
                 decoration: InputDecoration(
                   fillColor: AppTheme.shadow.withOpacity(0.02),
                   hintText: 'Search for fruit salad combos',
@@ -36,6 +45,15 @@ class HomeSearchBar extends StatelessWidget {
                       height: 20,
                     ),
                   ),
+                  suffixIcon: searchQuery.isNotEmpty
+                      ? IconButton(
+                          icon: const Icon(Icons.clear),
+                          onPressed: () {
+                            searchController.clear();
+                            ref.read(searchQueryProvider.notifier).clear();
+                          },
+                        )
+                      : null,
                   border: InputBorder.none,
                   contentPadding: const EdgeInsets.symmetric(
                     horizontal: 16,

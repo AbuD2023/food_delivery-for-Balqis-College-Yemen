@@ -532,3 +532,257 @@ final class ProductByIdFamily extends $Family
   @override
   String toString() => r'productByIdProvider';
 }
+
+/// search products usecase
+
+@ProviderFor(searchProductsUsecase)
+const searchProductsUsecaseProvider = SearchProductsUsecaseProvider._();
+
+/// search products usecase
+
+final class SearchProductsUsecaseProvider
+    extends
+        $FunctionalProvider<
+          SearchProductsUsecase,
+          SearchProductsUsecase,
+          SearchProductsUsecase
+        >
+    with $Provider<SearchProductsUsecase> {
+  /// search products usecase
+  const SearchProductsUsecaseProvider._()
+    : super(
+        from: null,
+        argument: null,
+        retry: null,
+        name: r'searchProductsUsecaseProvider',
+        isAutoDispose: true,
+        dependencies: null,
+        $allTransitiveDependencies: null,
+      );
+
+  @override
+  String debugGetCreateSourceHash() => _$searchProductsUsecaseHash();
+
+  @$internal
+  @override
+  $ProviderElement<SearchProductsUsecase> $createElement(
+    $ProviderPointer pointer,
+  ) => $ProviderElement(pointer);
+
+  @override
+  SearchProductsUsecase create(Ref ref) {
+    return searchProductsUsecase(ref);
+  }
+
+  /// {@macro riverpod.override_with_value}
+  Override overrideWithValue(SearchProductsUsecase value) {
+    return $ProviderOverride(
+      origin: this,
+      providerOverride: $SyncValueProvider<SearchProductsUsecase>(value),
+    );
+  }
+}
+
+String _$searchProductsUsecaseHash() =>
+    r'eeec4436e7e931f038dfac8fa40787831f2b63fa';
+
+/// search products
+
+@ProviderFor(searchProducts)
+const searchProductsProvider = SearchProductsFamily._();
+
+/// search products
+
+final class SearchProductsProvider
+    extends
+        $FunctionalProvider<
+          AsyncValue<ProductResult>,
+          ProductResult,
+          FutureOr<ProductResult>
+        >
+    with $FutureModifier<ProductResult>, $FutureProvider<ProductResult> {
+  /// search products
+  const SearchProductsProvider._({
+    required SearchProductsFamily super.from,
+    required String super.argument,
+  }) : super(
+         retry: null,
+         name: r'searchProductsProvider',
+         isAutoDispose: true,
+         dependencies: null,
+         $allTransitiveDependencies: null,
+       );
+
+  @override
+  String debugGetCreateSourceHash() => _$searchProductsHash();
+
+  @override
+  String toString() {
+    return r'searchProductsProvider'
+        ''
+        '($argument)';
+  }
+
+  @$internal
+  @override
+  $FutureProviderElement<ProductResult> $createElement(
+    $ProviderPointer pointer,
+  ) => $FutureProviderElement(pointer);
+
+  @override
+  FutureOr<ProductResult> create(Ref ref) {
+    final argument = this.argument as String;
+    return searchProducts(ref, argument);
+  }
+
+  @override
+  bool operator ==(Object other) {
+    return other is SearchProductsProvider && other.argument == argument;
+  }
+
+  @override
+  int get hashCode {
+    return argument.hashCode;
+  }
+}
+
+String _$searchProductsHash() => r'978bc24065740d3c869f9272034c5892081f3276';
+
+/// search products
+
+final class SearchProductsFamily extends $Family
+    with $FunctionalFamilyOverride<FutureOr<ProductResult>, String> {
+  const SearchProductsFamily._()
+    : super(
+        retry: null,
+        name: r'searchProductsProvider',
+        dependencies: null,
+        $allTransitiveDependencies: null,
+        isAutoDispose: true,
+      );
+
+  /// search products
+
+  SearchProductsProvider call(String query) =>
+      SearchProductsProvider._(argument: query, from: this);
+
+  @override
+  String toString() => r'searchProductsProvider';
+}
+
+/// search controller
+
+@ProviderFor(SearchController)
+const searchControllerProvider = SearchControllerProvider._();
+
+/// search controller
+final class SearchControllerProvider
+    extends $NotifierProvider<SearchController, TextEditingController> {
+  /// search controller
+  const SearchControllerProvider._()
+    : super(
+        from: null,
+        argument: null,
+        retry: null,
+        name: r'searchControllerProvider',
+        isAutoDispose: true,
+        dependencies: null,
+        $allTransitiveDependencies: null,
+      );
+
+  @override
+  String debugGetCreateSourceHash() => _$searchControllerHash();
+
+  @$internal
+  @override
+  SearchController create() => SearchController();
+
+  /// {@macro riverpod.override_with_value}
+  Override overrideWithValue(TextEditingController value) {
+    return $ProviderOverride(
+      origin: this,
+      providerOverride: $SyncValueProvider<TextEditingController>(value),
+    );
+  }
+}
+
+String _$searchControllerHash() => r'74893bd351df9942471a9097546dedf64487aafa';
+
+/// search controller
+
+abstract class _$SearchController extends $Notifier<TextEditingController> {
+  TextEditingController build();
+  @$mustCallSuper
+  @override
+  void runBuild() {
+    final created = build();
+    final ref = this.ref as $Ref<TextEditingController, TextEditingController>;
+    final element =
+        ref.element
+            as $ClassProviderElement<
+              AnyNotifier<TextEditingController, TextEditingController>,
+              TextEditingController,
+              Object?,
+              Object?
+            >;
+    element.handleValue(ref, created);
+  }
+}
+
+/// search query
+
+@ProviderFor(SearchQuery)
+const searchQueryProvider = SearchQueryProvider._();
+
+/// search query
+final class SearchQueryProvider extends $NotifierProvider<SearchQuery, String> {
+  /// search query
+  const SearchQueryProvider._()
+    : super(
+        from: null,
+        argument: null,
+        retry: null,
+        name: r'searchQueryProvider',
+        isAutoDispose: true,
+        dependencies: null,
+        $allTransitiveDependencies: null,
+      );
+
+  @override
+  String debugGetCreateSourceHash() => _$searchQueryHash();
+
+  @$internal
+  @override
+  SearchQuery create() => SearchQuery();
+
+  /// {@macro riverpod.override_with_value}
+  Override overrideWithValue(String value) {
+    return $ProviderOverride(
+      origin: this,
+      providerOverride: $SyncValueProvider<String>(value),
+    );
+  }
+}
+
+String _$searchQueryHash() => r'a2de29f344488b8b351fbfcf9c230f993798b9ea';
+
+/// search query
+
+abstract class _$SearchQuery extends $Notifier<String> {
+  String build();
+  @$mustCallSuper
+  @override
+  void runBuild() {
+    final created = build();
+    final ref = this.ref as $Ref<String, String>;
+    final element =
+        ref.element
+            as $ClassProviderElement<
+              AnyNotifier<String, String>,
+              String,
+              Object?,
+              Object?
+            >;
+    element.handleValue(ref, created);
+  }
+}

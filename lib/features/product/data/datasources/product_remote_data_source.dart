@@ -10,6 +10,8 @@ abstract class ProductRemoteDataSource {
   Future<List<ProductModel>> getProductsByCategory(String category);
   Future<ProductModel> toggleFavorite(String productId);
   Future<ProductModel> getProductById(String productId);
+  // إضافة دالة البحث
+  Future<List<ProductModel>> searchProducts(String query);
 }
 
 class ProductRemoteDataSourceImpl implements ProductRemoteDataSource {
@@ -109,6 +111,23 @@ class ProductRemoteDataSourceImpl implements ProductRemoteDataSource {
         return ProductModel.fromJson(jsonData);
       } else {
         throw Exception('Failed to load product: ${response.statusCode}');
+      }
+    } catch (e) {
+      throw Exception('Network error: $e');
+    }
+  }
+
+  @override
+  Future<List<ProductModel>> searchProducts(String query) async {
+    try {
+      final response = await client.get(
+        Uri.parse('$baseUrl/products/search?q=$query'),
+      );
+      if (response.statusCode == 200) {
+        final List<dynamic> data = json.decode(response.body);
+        return data.map((json) => ProductModel.fromJson(json)).toList();
+      } else {
+        throw Exception('Failed to search products: ${response.statusCode}');
       }
     } catch (e) {
       throw Exception('Network error: $e');

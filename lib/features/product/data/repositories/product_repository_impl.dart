@@ -129,4 +129,29 @@ class ProductRepositoryImpl implements ProductRepository {
       return product;
     }
   }
+
+  @override
+  Future<ProductResult> searchProducts(String query) async {
+    try {
+      // محاولة البحث في API
+      final remoteProducts = await remoteDataSource.searchProducts(query);
+      return ProductResult(products: remoteProducts, source: DataSource.remote);
+    } catch (e) {
+      // في حالة فشل API، استخدم البيانات المحلية
+      final localProducts = await localDataSource.searchProducts(query);
+      final queryLower = query.toLowerCase();
+      final searchResults = localProducts
+          .where(
+            (p) =>
+                p.name.toLowerCase().contains(queryLower) ||
+                (p.description?.toLowerCase().contains(queryLower) ?? false) ||
+                (p.ingredients?.any(
+                      (ing) => ing.toLowerCase().contains(queryLower),
+                    ) ??
+                    false),
+          )
+          .toList();
+      return ProductResult(products: searchResults, source: DataSource.local);
+    }
+  }
 }

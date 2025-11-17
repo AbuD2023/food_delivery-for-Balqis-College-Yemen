@@ -76,7 +76,7 @@ class ProductListSection extends StatelessWidget {
           ),
         ),
         SizedBox(
-          height: 240,
+          height: 250,
           child: products.isEmpty
               ? Center(
                   child: Padding(

@@ -15,16 +15,81 @@ import 'package:food_delivery/features/product/presentation/state/product_state.
     show
         recommendedProductsProvider,
         productsByCategoryProvider,
-        toggleFavoriteUsecaseProvider;
+        toggleFavoriteUsecaseProvider,
+        searchQueryProvider,
+        searchProductsProvider;
 
 class HomePage extends ConsumerWidget {
   const HomePage({super.key});
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
+    final searchQuery = ref.watch(searchQueryProvider);
     final recommendedProductsAsync = ref.watch(recommendedProductsProvider);
     final categoryProductsAsync = ref.watch(categoryProductsProvider);
     final selectedCategory = ref.watch(selectedCategoryProvider);
+
+    // إذا كان هناك بحث، اعرض نتائج البحث فقط
+    if (searchQuery.isNotEmpty) {
+      final searchResultsAsync = ref.watch(searchProductsProvider(searchQuery));
+      return Scaffold(
+        backgroundColor: Colors.white,
+        drawer: const CustomDrawer(),
+        body: SafeArea(
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              const HomeHeader(),
+              Expanded(
+                child: Column(
+                  children: [
+                    const HomeGreeting(),
+                    const HomeSearchBar(),
+                    Expanded(
+                      child: searchResultsAsync.when(
+                        data: (result) => result.products.isEmpty
+                            ? Center(
+                                child: Column(
+                                  mainAxisAlignment: MainAxisAlignment.center,
+                                  children: [
+                                    Icon(
+                                      Icons.search_off,
+                                      size: 64,
+                                      color: Colors.grey.shade400,
+                                    ),
+                                    const SizedBox(height: 16),
+                                    Text(
+                                      'لا توجد نتائج للبحث',
+                                      style: TextStyle(
+                                        fontSize: 18,
+                                        color: Colors.grey.shade600,
+                                      ),
+                                    ),
+                                  ],
+                                ),
+                              )
+                            : ProductListSection(
+                                title: 'نتائج البحث',
+                                products: result.products,
+                                dataSource: result.source,
+                                onFavoriteTap: (product) =>
+                                    _onFavoriteTap(ref, product),
+                                onAddToCart: (product) =>
+                                    _onAddToCart(context, ref, product),
+                              ),
+                        loading: () =>
+                            const Center(child: CircularProgressIndicator()),
+                        error: (error, stack) => _buildErrorWidget(error),
+                      ),
+                    ),
+                  ],
+                ),
+              ),
+            ],
+          ),
+        ),
+      );
+    }
 
     return Scaffold(
       backgroundColor: Colors.white,

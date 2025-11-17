@@ -1,3 +1,4 @@
+import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 
@@ -10,6 +11,7 @@ import '../../domain/entities/product.dart';
 import '../../domain/usecases/get_product_by_id_usecase.dart';
 import '../../domain/usecases/get_products_by_category_usecase.dart';
 import '../../domain/usecases/get_recommended_products_usecase.dart';
+import '../../domain/usecases/search_products_usecase.dart';
 import '../../domain/usecases/toggle_favorite_usecase.dart';
 
 part 'product_state.g.dart';
@@ -78,4 +80,44 @@ Future<ProductResult> productsByCategory(Ref ref, String category) async {
 Future<Product> productById(Ref ref, String productId) async {
   final useCase = ref.watch(getProductByIdUsecaseProvider);
   return await useCase(productId);
+}
+
+/// search products usecase
+@riverpod
+SearchProductsUsecase searchProductsUsecase(Ref ref) {
+  final repository = ref.watch(productRepositoryProvider);
+  return SearchProductsUsecase(repository);
+}
+
+/// search products
+@riverpod
+Future<ProductResult> searchProducts(Ref ref, String query) async {
+  final useCase = ref.watch(searchProductsUsecaseProvider);
+  return await useCase(query);
+}
+
+/// search controller
+@riverpod
+class SearchController extends _$SearchController {
+  @override
+  TextEditingController build() {
+    final controller = TextEditingController();
+    ref.onDispose(() => controller.dispose());
+    return controller;
+  }
+}
+
+/// search query
+@riverpod
+class SearchQuery extends _$SearchQuery {
+  @override
+  String build() => '';
+
+  void setQuery(String query) {
+    state = query;
+  }
+
+  void clear() {
+    state = '';
+  }
 }

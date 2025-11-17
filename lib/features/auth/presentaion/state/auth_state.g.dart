@@ -155,7 +155,7 @@ final class AuthRepositoryProvider
   }
 }
 
-String _$authRepositoryHash() => r'7c53ca795873ad127c1cb4e798f6f054dc4dffe8';
+String _$authRepositoryHash() => r'd85cdd6d964b8b5f1e5489d1da8ca65fa31ab5e8';
 
 /// UseCase provider
 
