@@ -1,6 +1,8 @@
-import 'package:food_delivery/features/cart/data/models/cart_item_model.dart';
 import 'package:http/http.dart' as http;
 import 'dart:convert';
+
+import '../../../../core/constants/api_endpoint.dart';
+import '../models/cart_item_model.dart';
 
 abstract class CartRemoteDataSource {
   Future<List<CartItemModel>> getCartItems();
@@ -16,7 +18,7 @@ class CartRemoteDataSourceImpl implements CartRemoteDataSource {
 
   CartRemoteDataSourceImpl({
     required this.client,
-    this.baseUrl = 'https://api.example.com', // استبدلها بـ API الحقيقي
+    this.baseUrl = ApiEndpoint.baseUrl, // استبدلها بـ API الحقيقي
   });
 
   @override

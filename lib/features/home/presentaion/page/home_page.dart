@@ -30,69 +30,78 @@ class HomePage extends ConsumerWidget {
       backgroundColor: Colors.white,
       drawer: const CustomDrawer(),
       body: SafeArea(
-        child: SingleChildScrollView(
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              // Header with menu and basket
-              const HomeHeader(),
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            // Header with menu and basket
+            const HomeHeader(),
+            Expanded(
+              child: SingleChildScrollView(
+                child: Column(
+                  children: [
+                    // Greeting
+                    const HomeGreeting(),
 
-              // Greeting
-              const HomeGreeting(),
+                    // Search Bar
+                    const HomeSearchBar(),
 
-              // Search Bar
-              const HomeSearchBar(),
+                    // Recommended Combo Section
+                    recommendedProductsAsync.when(
+                      data: (result) => ProductListSection(
+                        title: 'Recommended Combo',
+                        products: result.products,
+                        dataSource: result.source,
+                        onFavoriteTap: (product) =>
+                            _onFavoriteTap(ref, product),
+                        onAddToCart: (product) =>
+                            _onAddToCart(context, ref, product),
+                      ),
+                      loading: () => const Center(
+                        child: Padding(
+                          padding: EdgeInsets.all(20.0),
+                          child: CircularProgressIndicator(),
+                        ),
+                      ),
+                      error: (error, stack) => _buildErrorWidget(
+                        error,
+                        onRetry: () => _retryRecommendedProducts(ref),
+                      ),
+                    ),
 
-              // Recommended Combo Section
-              recommendedProductsAsync.when(
-                data: (result) => ProductListSection(
-                  title: 'Recommended Combo',
-                  products: result.products,
-                  dataSource: result.source,
-                  onFavoriteTap: (product) => _onFavoriteTap(ref, product),
-                  onAddToCart: (product) => _onAddToCart(context, ref, product),
-                ),
-                loading: () => const Center(
-                  child: Padding(
-                    padding: EdgeInsets.all(20.0),
-                    child: CircularProgressIndicator(),
-                  ),
-                ),
-                error: (error, stack) => _buildErrorWidget(
-                  error,
-                  onRetry: () => _retryRecommendedProducts(ref),
+                    // Category Tabs
+                    const CategoryTabs(
+                      categories: ['Hottest', 'Popular', 'New combo', 'Top'],
+                    ),
+
+                    // Category Products Section
+                    categoryProductsAsync.when(
+                      data: (result) => ProductListSection(
+                        title: selectedCategory,
+                        products: result.products,
+                        dataSource: result.source,
+                        onFavoriteTap: (product) =>
+                            _onFavoriteTap(ref, product),
+                        onAddToCart: (product) =>
+                            _onAddToCart(context, ref, product),
+                      ),
+                      loading: () => const Center(
+                        child: Padding(
+                          padding: EdgeInsets.all(20.0),
+                          child: CircularProgressIndicator(),
+                        ),
+                      ),
+                      error: (error, stack) => _buildErrorWidget(
+                        error,
+                        onRetry: () => _retryCategoryProducts(ref),
+                      ),
+                    ),
+
+                    const SizedBox(height: 20),
+                  ],
                 ),
               ),
-
-              // Category Tabs
-              const CategoryTabs(
-                categories: ['Hottest', 'Popular', 'New combo', 'Top'],
-              ),
-
-              // Category Products Section
-              categoryProductsAsync.when(
-                data: (result) => ProductListSection(
-                  title: selectedCategory,
-                  products: result.products,
-                  dataSource: result.source,
-                  onFavoriteTap: (product) => _onFavoriteTap(ref, product),
-                  onAddToCart: (product) => _onAddToCart(context, ref, product),
-                ),
-                loading: () => const Center(
-                  child: Padding(
-                    padding: EdgeInsets.all(20.0),
-                    child: CircularProgressIndicator(),
-                  ),
-                ),
-                error: (error, stack) => _buildErrorWidget(
-                  error,
-                  onRetry: () => _retryCategoryProducts(ref),
-                ),
-              ),
-
-              const SizedBox(height: 20),
-            ],
-          ),
+            ),
+          ],
         ),
       ),
       floatingActionButton: FloatingActionButton(

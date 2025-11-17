@@ -9,6 +9,7 @@ class LoginPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      // appBar: AppBar(title: MyText(text: 'تسجيل الدخول')),
       body: SingleChildScrollView(
         child: Column(children: [LoginHedar(), LoginBody()]),
       ),

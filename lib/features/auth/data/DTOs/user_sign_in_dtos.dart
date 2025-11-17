@@ -1,12 +1,10 @@
-class User {
-  final int id;
+class UserSignInDtos {
   final String firstName;
   final String pass;
   final String email;
   final String age;
   final String phoneNumber;
-  User({
-    required this.id,
+  UserSignInDtos({
     required this.firstName,
     required this.pass,
     required this.email,

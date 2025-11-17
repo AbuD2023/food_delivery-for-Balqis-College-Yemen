@@ -2,6 +2,8 @@ import 'package:food_delivery/features/product/data/models/product_model.dart';
 import 'package:http/http.dart' as http;
 import 'dart:convert';
 
+import '../../../../core/constants/api_endpoint.dart';
+
 abstract class ProductRemoteDataSource {
   Future<List<ProductModel>> getProducts();
   Future<List<ProductModel>> getRecommendedProducts();
@@ -16,7 +18,7 @@ class ProductRemoteDataSourceImpl implements ProductRemoteDataSource {
 
   ProductRemoteDataSourceImpl({
     required this.client,
-    this.baseUrl = 'https://api.example.com', // استبدلها بـ API الحقيقي
+    this.baseUrl = ApiEndpoint.baseUrl, // استبدلها بـ API الحقيقي
   });
 
   @override

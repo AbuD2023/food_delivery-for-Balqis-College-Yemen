@@ -1,8 +1,7 @@
-import '../../domain/entities/user.dart';
+import '../DTOs/user_sign_in_dtos.dart';
 
-class UserModel extends User {
-  UserModel({
-    required super.id,
+class UserSignInDtosModel extends UserSignInDtos {
+  UserSignInDtosModel({
     required super.firstName,
     required super.pass,
     required super.email,
@@ -10,9 +9,8 @@ class UserModel extends User {
     required super.phoneNumber,
   });
 
-  factory UserModel.fromJson(Map<String, dynamic> json) {
-    return UserModel(
-      id: json['id'],
+  factory UserSignInDtosModel.fromJson(Map<String, dynamic> json) {
+    return UserSignInDtosModel(
       firstName: json['firstName'],
       pass: json['pass'],
       email: json['email'],
@@ -23,7 +21,6 @@ class UserModel extends User {
 
   Map<String, dynamic> toJson() {
     return {
-      'id': id,
       'firstName': firstName,
       'pass': pass,
       'email': email,

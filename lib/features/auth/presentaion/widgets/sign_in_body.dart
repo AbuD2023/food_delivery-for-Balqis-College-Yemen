@@ -2,14 +2,13 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:food_delivery/core/widgets/custom_my_text.dart';
 import 'package:food_delivery/core/widgets/custom_text_fild.dart';
-import 'package:food_delivery/features/auth/data/models/user_login_dtos_model.dart';
-import 'package:food_delivery/features/auth/presentaion/page/sign_in_page.dart';
 import 'package:food_delivery/features/auth/presentaion/state/sgin_in_state.dart';
 
 import '../../../home/presentaion/page/home_page.dart';
+import '../../data/models/user_sign_in_dtos_model.dart';
 
-class LoginBody extends StatelessWidget {
-  const LoginBody({super.key});
+class SignInBody extends StatelessWidget {
+  const SignInBody({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -31,15 +30,50 @@ class LoginBody extends StatelessWidget {
                       mainAxisSize: MainAxisSize.min,
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
-                        MyText(
-                          text: 'What is your Email Address and Password?',
-                          fontSize: 20,
-                        ),
+                        MyText(text: 'What is your firstname?', fontSize: 20),
                         SizedBox(height: 25),
                         CustomTextFild(
+                          controller: ref.watch(firstNameControllerProvider),
+                          hintText: 'Ali',
+                          validator: (data) {
+                            if (data == null || data.isEmpty) {
+                              return 'This is required';
+                            } else {
+                              return null;
+                            }
+                          },
+                        ),
+                        SizedBox(height: 15),
+                        CustomTextFild(
                           controller: ref.watch(emailControllerProvider),
-                          hintText: 'example@example.com',
                           keyboardType: TextInputType.emailAddress,
+                          hintText: 'example@example.com',
+                          validator: (data) {
+                            if (data == null || data.isEmpty) {
+                              return 'This is required';
+                            } else {
+                              return null;
+                            }
+                          },
+                        ),
+                        SizedBox(height: 15),
+                        CustomTextFild(
+                          controller: ref.watch(phoneNumberControllerProvider),
+                          keyboardType: TextInputType.phone,
+                          hintText: '+967 777 777 777',
+                          validator: (data) {
+                            if (data == null || data.isEmpty) {
+                              return 'This is required';
+                            } else {
+                              return null;
+                            }
+                          },
+                        ),
+                        SizedBox(height: 15),
+                        CustomTextFild(
+                          controller: ref.watch(ageControllerProvider),
+                          keyboardType: TextInputType.number,
+                          hintText: '23',
                           validator: (data) {
                             if (data == null || data.isEmpty) {
                               return 'This is required';
@@ -61,18 +95,18 @@ class LoginBody extends StatelessWidget {
                             }
                           },
                         ),
+                        SizedBox(height: 15),
                       ],
                     );
                   },
                 ),
-                SizedBox(height: 15),
                 Center(
                   child: SizedBox(
                     width: double.infinity,
                     height: 60,
                     child: Consumer(
                       builder: (_, ref, _) {
-                        final signInState = ref.watch(loginProvider);
+                        final signInState = ref.watch(signInProvider);
                         final isLoading = signInState.isLoading;
 
                         return ElevatedButton(
@@ -80,11 +114,20 @@ class LoginBody extends StatelessWidget {
                               ? null
                               : () async {
                                   if (key.currentState!.validate()) {
+                                    final firstName = ref
+                                        .read(firstNameControllerProvider)
+                                        .text;
                                     final password = ref
                                         .read(passControllerProvider)
                                         .text;
                                     final email = ref
                                         .read(emailControllerProvider)
+                                        .text;
+                                    final age = ref
+                                        .read(ageControllerProvider)
+                                        .text;
+                                    final phoneNumber = ref
+                                        .read(phoneNumberControllerProvider)
                                         .text;
 
                                     // Show loading dialog
@@ -100,11 +143,14 @@ class LoginBody extends StatelessWidget {
 
                                     // Call sign in
                                     await ref
-                                        .read(loginProvider.notifier)
-                                        .login(
-                                          UserLoginDtosModel(
+                                        .read(signInProvider.notifier)
+                                        .signIn(
+                                          UserSignInDtosModel(
+                                            firstName: firstName,
                                             pass: password,
                                             email: email,
+                                            age: age,
+                                            phoneNumber: phoneNumber,
                                           ),
                                         );
 
@@ -114,7 +160,7 @@ class LoginBody extends StatelessWidget {
                                     }
 
                                     // Check result and navigate
-                                    final result = ref.read(loginProvider);
+                                    final result = ref.read(signInProvider);
                                     result.when(
                                       data: (user) {
                                         if (context.mounted) {
@@ -150,7 +196,7 @@ class LoginBody extends StatelessWidget {
                                   color: Colors.white,
                                 )
                               : MyText(
-                                  text: 'تسجيل دخول',
+                                  text: 'إنشاء حساب',
                                   fontSize: 18,
                                   color: Colors.white,
                                 ),
@@ -161,18 +207,11 @@ class LoginBody extends StatelessWidget {
                 ),
                 SizedBox(height: 15),
                 Center(
-                  child: SizedBox(
-                    width: double.infinity,
-                    height: 60,
-                    child: TextButton(
-                      onPressed: () {
-                        Navigator.push(
-                          context,
-                          MaterialPageRoute(builder: (context) => SignInPage()),
-                        );
-                      },
-                      child: MyText(text: 'لا امتلك حساب، إنشاء حساب'),
-                    ),
+                  child: TextButton(
+                    onPressed: () {
+                      Navigator.pop(context);
+                    },
+                    child: MyText(text: 'لدي حساب بالفعل، تسجيل دخول'),
                   ),
                 ),
               ],
