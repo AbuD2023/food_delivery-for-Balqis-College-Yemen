@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:food_delivery/gen/assets.gen.dart';
-import 'package:riverpod_annotation/riverpod_annotation.dart';
 
 import '../../../../core/constants/app_them.dart';
 import '../../../../core/widgets/custom_text_fild.dart';
