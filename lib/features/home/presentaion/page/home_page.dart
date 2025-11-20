@@ -1,13 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:food_delivery/core/widgets/custom_drawer.dart';
 import 'package:food_delivery/features/cart/presentation/state/cart_state.dart'
     show addToCartUsecaseProvider, cartItemsProvider;
 import 'package:food_delivery/features/home/presentaion/state/home_state.dart'
     show selectedCategoryProvider, categoryProductsProvider;
 import 'package:food_delivery/features/home/presentaion/widgets/category_tabs.dart';
 import 'package:food_delivery/features/home/presentaion/widgets/home_greeting.dart';
-import 'package:food_delivery/features/home/presentaion/widgets/home_header.dart';
 import 'package:food_delivery/features/home/presentaion/widgets/home_search_bar.dart';
 import 'package:food_delivery/features/home/presentaion/widgets/product_list_section.dart';
 import 'package:food_delivery/features/product/domain/entities/product.dart';
@@ -34,12 +32,12 @@ class HomePage extends ConsumerWidget {
       final searchResultsAsync = ref.watch(searchProductsProvider(searchQuery));
       return Scaffold(
         backgroundColor: Colors.white,
-        drawer: const CustomDrawer(),
+        // drawer: const CustomDrawer(),
         body: SafeArea(
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              const HomeHeader(),
+              // const HomeHeader(),
               Expanded(
                 child: Column(
                   children: [
@@ -93,13 +91,13 @@ class HomePage extends ConsumerWidget {
 
     return Scaffold(
       backgroundColor: Colors.white,
-      drawer: const CustomDrawer(),
+      // drawer: const CustomDrawer(),
       body: SafeArea(
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            // Header with menu and basket
-            const HomeHeader(),
+            // // Header with menu and basket
+            // const HomeHeader(),
             Expanded(
               child: SingleChildScrollView(
                 child: Column(

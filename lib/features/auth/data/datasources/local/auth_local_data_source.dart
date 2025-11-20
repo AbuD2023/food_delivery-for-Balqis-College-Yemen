@@ -1,3 +1,5 @@
+import 'dart:developer';
+
 import '../../../domain/entities/user.dart';
 import '../../models/user_login_dtos_model.dart';
 import '../../models/user_sign_in_dtos_model.dart';
@@ -52,7 +54,10 @@ class AuthLocalDataSourceImpl implements AuthLocalDataSource {
           (user) =>
               user.email == userLogin.email && user.pass == userLogin.pass,
         )
-        .map((user) => Future.value(user))
+        .map((user) {
+          log(user.firstName);
+          return Future.value(user);
+        })
         .first;
   }
 
@@ -81,7 +86,7 @@ class AuthLocalDataSourceImpl implements AuthLocalDataSource {
     }
 
     // حذف العنصر
-    _userList.removeAt(index);
+    // _userList.removeAt(index);
     return Future.value(true);
   }
 }

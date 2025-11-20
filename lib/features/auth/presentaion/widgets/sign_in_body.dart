@@ -2,10 +2,17 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:food_delivery/core/widgets/custom_my_text.dart';
 import 'package:food_delivery/core/widgets/custom_text_fild.dart';
-import 'package:food_delivery/features/auth/presentaion/state/sgin_in_state.dart';
 
-import '../../../home/presentaion/page/home_page.dart';
+import '../../../../core/widgets/custom_drawer.dart';
 import '../../data/models/user_sign_in_dtos_model.dart';
+import '../state/auth_state.dart'
+    show
+        firstNameControllerProvider,
+        emailControllerProvider,
+        phoneNumberControllerProvider,
+        ageControllerProvider,
+        passControllerProvider,
+        signInProvider;
 
 class SignInBody extends StatelessWidget {
   const SignInBody({super.key});
@@ -169,7 +176,8 @@ class SignInBody extends StatelessWidget {
                                           ).pushAndRemoveUntil(
                                             MaterialPageRoute(
                                               builder: (context) =>
-                                                  const HomePage(),
+                                                  const CustomDrawer(),
+                                              // const HomePage(),
                                             ),
                                             (route) => false,
                                           );

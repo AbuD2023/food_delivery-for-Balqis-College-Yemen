@@ -5,7 +5,8 @@ import 'package:food_delivery/features/cart/presentation/page/cart_page.dart';
 import 'package:food_delivery/gen/assets.gen.dart';
 
 class HomeHeader extends ConsumerWidget {
-  const HomeHeader({super.key});
+  final Widget? hamburgerMenu;
+  const HomeHeader({super.key, this.hamburgerMenu});
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
@@ -16,16 +17,17 @@ class HomeHeader extends ConsumerWidget {
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
             // Hamburger menu
-            GestureDetector(
-              onTap: () {
-                Scaffold.of(context).openDrawer();
-              },
-              child: Image.asset(
-                Assets.icons.drawer.path,
-                width: 24,
-                height: 24,
-              ),
-            ),
+            hamburgerMenu ??
+                GestureDetector(
+                  onTap: () {
+                    Scaffold.of(context).openDrawer();
+                  },
+                  child: Image.asset(
+                    Assets.icons.drawer.path,
+                    width: 24,
+                    height: 24,
+                  ),
+                ),
             // Shopping basket
             GestureDetector(
               onTap: () {

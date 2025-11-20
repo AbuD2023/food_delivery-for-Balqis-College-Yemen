@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:food_delivery/core/widgets/custom_my_text.dart';
-import 'package:food_delivery/features/auth/presentaion/state/sgin_in_state.dart';
+
+import '../../../auth/presentaion/state/auth_state.dart'
+    show firstNameControllerProvider;
 
 class HomeGreeting extends ConsumerWidget {
   const HomeGreeting({super.key});

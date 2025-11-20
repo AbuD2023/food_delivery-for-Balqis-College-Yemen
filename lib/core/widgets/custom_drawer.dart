@@ -1,15 +1,25 @@
+import 'dart:developer';
+
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:food_delivery/core/constants/app_them.dart';
+import 'package:food_delivery/features/auth/presentaion/page/login_page.dart';
 import 'package:food_delivery/features/home/presentaion/page/home_page.dart';
 
-class CustomDrawer extends StatefulWidget {
+import '../../features/auth/presentaion/state/auth_state.dart'
+    show loginProvider, signOutProvider;
+import '../../features/home/presentaion/widgets/home_header.dart';
+import '../../gen/assets.gen.dart';
+
+class CustomDrawer extends ConsumerStatefulWidget {
   const CustomDrawer({super.key});
 
   @override
-  State<CustomDrawer> createState() => _CustomDrawerState();
+  ConsumerState<CustomDrawer> createState() => _State();
 }
 
-class _CustomDrawerState extends State<CustomDrawer> {
+class _State extends ConsumerState<CustomDrawer> {
   TextStyle boldTextStyle = TextStyle(
     fontWeight: FontWeight.bold,
     fontSize: 24,
@@ -32,7 +42,7 @@ class _CustomDrawerState extends State<CustomDrawer> {
     angle = 0;
     scaleFactor = 1;
     d1Open = false;
-    setStatusBarColor(appStore.scaffoldBackground!);
+    setStatusBarColor(AppTheme.accent);
   }
 
   openDrawer() {
@@ -41,19 +51,20 @@ class _CustomDrawerState extends State<CustomDrawer> {
     scaleFactor = 0.8;
     angle = 6.18;
     d1Open = true;
-    setStatusBarColor(Color(0xFF6A66BB));
+    setStatusBarColor(AppTheme.accent);
     setState(() {});
   }
 
   @override
   void initState() {
-    setStatusBarColor(appStore.scaffoldBackground!);
+    setStatusBarColor(AppTheme.accent);
     super.initState();
     getData.add(
       SampleListModel(
         title: "Home",
         icon: Icons.home,
         launchWidget: const HomePage(),
+        isPage: true,
       ),
     );
     getData.add(
@@ -102,27 +113,30 @@ class _CustomDrawerState extends State<CustomDrawer> {
         launchWidget: Center(child: Text("Rate Us View", style: boldTextStyle)),
       ),
     );
-    init();
+    // init();
   }
 
-  void init() async {
-    await Future.delayed(Duration(seconds: 1)).then((value) => openDrawer());
-  }
+  // void init() async {
+  //   await Future.delayed(Duration(seconds: 1)).then((value) => openDrawer());
+  // }
 
   @override
   void dispose() {
-    setStatusBarColor(appStore.scaffoldBackground!);
+    setStatusBarColor(AppTheme.accent);
     super.dispose();
   }
 
   @override
   Widget build(BuildContext context) {
+    final signInState = ref.watch(loginProvider);
+    final signInnotifier = ref.watch(loginProvider.notifier);
+    final signOutState = ref.watch(signOutProvider.notifier);
     return SafeArea(
       child: Scaffold(
         body: Stack(
           children: [
             Container(
-              color: Color(0xFF6A66BB),
+              color: AppTheme.accent,
               child: Column(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 crossAxisAlignment: CrossAxisAlignment.start,
@@ -155,21 +169,21 @@ class _CustomDrawerState extends State<CustomDrawer> {
                         SampleListModel data = getData[index];
                         return ListTile(
                           tileColor: isSelected == index
-                              ? Color(0xFF513AAF)
+                              ? Color.fromARGB(255, 0, 0, 0)
                               : Colors.transparent,
                           title: Text(
                             data.title ?? "",
                             style: TextStyle(
                               color: isSelected == index
                                   ? Colors.white
-                                  : Colors.white54,
+                                  : Colors.white70,
                             ),
                           ),
                           leading: Icon(
                             data.icon,
                             color: isSelected == index
                                 ? Colors.white
-                                : Colors.white54,
+                                : Colors.white70,
                           ),
                           onTap: () {
                             isSelected = index;
@@ -200,9 +214,68 @@ class _CustomDrawerState extends State<CustomDrawer> {
                           ),
                         ],
                       ),
-                      onTap: () {
-                        closeDrawer();
-                        setState(() {});
+                      onTap: () async {
+                        showDialog(
+                          barrierDismissible: false,
+                          context: context,
+                          builder: (context) => const AlertDialog(
+                            title: Center(child: CircularProgressIndicator()),
+                          ),
+                        );
+                        final loginId = signInState.value!.id;
+                        log(loginId.toString(), name: 'loginId');
+                        log(signInState.value!.email.toString(), name: 'email');
+                        // Call sign in
+                        await signOutState.signOut(loginId);
+
+                        // Close loading dialog
+                        if (context.mounted) {
+                          Navigator.of(context).pop();
+                        }
+
+                        // Check result and navigate
+                        final result = ref.read(signOutProvider);
+                        result.when(
+                          data: (data) {
+                            if (context.mounted && data == true) {
+                              signInnotifier.clear();
+                              log(loginId.toString(), name: 'clear=> loginId');
+                              log(
+                                signInState.value!.email.toString(),
+                                name: 'clear=> email',
+                              );
+                              Navigator.of(context).pushAndRemoveUntil(
+                                MaterialPageRoute(
+                                  builder: (context) => const LoginPage(),
+                                ),
+                                (route) => false,
+                              );
+                            } else if (data == false) {
+                              showDialog(
+                                barrierDismissible: false,
+                                context: context,
+                                builder: (context) => const AlertDialog(
+                                  title: Center(
+                                    child: Text('لم يتم تسجيل الخروج :('),
+                                  ),
+                                ),
+                              );
+                            }
+                            // closeDrawer();
+                            // setState(() {});
+                          },
+                          loading: () {},
+                          error: (error, stackTrace) {
+                            if (context.mounted) {
+                              ScaffoldMessenger.of(context).showSnackBar(
+                                SnackBar(
+                                  content: Text('Error: $error'),
+                                  backgroundColor: Colors.red,
+                                ),
+                              );
+                            }
+                          },
+                        );
                       },
                     ),
                   ),
@@ -233,70 +306,73 @@ class _CustomDrawerState extends State<CustomDrawer> {
                   crossAxisAlignment: CrossAxisAlignment.center,
                   mainAxisSize: MainAxisSize.max,
                   children: [
-                    Row(
-                      children: [
-                        IconButton(
-                          icon: Icon(
-                            d1Open ? Icons.arrow_back : Icons.menu,
-                            size: 24,
-                          ),
-                          onPressed: () {
-                            if (d1Open) {
-                              closeDrawer();
-                            } else {
-                              xOffset = 200;
-                              yOffset = 80;
-                              scaleFactor = 0.8;
-                              angle = 6.18;
-                              d1Open = true;
-                              setStatusBarColor(Color(0xFF6A66BB));
-                            }
-                            setState(() {});
-                          },
-                        ),
-                        SizedBox(width: 8),
-                        Text(
-                          'Hello, User',
-                          style: TextStyle(
-                            fontSize: 20,
-                            fontWeight: FontWeight.bold,
-                          ),
-                        ),
-                      ],
+                    HomeHeader(
+                      hamburgerMenu: GestureDetector(
+                        onTap: () {
+                          // Scaffold.of(context).openDrawer();
+                          if (d1Open) {
+                            closeDrawer();
+                          } else {
+                            xOffset = 200;
+                            yOffset = 80;
+                            scaleFactor = 0.8;
+                            angle = 6.18;
+                            d1Open = true;
+                            setStatusBarColor(AppTheme.accent);
+                          }
+                          setState(() {});
+                        },
+                        child: d1Open
+                            ? Icon(Icons.arrow_back, size: 24)
+                            : Image.asset(
+                                Assets.icons.drawer.path,
+                                width: 24,
+                                height: 24,
+                              ),
+                      ),
                     ),
+
                     Expanded(
                       child: Container(
                         alignment: Alignment.center,
                         child: Column(
                           mainAxisSize: MainAxisSize.min,
                           children: [
-                            getData[isSelected].launchWidget ?? Container(),
-                            SizedBox(height: 16),
-                            ElevatedButton(
-                              style: ButtonStyle(
-                                backgroundColor:
-                                    MaterialStateProperty.all<Color>(
-                                      appStore.textPrimaryColor!,
-                                    ),
-                                padding: MaterialStateProperty.all(
-                                  const EdgeInsets.only(left: 15, right: 15),
+                            if (!getData[isSelected].isPage) ...[
+                              getData[isSelected].launchWidget ?? Container(),
+                              SizedBox(height: 16),
+                              ElevatedButton(
+                                style: ButtonStyle(
+                                  backgroundColor:
+                                      MaterialStateProperty.all<Color>(
+                                        AppTheme.shadow,
+                                      ),
+                                  padding: MaterialStateProperty.all(
+                                    const EdgeInsets.only(left: 15, right: 15),
+                                  ),
+                                  shadowColor: MaterialStateProperty.all(
+                                    Colors.transparent,
+                                  ),
                                 ),
-                                shadowColor: MaterialStateProperty.all(
-                                  Colors.transparent,
-                                ),
-                              ),
 
-                              onPressed: () {
-                                Navigator.pop(context);
-                              },
-                              child: Text(
-                                'Go Back',
-                                style: TextStyle(
-                                  color: Colors.white,
-                                  fontWeight: FontWeight.bold,
+                                onPressed: () {
+                                  Navigator.pop(context);
+                                },
+                                child: Text(
+                                  'Go Back',
+                                  style: TextStyle(
+                                    color: Colors.white,
+                                    fontWeight: FontWeight.bold,
+                                  ),
                                 ),
                               ),
-                            ),
+                            ] else ...[
+                              Expanded(
+                                child:
+                                    getData[isSelected].launchWidget ??
+                                    Container(),
+                              ),
+                            ],
                           ],
                         ),
                       ),
@@ -342,6 +418,7 @@ class SampleListModel {
   Function? onTap;
   Color? colors;
   Widget? launchWidget;
+  bool isPage;
 
   SampleListModel({
     this.leading,
@@ -353,35 +430,8 @@ class SampleListModel {
     this.trailing,
     this.onTap,
     this.launchWidget,
+    this.isPage = false,
   });
 }
 
-AppStore appStore = AppStore();
-
-class AppStore {
-  Color? textPrimaryColor;
-  Color? iconColorPrimaryDark;
-  Color? scaffoldBackground;
-  Color? backgroundColor;
-  Color? backgroundSecondaryColor;
-  Color? appColorPrimaryLightColor;
-  Color? textSecondaryColor;
-  Color? appBarColor;
-  Color? iconColor;
-  Color? iconSecondaryColor;
-  Color? cardColor;
-
-  AppStore() {
-    textPrimaryColor = Color(0xFF212121);
-    iconColorPrimaryDark = Color(0xFF212121);
-    scaffoldBackground = Color(0xFFEBF2F7);
-    backgroundColor = Colors.black;
-    backgroundSecondaryColor = Color(0xFF131d25);
-    appColorPrimaryLightColor = Color(0xFFF9FAFF);
-    textSecondaryColor = Color(0xFF5A5C5E);
-    appBarColor = Colors.white;
-    iconColor = Color(0xFF212121);
-    iconSecondaryColor = Color(0xFFA8ABAD);
-    cardColor = Color(0xFF191D36);
-  }
-}
+AppTheme appTheme = AppTheme();

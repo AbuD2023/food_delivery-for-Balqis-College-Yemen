@@ -4,9 +4,14 @@ import 'package:food_delivery/core/widgets/custom_my_text.dart';
 import 'package:food_delivery/core/widgets/custom_text_fild.dart';
 import 'package:food_delivery/features/auth/data/models/user_login_dtos_model.dart';
 import 'package:food_delivery/features/auth/presentaion/page/sign_in_page.dart';
-import 'package:food_delivery/features/auth/presentaion/state/sgin_in_state.dart';
 
-import '../../../home/presentaion/page/home_page.dart';
+import '../../../../core/widgets/custom_drawer.dart';
+import '../state/auth_state.dart'
+    show
+        emailControllerProvider,
+        loginProvider,
+        obscureTextControllerProvider,
+        passControllerProvider;
 
 class LoginBody extends StatelessWidget {
   const LoginBody({super.key});
@@ -27,6 +32,8 @@ class LoginBody extends StatelessWidget {
               children: [
                 Consumer(
                   builder: (_, ref, _) {
+                    ref.read(emailControllerProvider).text = 'abud@example.com';
+                    ref.read(passControllerProvider).text = '123456789';
                     return Column(
                       mainAxisSize: MainAxisSize.min,
                       crossAxisAlignment: CrossAxisAlignment.start,
@@ -51,8 +58,20 @@ class LoginBody extends StatelessWidget {
                         SizedBox(height: 15),
                         CustomTextFild(
                           controller: ref.watch(passControllerProvider),
-                          obscureText: true,
+                          obscureText: ref.watch(obscureTextControllerProvider),
                           hintText: '***',
+                          prefixIcon: IconButton(
+                            onPressed: () {
+                              ref
+                                  .read(obscureTextControllerProvider.notifier)
+                                  .toggle();
+                            },
+                            icon: Icon(
+                              ref.watch(obscureTextControllerProvider)
+                                  ? Icons.remove_red_eye_sharp
+                                  : Icons.visibility_off,
+                            ),
+                          ),
                           validator: (data) {
                             if (data == null || data.isEmpty) {
                               return 'This is required';
@@ -123,7 +142,8 @@ class LoginBody extends StatelessWidget {
                                           ).pushAndRemoveUntil(
                                             MaterialPageRoute(
                                               builder: (context) =>
-                                                  const HomePage(),
+                                                  const CustomDrawer(),
+                                              // const HomePage(),
                                             ),
                                             (route) => false,
                                           );

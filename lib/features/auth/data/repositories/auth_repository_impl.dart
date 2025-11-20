@@ -1,3 +1,5 @@
+import 'dart:developer';
+
 import '../../domain/entities/user.dart';
 import '../../domain/repositories/auth_repository.dart';
 import '../datasources/domain/auth_remote_data_source.dart';
@@ -53,6 +55,9 @@ class AuthRepositoryImpl extends AuthRepository {
     } catch (e) {
       // Fallback to local data
       final localItems = localDataSource.login(userLogin);
+      await localItems.then((value) {
+        log(value.id.toString(), name: 'Login:-> auth_repository_impl');
+      });
       // Return empty list if local is also empty (cart is empty, not an error)
       return localItems;
     }
