@@ -74,7 +74,7 @@ ClearCartUsecase clearCartUsecase(Ref ref) {
 
 // State Providers
 @riverpod
-Future<List<CartItem>> cartItems(Ref ref) async {
+Future<List<CartItemEntity>> cartItems(Ref ref) async {
   final useCase = ref.watch(getCartItemsUsecaseProvider);
   return await useCase();
 }

@@ -2,8 +2,9 @@ import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 
-import '../../data/datasources/product_local_data_source.dart';
-import '../../data/datasources/product_remote_data_source.dart';
+import '../../data/datasources/local/product_local_data_source.dart';
+import '../../data/datasources/local/drift_database.dart';
+import '../../data/datasources/remote/product_remote_data_source.dart';
 import '../../data/repositories/product_repository_impl.dart';
 import '../../domain/entities/product_result.dart';
 import '../../domain/repositories/product_repository.dart';
@@ -16,10 +17,26 @@ import '../../domain/usecases/toggle_favorite_usecase.dart';
 
 part 'product_state.g.dart';
 
+// Database Provider
+@riverpod
+AppDatabase appDatabase(Ref ref) {
+  final db = AppDatabase();
+  ref.onDispose(() => db.close());
+
+  // تهيئة قاعدة البيانات بالبيانات الأولية (غير متزامن)
+  db.seedInitialData().catchError((error) {
+    // يمكن إضافة معالجة للأخطاء هنا إذا لزم الأمر
+    print('Error seeding initial data: $error');
+  });
+
+  return db;
+}
+
 // Data Source Providers
 @riverpod
 ProductLocalDataSource productLocalDataSource(Ref ref) {
-  return ProductLocalDataSourceImpl();
+  final db = ref.watch(appDatabaseProvider);
+  return ProductLocalDataSourceImpl(db: db);
 }
 
 @riverpod
@@ -77,7 +94,7 @@ Future<ProductResult> productsByCategory(Ref ref, String category) async {
 }
 
 @riverpod
-Future<Product> productById(Ref ref, String productId) async {
+Future<ProductEntity> productById(Ref ref, String productId) async {
   final useCase = ref.watch(getProductByIdUsecaseProvider);
   return await useCase(productId);
 }

@@ -388,11 +388,13 @@ const cartItemsProvider = CartItemsProvider._();
 final class CartItemsProvider
     extends
         $FunctionalProvider<
-          AsyncValue<List<CartItem>>,
-          List<CartItem>,
-          FutureOr<List<CartItem>>
+          AsyncValue<List<CartItemEntity>>,
+          List<CartItemEntity>,
+          FutureOr<List<CartItemEntity>>
         >
-    with $FutureModifier<List<CartItem>>, $FutureProvider<List<CartItem>> {
+    with
+        $FutureModifier<List<CartItemEntity>>,
+        $FutureProvider<List<CartItemEntity>> {
   const CartItemsProvider._()
     : super(
         from: null,
@@ -409,14 +411,14 @@ final class CartItemsProvider
 
   @$internal
   @override
-  $FutureProviderElement<List<CartItem>> $createElement(
+  $FutureProviderElement<List<CartItemEntity>> $createElement(
     $ProviderPointer pointer,
   ) => $FutureProviderElement(pointer);
 
   @override
-  FutureOr<List<CartItem>> create(Ref ref) {
+  FutureOr<List<CartItemEntity>> create(Ref ref) {
     return cartItems(ref);
   }
 }
 
-String _$cartItemsHash() => r'b9a162baf468049f3b5c6dc7ad9a5ba232630593';
+String _$cartItemsHash() => r'33468c7f5540dcded33bedc78c49cce159edb2be';

@@ -749,7 +749,7 @@ final class LoginNotifierProvider
   }
 }
 
-String _$loginNotifierHash() => r'da3ac168503a863ab03aa32984d95ad907406e8e';
+String _$loginNotifierHash() => r'e79f61deb6348f5d2d9b51431aa1f69c45e6095a';
 
 /// Login State Notifier - Fixed version
 

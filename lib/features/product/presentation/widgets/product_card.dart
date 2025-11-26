@@ -4,7 +4,7 @@ import 'package:food_delivery/features/product/domain/entities/product.dart';
 import 'package:food_delivery/features/product/presentation/page/product_detail_page.dart';
 
 class ProductCard extends StatelessWidget {
-  final Product product;
+  final ProductEntity product;
   final VoidCallback? onFavoriteTap;
   final VoidCallback? onAddToCart;
 

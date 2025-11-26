@@ -1,4 +1,4 @@
-class Product {
+class ProductEntity {
   final String id;
   final String name;
   final double price;
@@ -9,7 +9,7 @@ class Product {
   final String? description;
   final List<String>? ingredients;
 
-  Product({
+  ProductEntity({
     required this.id,
     required this.name,
     required this.price,
@@ -20,7 +20,7 @@ class Product {
     this.ingredients,
   });
 
-  Product copyWith({
+  ProductEntity copyWith({
     String? id,
     String? name,
     double? price,
@@ -30,7 +30,7 @@ class Product {
     String? description,
     List<String>? ingredients,
   }) {
-    return Product(
+    return ProductEntity(
       id: id ?? this.id,
       name: name ?? this.name,
       price: price ?? this.price,

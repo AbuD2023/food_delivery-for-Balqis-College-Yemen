@@ -1,12 +1,12 @@
 import 'package:food_delivery/features/product/domain/entities/product.dart';
 import 'package:food_delivery/features/product/domain/repositories/product_repository.dart';
 
-class ToggleFavoriteUsecase {
+class GetStreamProductsUsecase {
   final ProductRepository repository;
 
-  ToggleFavoriteUsecase(this.repository);
+  GetStreamProductsUsecase(this.repository);
 
-  Future<ProductEntity> call(String productId) async {
-    return await repository.toggleFavorite(productId);
+  Stream<List<ProductEntity>> call() {
+    return repository.watchAllTasks();
   }
 }

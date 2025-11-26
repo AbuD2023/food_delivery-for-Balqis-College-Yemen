@@ -1,7 +1,7 @@
 import 'package:food_delivery/features/cart/domain/entities/cart_item.dart';
 import 'package:food_delivery/features/product/data/models/product_model.dart';
 
-class CartItemModel extends CartItem {
+class CartItemModel extends CartItemEntity {
   CartItemModel({required super.product, required super.quantity});
 
   factory CartItemModel.fromJson(Map<String, dynamic> json) {

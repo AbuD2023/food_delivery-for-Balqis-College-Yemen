@@ -1,15 +1,15 @@
 import 'package:food_delivery/features/product/domain/entities/product.dart';
 
-class CartItem {
-  final Product product;
+class CartItemEntity {
+  final ProductEntity product;
   final int quantity;
 
-  CartItem({required this.product, required this.quantity});
+  CartItemEntity({required this.product, required this.quantity});
 
   double get totalPrice => product.price * quantity;
 
-  CartItem copyWith({Product? product, int? quantity}) {
-    return CartItem(
+  CartItemEntity copyWith({ProductEntity? product, int? quantity}) {
+    return CartItemEntity(
       product: product ?? this.product,
       quantity: quantity ?? this.quantity,
     );

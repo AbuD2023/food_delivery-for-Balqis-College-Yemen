@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:food_delivery/features/cart/domain/entities/cart_item.dart';
 
 class CartItemWidget extends StatelessWidget {
-  final CartItem cartItem;
+  final CartItemEntity cartItem;
   final VoidCallback? onRemove;
   final Function(int)? onQuantityChanged;
 

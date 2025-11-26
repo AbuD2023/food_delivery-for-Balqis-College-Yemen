@@ -2,7 +2,7 @@ import 'package:food_delivery/features/product/data/models/product_model.dart';
 import 'package:http/http.dart' as http;
 import 'dart:convert';
 
-import '../../../../core/constants/api_endpoint.dart';
+import '../../../../../core/constants/api_endpoint.dart';
 
 abstract class ProductRemoteDataSource {
   Future<List<ProductModel>> getProducts();

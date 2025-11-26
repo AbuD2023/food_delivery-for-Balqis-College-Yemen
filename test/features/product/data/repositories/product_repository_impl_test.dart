@@ -11,12 +11,12 @@ import 'package:flutter_test/flutter_test.dart';
 // استيراد ProductLocalDataSource - مصدر البيانات المحلية
 // LocalDataSource: مصدر البيانات المحلية (قاعدة بيانات محلية، SharedPreferences)
 // DataSource: مصدر البيانات - من أين تأتي البيانات
-import 'package:food_delivery/features/product/data/datasources/product_local_data_source.dart';
+import 'package:food_delivery/features/product/data/datasources/local/product_local_data_source.dart';
 
 // استيراد ProductRemoteDataSource - مصدر البيانات البعيدة
 // RemoteDataSource: مصدر البيانات البعيدة (API, Network)
 // Remote: بعيد - من الشبكة/API
-import 'package:food_delivery/features/product/data/datasources/product_remote_data_source.dart';
+import 'package:food_delivery/features/product/data/datasources/remote/product_remote_data_source.dart';
 
 // استيراد ProductModel - نموذج البيانات
 // Model: نموذج البيانات في Data Layer - يحتوي على JSON serialization
@@ -183,7 +183,9 @@ void main() {
         // thenReturn(): يجب أن تعيد هذه القيمة (مباشرة - غير متزامن)
         // [tProductModel]: قائمة المنتجات من Local
         // الهدف: محاكاة نجاح جلب البيانات من Local
-        when(mockLocalDataSource.getProducts()).thenReturn([tProductModel]);
+        when(
+          mockLocalDataSource.getProducts(),
+        ).thenReturn(Future.value([tProductModel]));
 
         // ====================================================================
         // ACT - تنفيذ الكود

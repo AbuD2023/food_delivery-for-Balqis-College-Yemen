@@ -6,7 +6,7 @@ class GetCartItemsUsecase {
 
   GetCartItemsUsecase(this.repository);
 
-  Future<List<CartItem>> call() async {
+  Future<List<CartItemEntity>> call() async {
     return await repository.getCartItems();
   }
 }

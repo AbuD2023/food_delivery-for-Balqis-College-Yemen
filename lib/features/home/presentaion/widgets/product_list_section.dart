@@ -5,10 +5,10 @@ import 'package:food_delivery/features/product/presentation/widgets/product_card
 
 class ProductListSection extends StatelessWidget {
   final String title;
-  final List<Product> products;
+  final List<ProductEntity> products;
   final DataSource? dataSource;
-  final Function(Product)? onFavoriteTap;
-  final Function(Product)? onAddToCart;
+  final Function(ProductEntity)? onFavoriteTap;
+  final Function(ProductEntity)? onAddToCart;
 
   const ProductListSection({
     super.key,

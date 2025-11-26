@@ -32,8 +32,8 @@ class _FakeProductResult_0 extends _i1.SmartFake implements _i2.ProductResult {
     : super(parent, parentInvocation);
 }
 
-class _FakeProduct_1 extends _i1.SmartFake implements _i3.Product {
-  _FakeProduct_1(Object parent, Invocation parentInvocation)
+class _FakeProductEntity_1 extends _i1.SmartFake implements _i3.ProductEntity {
+  _FakeProductEntity_1(Object parent, Invocation parentInvocation)
     : super(parent, parentInvocation);
 }
 
@@ -82,30 +82,38 @@ class MockProductRepository extends _i1.Mock implements _i4.ProductRepository {
           as _i5.Future<_i2.ProductResult>);
 
   @override
-  _i5.Future<_i3.Product> toggleFavorite(String? productId) =>
+  _i5.Future<_i3.ProductEntity> toggleFavorite(String? productId) =>
       (super.noSuchMethod(
             Invocation.method(#toggleFavorite, [productId]),
-            returnValue: _i5.Future<_i3.Product>.value(
-              _FakeProduct_1(
+            returnValue: _i5.Future<_i3.ProductEntity>.value(
+              _FakeProductEntity_1(
                 this,
                 Invocation.method(#toggleFavorite, [productId]),
               ),
             ),
           )
-          as _i5.Future<_i3.Product>);
+          as _i5.Future<_i3.ProductEntity>);
 
   @override
-  _i5.Future<_i3.Product> getProductById(String? productId) =>
+  _i5.Future<_i3.ProductEntity> getProductById(String? productId) =>
       (super.noSuchMethod(
             Invocation.method(#getProductById, [productId]),
-            returnValue: _i5.Future<_i3.Product>.value(
-              _FakeProduct_1(
+            returnValue: _i5.Future<_i3.ProductEntity>.value(
+              _FakeProductEntity_1(
                 this,
                 Invocation.method(#getProductById, [productId]),
               ),
             ),
           )
-          as _i5.Future<_i3.Product>);
+          as _i5.Future<_i3.ProductEntity>);
+
+  @override
+  _i5.Stream<List<_i3.ProductEntity>> watchAllTasks() =>
+      (super.noSuchMethod(
+            Invocation.method(#watchAllTasks, []),
+            returnValue: _i5.Stream<List<_i3.ProductEntity>>.empty(),
+          )
+          as _i5.Stream<List<_i3.ProductEntity>>);
 
   @override
   _i5.Future<_i2.ProductResult> searchProducts(String? query) =>

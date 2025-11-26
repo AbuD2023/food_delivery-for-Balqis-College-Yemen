@@ -18,7 +18,7 @@ class CartRepositoryImpl implements CartRepository {
   });
 
   @override
-  Future<List<CartItem>> getCartItems() async {
+  Future<List<CartItemEntity>> getCartItems() async {
     try {
       // Try to get from API first
       final remoteItems = await remoteDataSource.getCartItems();

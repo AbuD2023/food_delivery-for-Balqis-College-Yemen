@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:food_delivery/features/product/domain/entities/product.dart';
 
 class ProductDetailHeader extends StatelessWidget {
-  final Product product;
+  final ProductEntity product;
   final VoidCallback onBack;
 
   const ProductDetailHeader({

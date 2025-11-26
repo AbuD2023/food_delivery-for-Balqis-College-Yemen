@@ -1,5 +1,5 @@
 import 'package:food_delivery/features/cart/data/models/cart_item_model.dart';
-import 'package:food_delivery/features/product/data/datasources/product_local_data_source.dart';
+import 'package:food_delivery/features/product/data/datasources/local/product_local_data_source.dart';
 
 abstract class CartLocalDataSource {
   List<CartItemModel> getCartItems();

@@ -5,12 +5,14 @@
 // ignore_for_file: no_leading_underscores_for_library_prefixes
 import 'dart:async' as _i4;
 
-import 'package:food_delivery/features/product/data/datasources/product_local_data_source.dart'
+import 'package:food_delivery/features/product/data/datasources/local/product_local_data_source.dart'
     as _i5;
-import 'package:food_delivery/features/product/data/datasources/product_remote_data_source.dart'
+import 'package:food_delivery/features/product/data/datasources/remote/product_remote_data_source.dart'
     as _i3;
 import 'package:food_delivery/features/product/data/models/product_model.dart'
     as _i2;
+import 'package:food_delivery/features/product/domain/entities/product.dart'
+    as _i6;
 import 'package:mockito/mockito.dart' as _i1;
 
 // ignore_for_file: type=lint
@@ -118,17 +120,22 @@ class MockProductLocalDataSource extends _i1.Mock
   }
 
   @override
-  List<_i2.ProductModel> getProducts() =>
+  _i4.Future<List<_i2.ProductModel>> getProducts() =>
       (super.noSuchMethod(
             Invocation.method(#getProducts, []),
-            returnValue: <_i2.ProductModel>[],
+            returnValue: _i4.Future<List<_i2.ProductModel>>.value(
+              <_i2.ProductModel>[],
+            ),
           )
-          as List<_i2.ProductModel>);
+          as _i4.Future<List<_i2.ProductModel>>);
 
   @override
-  _i2.ProductModel? getProductById(String? id) =>
-      (super.noSuchMethod(Invocation.method(#getProductById, [id]))
-          as _i2.ProductModel?);
+  _i4.Future<_i2.ProductModel?> getProductById(String? id) =>
+      (super.noSuchMethod(
+            Invocation.method(#getProductById, [id]),
+            returnValue: _i4.Future<_i2.ProductModel?>.value(),
+          )
+          as _i4.Future<_i2.ProductModel?>);
 
   @override
   _i4.Future<void> updateProduct(_i2.ProductModel? product) =>
@@ -140,6 +147,40 @@ class MockProductLocalDataSource extends _i1.Mock
           as _i4.Future<void>);
 
   @override
+  _i4.Future<void> insertProduct(_i2.ProductModel? product) =>
+      (super.noSuchMethod(
+            Invocation.method(#insertProduct, [product]),
+            returnValue: _i4.Future<void>.value(),
+            returnValueForMissingStub: _i4.Future<void>.value(),
+          )
+          as _i4.Future<void>);
+
+  @override
+  _i4.Future<void> deleteProduct(String? id) =>
+      (super.noSuchMethod(
+            Invocation.method(#deleteProduct, [id]),
+            returnValue: _i4.Future<void>.value(),
+            returnValueForMissingStub: _i4.Future<void>.value(),
+          )
+          as _i4.Future<void>);
+
+  @override
+  _i4.Stream<List<_i6.ProductEntity>> watchAllTasks() =>
+      (super.noSuchMethod(
+            Invocation.method(#watchAllTasks, []),
+            returnValue: _i4.Stream<List<_i6.ProductEntity>>.empty(),
+          )
+          as _i4.Stream<List<_i6.ProductEntity>>);
+
+  @override
+  _i4.Stream<List<_i6.ProductEntity>> watchFavorites() =>
+      (super.noSuchMethod(
+            Invocation.method(#watchFavorites, []),
+            returnValue: _i4.Stream<List<_i6.ProductEntity>>.empty(),
+          )
+          as _i4.Stream<List<_i6.ProductEntity>>);
+
+  @override
   _i4.Future<List<_i2.ProductModel>> searchProducts(String? query) =>
       (super.noSuchMethod(
             Invocation.method(#searchProducts, [query]),
@@ -148,4 +189,23 @@ class MockProductLocalDataSource extends _i1.Mock
             ),
           )
           as _i4.Future<List<_i2.ProductModel>>);
+
+  @override
+  _i4.Future<List<_i2.ProductModel>> getProductsByCategory(String? category) =>
+      (super.noSuchMethod(
+            Invocation.method(#getProductsByCategory, [category]),
+            returnValue: _i4.Future<List<_i2.ProductModel>>.value(
+              <_i2.ProductModel>[],
+            ),
+          )
+          as _i4.Future<List<_i2.ProductModel>>);
+
+  @override
+  _i4.Future<void> toggleFavorite(String? id, bool? isFavorite) =>
+      (super.noSuchMethod(
+            Invocation.method(#toggleFavorite, [id, isFavorite]),
+            returnValue: _i4.Future<void>.value(),
+            returnValueForMissingStub: _i4.Future<void>.value(),
+          )
+          as _i4.Future<void>);
 }

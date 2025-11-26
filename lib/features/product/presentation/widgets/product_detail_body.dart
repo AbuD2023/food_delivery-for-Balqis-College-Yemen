@@ -3,7 +3,7 @@ import 'package:food_delivery/core/widgets/custom_my_text.dart';
 import 'package:food_delivery/features/product/domain/entities/product.dart';
 
 class ProductDetailBody extends StatelessWidget {
-  final Product product;
+  final ProductEntity product;
   final int quantity;
   final Function(int) onQuantityChanged;
   final VoidCallback onFavoriteTap;

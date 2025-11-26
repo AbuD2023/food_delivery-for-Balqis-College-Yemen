@@ -6,7 +6,7 @@ class GetProductByIdUsecase {
 
   GetProductByIdUsecase(this.repository);
 
-  Future<Product> call(String productId) async {
+  Future<ProductEntity> call(String productId) async {
     return await repository.getProductById(productId);
   }
 }

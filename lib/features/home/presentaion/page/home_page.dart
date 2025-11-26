@@ -170,14 +170,14 @@ class HomePage extends ConsumerWidget {
       floatingActionButton: FloatingActionButton(
         onPressed: () {
           _retryCategoryProducts(ref);
-          _retryRecommendedProducts(ref);
+          // _retryRecommendedProducts(ref);
         },
         child: const Icon(Icons.refresh),
       ),
     );
   }
 
-  void _onFavoriteTap(WidgetRef ref, Product product) async {
+  void _onFavoriteTap(WidgetRef ref, ProductEntity product) async {
     try {
       final useCase = ref.read(toggleFavoriteUsecaseProvider);
       await useCase(product.id);
@@ -196,7 +196,7 @@ class HomePage extends ConsumerWidget {
   void _onAddToCart(
     BuildContext context,
     WidgetRef ref,
-    Product product,
+    ProductEntity product,
   ) async {
     try {
       final useCase = ref.read(addToCartUsecaseProvider);

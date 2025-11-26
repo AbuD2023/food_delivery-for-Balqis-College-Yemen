@@ -94,7 +94,7 @@ void main() {
   // List<Product>: قائمة من المنتجات
   final tProducts = [
     // Product(): إنشاء منتج للاختبار
-    Product(
+    ProductEntity(
       id: '1', // معرف المنتج
       name: 'Test Product', // اسم المنتج
       price: 10.0, // سعر المنتج

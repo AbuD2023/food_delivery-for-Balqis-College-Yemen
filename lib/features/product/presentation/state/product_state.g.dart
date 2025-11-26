@@ -9,6 +9,47 @@ part of 'product_state.dart';
 // GENERATED CODE - DO NOT MODIFY BY HAND
 // ignore_for_file: type=lint, type=warning
 
+@ProviderFor(appDatabase)
+const appDatabaseProvider = AppDatabaseProvider._();
+
+final class AppDatabaseProvider
+    extends $FunctionalProvider<AppDatabase, AppDatabase, AppDatabase>
+    with $Provider<AppDatabase> {
+  const AppDatabaseProvider._()
+    : super(
+        from: null,
+        argument: null,
+        retry: null,
+        name: r'appDatabaseProvider',
+        isAutoDispose: true,
+        dependencies: null,
+        $allTransitiveDependencies: null,
+      );
+
+  @override
+  String debugGetCreateSourceHash() => _$appDatabaseHash();
+
+  @$internal
+  @override
+  $ProviderElement<AppDatabase> $createElement($ProviderPointer pointer) =>
+      $ProviderElement(pointer);
+
+  @override
+  AppDatabase create(Ref ref) {
+    return appDatabase(ref);
+  }
+
+  /// {@macro riverpod.override_with_value}
+  Override overrideWithValue(AppDatabase value) {
+    return $ProviderOverride(
+      origin: this,
+      providerOverride: $SyncValueProvider<AppDatabase>(value),
+    );
+  }
+}
+
+String _$appDatabaseHash() => r'b3bedcfc13caa79cce9dc5ae8b5094c1253148f6';
+
 @ProviderFor(productLocalDataSource)
 const productLocalDataSourceProvider = ProductLocalDataSourceProvider._();
 
@@ -55,7 +96,7 @@ final class ProductLocalDataSourceProvider
 }
 
 String _$productLocalDataSourceHash() =>
-    r'f095c46598c449530585df826bee5f6974d2b8b4';
+    r'3b33956a61a50feacf9feaa47bce8efd11d7bf98';
 
 @ProviderFor(productRemoteDataSource)
 const productRemoteDataSourceProvider = ProductRemoteDataSourceProvider._();
@@ -468,8 +509,13 @@ final class ProductsByCategoryFamily extends $Family
 const productByIdProvider = ProductByIdFamily._();
 
 final class ProductByIdProvider
-    extends $FunctionalProvider<AsyncValue<Product>, Product, FutureOr<Product>>
-    with $FutureModifier<Product>, $FutureProvider<Product> {
+    extends
+        $FunctionalProvider<
+          AsyncValue<ProductEntity>,
+          ProductEntity,
+          FutureOr<ProductEntity>
+        >
+    with $FutureModifier<ProductEntity>, $FutureProvider<ProductEntity> {
   const ProductByIdProvider._({
     required ProductByIdFamily super.from,
     required String super.argument,
@@ -493,11 +539,12 @@ final class ProductByIdProvider
 
   @$internal
   @override
-  $FutureProviderElement<Product> $createElement($ProviderPointer pointer) =>
-      $FutureProviderElement(pointer);
+  $FutureProviderElement<ProductEntity> $createElement(
+    $ProviderPointer pointer,
+  ) => $FutureProviderElement(pointer);
 
   @override
-  FutureOr<Product> create(Ref ref) {
+  FutureOr<ProductEntity> create(Ref ref) {
     final argument = this.argument as String;
     return productById(ref, argument);
   }
@@ -513,10 +560,10 @@ final class ProductByIdProvider
   }
 }
 
-String _$productByIdHash() => r'500a63ed301663811e15a12edd55dd91daff402b';
+String _$productByIdHash() => r'b50687f01985d4f39eff9b88ae553e9528761b58';
 
 final class ProductByIdFamily extends $Family
-    with $FunctionalFamilyOverride<FutureOr<Product>, String> {
+    with $FunctionalFamilyOverride<FutureOr<ProductEntity>, String> {
   const ProductByIdFamily._()
     : super(
         retry: null,
