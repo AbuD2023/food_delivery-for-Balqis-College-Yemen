@@ -1,3 +1,4 @@
+import 'dart:async';
 import 'dart:developer';
 
 import 'package:food_delivery/features/auth/domain/usecases/get_user_usecase.dart';
@@ -16,7 +17,7 @@ import 'package:flutter/widgets.dart';
 import 'package:food_delivery/features/auth/data/models/user_login_dtos_model.dart';
 import 'package:food_delivery/features/auth/data/models/user_sign_in_dtos_model.dart';
 
-import '../../domain/entities/user.dart';
+import '../../domain/entities/user_entity.dart';
 
 part 'auth_state.g.dart';
 
@@ -145,6 +146,7 @@ class SignInNotifier extends _$SignInNotifier {
         email: '',
         age: '',
         phoneNumber: '',
+        profileImage: null,
       ),
     );
   }
@@ -157,6 +159,7 @@ class SignInNotifier extends _$SignInNotifier {
       final user = userSignInDtosModel;
       final data = await useCase(user);
       state = AsyncData(data);
+      await ref.watch(getUserProvider.notifier).getUser(data.id);
     } catch (e, st) {
       state = AsyncError(e, st);
     }
@@ -177,6 +180,7 @@ class LoginNotifier extends _$LoginNotifier {
         email: '',
         age: '',
         phoneNumber: '',
+        profileImage: null,
       ),
     );
   }
@@ -190,6 +194,7 @@ class LoginNotifier extends _$LoginNotifier {
       final data = await useCase(user);
       log(data.phoneNumber, name: 'Login:-> auth_state');
       state = AsyncData(data);
+      await ref.watch(getUserProvider.notifier).getUser(data.id);
     } catch (e, st) {
       state = AsyncError(e, st);
     }
@@ -204,6 +209,7 @@ class LoginNotifier extends _$LoginNotifier {
         email: '',
         age: '',
         phoneNumber: '',
+        profileImage: null,
       ),
     );
   }
@@ -212,6 +218,9 @@ class LoginNotifier extends _$LoginNotifier {
 /// Get User State Notifier - Fixed version
 @riverpod
 class GetUserNotifier extends _$GetUserNotifier {
+  GetUserNotifier() {
+    call();
+  }
   @override
   AsyncValue<UserEntity> build() {
     // Initial state - don't call signIn automatically
@@ -223,12 +232,17 @@ class GetUserNotifier extends _$GetUserNotifier {
         email: '',
         age: '',
         phoneNumber: '',
+        profileImage: null,
       ),
     );
   }
 
+  void call() {
+    unawaited(Future(() => getUser(0)));
+  }
+
   /// Sign in method - called manually when user clicks the button
-  Future<void> getUser(int userId) async {
+  Future<void> getUser(dynamic userId) async {
     state = const AsyncLoading();
     try {
       final useCase = ref.read(getUserUsecaseProvider);
@@ -250,7 +264,7 @@ class SignOutNotifier extends _$SignOutNotifier {
   }
 
   /// Sign in method - called manually when user clicks the button
-  Future<void> signOut(int userId) async {
+  Future<void> signOut(dynamic userId) async {
     state = const AsyncLoading();
     try {
       final useCase = ref.read(signOutUsecaseProvider);
@@ -275,6 +289,7 @@ class SignInWithEmailNotifier extends _$SignInWithEmailNotifier {
         email: '',
         age: '',
         phoneNumber: '',
+        profileImage: null,
       ),
     );
   }
@@ -289,11 +304,12 @@ class SignInWithEmailNotifier extends _$SignInWithEmailNotifier {
       final d = data.user!;
       final userData = UserEntity(
         id: d.uid,
-        firstName: d.displayName.toString(),
+        firstName: d.displayName ?? '',
         pass: '*******',
-        email: d.email.toString(),
+        email: d.email ?? '',
         age: '000',
-        phoneNumber: d.photoURL.toString(),
+        phoneNumber: d.phoneNumber ?? '',
+        profileImage: d.photoURL,
       );
       state = AsyncData(userData);
     } catch (e, st) {
@@ -310,6 +326,7 @@ class SignInWithEmailNotifier extends _$SignInWithEmailNotifier {
         email: '',
         age: '',
         phoneNumber: '',
+        profileImage: null,
       ),
     );
   }

@@ -7,6 +7,7 @@ import 'package:food_delivery/core/constants/app_them.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:food_delivery/features/home/presentaion/page/home_page.dart';
 
+import 'core/widgets/custom_drawer.dart';
 import 'features/splash/presentaion/page/splash_page.dart';
 import 'firebase_options.dart';
 
@@ -150,7 +151,8 @@ class RoutePage extends StatelessWidget {
         }
 
         // final user = snapshot.data!;
-        return HomePage();
+        return CustomDrawer();
+        // return HomePage();
       },
     );
   }

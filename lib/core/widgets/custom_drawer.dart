@@ -1,3 +1,4 @@
+import 'dart:async';
 import 'dart:developer';
 
 import 'package:flutter/material.dart';
@@ -8,7 +9,7 @@ import 'package:food_delivery/features/auth/presentaion/page/login_page.dart';
 import 'package:food_delivery/features/home/presentaion/page/home_page.dart';
 
 import '../../features/auth/presentaion/state/auth_state.dart'
-    show loginProvider, signOutProvider;
+    show getUserProvider, loginProvider, signOutProvider;
 import '../../features/home/presentaion/widgets/home_header.dart';
 import '../../gen/assets.gen.dart';
 
@@ -131,6 +132,7 @@ class _State extends ConsumerState<CustomDrawer> {
     final signInState = ref.watch(loginProvider);
     final signInnotifier = ref.watch(loginProvider.notifier);
     final signOutState = ref.watch(signOutProvider.notifier);
+    final getUserState = ref.watch(getUserProvider);
     return SafeArea(
       child: Scaffold(
         body: Stack(
@@ -146,19 +148,84 @@ class _State extends ConsumerState<CustomDrawer> {
                     child: Column(
                       children: [
                         SizedBox(height: 40),
-                        Icon(
-                          Icons.account_circle,
-                          color: Colors.white,
-                          size: 70,
-                        ),
-                        SizedBox(height: 8),
-                        Text(
-                          'Rebeca Babara',
-                          style: TextStyle(
-                            color: Colors.white,
-                            fontSize: 20,
-                            fontWeight: FontWeight.bold,
+
+                        getUserState.when(
+                          data: (data) => Column(
+                            children: [
+                              data.profileImage == null ||
+                                      data.profileImage!.isEmpty
+                                  ? Icon(
+                                      Icons.account_circle,
+                                      color: Colors.white,
+                                      size: 70,
+                                    )
+                                  : ClipOval(
+                                      child: Image.network(
+                                        data.profileImage!,
+                                        width: 80,
+                                        height: 80,
+                                        fit: BoxFit.cover,
+                                        loadingBuilder: (context, child, loadingProgress) {
+                                          if (loadingProgress == null) {
+                                            return child;
+                                          }
+                                          return Container(
+                                            width: 80,
+                                            height: 80,
+                                            color: Colors.white.withOpacity(
+                                              0.2,
+                                            ),
+                                            child: Center(
+                                              child: CircularProgressIndicator(
+                                                value:
+                                                    loadingProgress
+                                                            .expectedTotalBytes !=
+                                                        null
+                                                    ? loadingProgress
+                                                              .cumulativeBytesLoaded /
+                                                          loadingProgress
+                                                              .expectedTotalBytes!
+                                                    : null,
+                                                color: Colors.white,
+                                              ),
+                                            ),
+                                          );
+                                        },
+                                        errorBuilder:
+                                            (context, error, stackTrace) {
+                                              return Container(
+                                                width: 80,
+                                                height: 80,
+                                                color: Colors.white.withOpacity(
+                                                  0.2,
+                                                ),
+                                                child: Icon(
+                                                  Icons.account_circle,
+                                                  color: Colors.white,
+                                                  size: 70,
+                                                ),
+                                              );
+                                            },
+                                      ),
+                                    ),
+                              SizedBox(height: 8),
+                              Text(
+                                data.email.isNotEmpty
+                                    ? data.email
+                                    : 'Guest User',
+                                style: TextStyle(
+                                  color: Colors.white,
+                                  fontSize: 18,
+                                  fontWeight: FontWeight.bold,
+                                ),
+                              ),
+                            ],
                           ),
+                          error: (error, stackTrace) {
+                            return Text(error.toString());
+                          },
+                          loading: () =>
+                              Center(child: CircularProgressIndicator()),
                         ),
                       ],
                     ),

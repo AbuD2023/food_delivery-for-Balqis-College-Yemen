@@ -5,17 +5,17 @@ import 'package:google_sign_in/google_sign_in.dart';
 import 'package:http/http.dart' as http;
 
 import '../../../../../core/constants/api_endpoint.dart';
-import '../../../domain/entities/user.dart';
+import '../../../domain/entities/user_entity.dart';
 import '../../models/user_login_dtos_model.dart';
 import '../../models/user_model.dart';
 import '../../models/user_sign_in_dtos_model.dart';
 
 abstract class AuthRemoteDataSource {
-  Future<UserEntity> getUser(int userId);
+  Future<UserEntity> getUser();
   Future<UserEntity> signIn(UserSignInDtosModel userSignIn);
   Future<UserEntity> login(UserLoginDtosModel userLogin);
   Future<fAuth.UserCredential> signInWithEmail();
-  Future<bool> signOut(int userId);
+  Future<bool> signOut(dynamic userId);
 }
 
 class AuthRemoteDataSourceImpl implements AuthRemoteDataSource {
@@ -28,40 +28,67 @@ class AuthRemoteDataSourceImpl implements AuthRemoteDataSource {
   });
 
   @override
-  Future<UserEntity> getUser(int userId) async {
+  Future<UserEntity> getUser() async {
     try {
+      // Prefer the currently signed-in Firebase user if available
+      final fAuth.User? current = fAuth.FirebaseAuth.instance.currentUser;
       UserModel? userData;
-      fAuth.FirebaseAuth.instance.authStateChanges().listen((fAuth.User? user) {
-        if (user == null) {
-          throw Exception('Failed to load user profile. From Firebase');
-        } else {
-          for (final providerProfile in user.providerData) {
-            // ID of the provider (google.com, apple.com, etc.)
-            final provider = providerProfile.providerId;
 
-            // UID specific to the provider
-            final uid = providerProfile.uid;
+      if (current != null) {
+        // Use the currentUser fields first, fall back to providerData if needed
+        final providerProfile = current.providerData.isNotEmpty
+            ? current.providerData.first
+            : null;
+        final name = current.displayName ?? providerProfile?.displayName ?? '';
+        final emailAddress = current.email ?? providerProfile?.email ?? '';
+        final profilePhoto =
+            current.photoURL ?? providerProfile?.photoURL ?? '';
+        final phoneNum = current.phoneNumber ?? '';
+        final provider = providerProfile?.providerId ?? 'firebase';
+        final uid = current.uid;
 
-            // Name, email address, and profile photo URL
-            final name = providerProfile.displayName;
-            final emailAddress = providerProfile.email;
-            final profilePhoto = providerProfile.photoURL;
-            userData = UserModel(
-              id: uid,
-              firstName: name.toString(),
-              pass: '**************',
-              email: emailAddress.toString(),
-              age: provider,
-              phoneNumber: profilePhoto.toString(),
-            );
-          }
-        }
-      });
-      if (userData != null) {
-        return userData!;
-      } else {
-        throw Exception('Failed to load user profile. Data is Null');
+        userData = UserModel(
+          id: uid,
+          firstName: name.toString(),
+          pass: '**************',
+          email: emailAddress.toString(),
+          age: provider,
+          phoneNumber: phoneNum,
+          profileImage: profilePhoto,
+        );
+        return userData;
       }
+
+      // If there's no current user, wait for the next auth event (if any)
+      final fAuth.User? next = await fAuth.FirebaseAuth.instance
+          .authStateChanges()
+          .first;
+      if (next != null) {
+        final providerProfile = next.providerData.isNotEmpty
+            ? next.providerData.first
+            : null;
+        final name = next.displayName ?? providerProfile?.displayName ?? '';
+        final emailAddress = next.email ?? providerProfile?.email ?? '';
+        final profilePhoto = next.photoURL ?? providerProfile?.photoURL ?? '';
+        final phoneNum = next.phoneNumber ?? '';
+        final provider = providerProfile?.providerId ?? 'firebase';
+        final uid = next.uid;
+
+        userData = UserModel(
+          id: uid,
+          firstName: name.toString(),
+          pass: '**************',
+          email: emailAddress.toString(),
+          age: provider,
+          phoneNumber: phoneNum,
+          profileImage: profilePhoto,
+        );
+        return userData;
+      }
+
+      throw Exception(
+        'Failed to load user profile. From Firebase: no current user',
+      );
     } catch (e) {
       try {
         final response = await client
@@ -104,13 +131,15 @@ class AuthRemoteDataSourceImpl implements AuthRemoteDataSource {
           final name = providerProfile.displayName;
           final emailAddress = providerProfile.email;
           final profilePhoto = providerProfile.photoURL;
+          final phoneNum = providerProfile.phoneNumber ?? '';
           userData = UserModel(
             id: uid,
             firstName: name.toString(),
             pass: '**************',
             email: emailAddress.toString(),
             age: provider,
-            phoneNumber: profilePhoto.toString(),
+            phoneNumber: phoneNum,
+            profileImage: profilePhoto,
           );
         }
       }
@@ -176,13 +205,15 @@ class AuthRemoteDataSourceImpl implements AuthRemoteDataSource {
           final name = providerProfile.displayName;
           final emailAddress = providerProfile.email;
           final profilePhoto = providerProfile.photoURL;
+          final phoneNum = providerProfile.phoneNumber ?? '';
           userData = UserModel(
             id: uid,
             firstName: name.toString(),
             pass: '**************',
             email: emailAddress.toString(),
             age: provider,
-            phoneNumber: profilePhoto.toString(),
+            phoneNumber: phoneNum,
+            profileImage: profilePhoto,
           );
         }
       }
@@ -247,7 +278,7 @@ class AuthRemoteDataSourceImpl implements AuthRemoteDataSource {
   }
 
   @override
-  Future<bool> signOut(int userId) async {
+  Future<bool> signOut(dynamic userId) async {
     try {
       await fAuth.FirebaseAuth.instance.signOut();
       return true;

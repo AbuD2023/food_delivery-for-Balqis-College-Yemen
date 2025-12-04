@@ -39,7 +39,7 @@ class HomePage extends ConsumerWidget {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              const HomeHeader(),
+              // const HomeHeader(),
               Expanded(
                 child: SingleChildScrollView(
                   child: Column(
@@ -106,7 +106,7 @@ class HomePage extends ConsumerWidget {
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             // // Header with menu and basket
-            const HomeHeader(),
+            // const HomeHeader(),
             Expanded(
               child: SingleChildScrollView(
                 child: Column(

@@ -2,7 +2,7 @@ import 'dart:developer';
 
 import 'package:firebase_auth/firebase_auth.dart' as fAuth;
 
-import '../../domain/entities/user.dart';
+import '../../domain/entities/user_entity.dart';
 import '../../domain/repositories/auth_repository.dart';
 import '../datasources/domain/auth_remote_data_source.dart';
 import '../datasources/local/auth_local_data_source.dart';
@@ -18,10 +18,10 @@ class AuthRepositoryImpl extends AuthRepository {
   });
 
   @override
-  Future<UserEntity> getUser(int userId) async {
+  Future<UserEntity> getUser(dynamic userId) async {
     try {
       // Try to get from API first
-      final remoteItems = await remoteDataSource.getUser(userId);
+      final remoteItems = await remoteDataSource.getUser();
       // Sync to local
       return remoteItems;
     } catch (e) {
@@ -66,7 +66,7 @@ class AuthRepositoryImpl extends AuthRepository {
   }
 
   @override
-  Future<bool> signOut(int userId) async {
+  Future<bool> signOut(dynamic userId) async {
     try {
       // Try to get from API first
       final remoteItems = await remoteDataSource.signOut(userId);

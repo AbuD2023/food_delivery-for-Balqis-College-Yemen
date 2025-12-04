@@ -1,4 +1,4 @@
-import '../../domain/entities/user.dart';
+import '../../domain/entities/user_entity.dart';
 
 class UserModel extends UserEntity {
   UserModel({
@@ -8,6 +8,7 @@ class UserModel extends UserEntity {
     required super.email,
     required super.age,
     required super.phoneNumber,
+    super.profileImage,
   });
 
   factory UserModel.fromJson(Map<String, dynamic> json) {
@@ -18,6 +19,7 @@ class UserModel extends UserEntity {
       email: json['email'],
       age: json['age'],
       phoneNumber: json['phoneNumber'],
+      profileImage: json['profileImage'],
     );
   }
 
@@ -29,6 +31,7 @@ class UserModel extends UserEntity {
       'email': email,
       'age': age,
       'phoneNumber': phoneNumber,
+      'profileImage': profileImage,
     };
   }
 }
