@@ -13,17 +13,19 @@ class SplashPage extends StatefulWidget {
 class _SplashPageState extends State<SplashPage> {
   @override
   void initState() {
-    Future.delayed(Duration(seconds: 3), () {
-      // Navigate to the next page or perform any action after the splash screen
-      if (context.mounted) {
-        Navigator.pushAndRemoveUntil(
-          // ignore: use_build_context_synchronously
-          context,
-          MaterialPageRoute(builder: (context) => OnBordingPage()),
-          (route) => false,
-        );
-      }
-    });
+    if (mounted) {
+      Future.delayed(Duration(seconds: 3), () {
+        // Navigate to the next page or perform any action after the splash screen
+        if (mounted) {
+          Navigator.pushAndRemoveUntil(
+            // ignore: use_build_context_synchronously
+            context,
+            MaterialPageRoute(builder: (context) => OnBordingPage()),
+            (route) => false,
+          );
+        }
+      });
+    }
     super.initState();
   }
 

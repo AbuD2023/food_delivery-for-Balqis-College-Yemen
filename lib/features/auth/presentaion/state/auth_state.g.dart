@@ -244,6 +244,54 @@ final class LoginUsecaseProvider
 
 String _$loginUsecaseHash() => r'e4e2d90cb5db9c371285006973a60782351116ee';
 
+@ProviderFor(signInWithEmailUsecase)
+const loginWithEmailUsecaseProvider = LoginWithEmailUsecaseProvider._();
+
+final class LoginWithEmailUsecaseProvider
+    extends
+        $FunctionalProvider<
+          SignInWithEmailUsecase,
+          SignInWithEmailUsecase,
+          SignInWithEmailUsecase
+        >
+    with $Provider<SignInWithEmailUsecase> {
+  const LoginWithEmailUsecaseProvider._()
+    : super(
+        from: null,
+        argument: null,
+        retry: null,
+        name: r'loginWithEmailUsecaseProvider',
+        isAutoDispose: true,
+        dependencies: null,
+        $allTransitiveDependencies: null,
+      );
+
+  @override
+  String debugGetCreateSourceHash() => _$loginWithEmailUsecaseHash();
+
+  @$internal
+  @override
+  $ProviderElement<SignInWithEmailUsecase> $createElement(
+    $ProviderPointer pointer,
+  ) => $ProviderElement(pointer);
+
+  @override
+  SignInWithEmailUsecase create(Ref ref) {
+    return signInWithEmailUsecase(ref);
+  }
+
+  /// {@macro riverpod.override_with_value}
+  Override overrideWithValue(SignInWithEmailUsecase value) {
+    return $ProviderOverride(
+      origin: this,
+      providerOverride: $SyncValueProvider<SignInWithEmailUsecase>(value),
+    );
+  }
+}
+
+String _$loginWithEmailUsecaseHash() =>
+    r'a4e4466c833736125e0d6294196a089c5c3da18b';
+
 @ProviderFor(getUserUsecase)
 const getUserUsecaseProvider = GetUserUsecaseProvider._();
 
@@ -661,7 +709,7 @@ const signInProvider = SignInNotifierProvider._();
 
 /// Sign In State Notifier - Fixed version
 final class SignInNotifierProvider
-    extends $NotifierProvider<SignInNotifier, AsyncValue<User>> {
+    extends $NotifierProvider<SignInNotifier, AsyncValue<UserEntity>> {
   /// Sign In State Notifier - Fixed version
   const SignInNotifierProvider._()
     : super(
@@ -682,10 +730,10 @@ final class SignInNotifierProvider
   SignInNotifier create() => SignInNotifier();
 
   /// {@macro riverpod.override_with_value}
-  Override overrideWithValue(AsyncValue<User> value) {
+  Override overrideWithValue(AsyncValue<UserEntity> value) {
     return $ProviderOverride(
       origin: this,
-      providerOverride: $SyncValueProvider<AsyncValue<User>>(value),
+      providerOverride: $SyncValueProvider<AsyncValue<UserEntity>>(value),
     );
   }
 }
@@ -694,18 +742,19 @@ String _$signInNotifierHash() => r'170debbebfb3405a78c4a87cb560f435c28effe9';
 
 /// Sign In State Notifier - Fixed version
 
-abstract class _$SignInNotifier extends $Notifier<AsyncValue<User>> {
-  AsyncValue<User> build();
+abstract class _$SignInNotifier extends $Notifier<AsyncValue<UserEntity>> {
+  AsyncValue<UserEntity> build();
   @$mustCallSuper
   @override
   void runBuild() {
     final created = build();
-    final ref = this.ref as $Ref<AsyncValue<User>, AsyncValue<User>>;
+    final ref =
+        this.ref as $Ref<AsyncValue<UserEntity>, AsyncValue<UserEntity>>;
     final element =
         ref.element
             as $ClassProviderElement<
-              AnyNotifier<AsyncValue<User>, AsyncValue<User>>,
-              AsyncValue<User>,
+              AnyNotifier<AsyncValue<UserEntity>, AsyncValue<UserEntity>>,
+              AsyncValue<UserEntity>,
               Object?,
               Object?
             >;
@@ -720,7 +769,7 @@ const loginProvider = LoginNotifierProvider._();
 
 /// Login State Notifier - Fixed version
 final class LoginNotifierProvider
-    extends $NotifierProvider<LoginNotifier, AsyncValue<User>> {
+    extends $NotifierProvider<LoginNotifier, AsyncValue<UserEntity>> {
   /// Login State Notifier - Fixed version
   const LoginNotifierProvider._()
     : super(
@@ -741,10 +790,10 @@ final class LoginNotifierProvider
   LoginNotifier create() => LoginNotifier();
 
   /// {@macro riverpod.override_with_value}
-  Override overrideWithValue(AsyncValue<User> value) {
+  Override overrideWithValue(AsyncValue<UserEntity> value) {
     return $ProviderOverride(
       origin: this,
-      providerOverride: $SyncValueProvider<AsyncValue<User>>(value),
+      providerOverride: $SyncValueProvider<AsyncValue<UserEntity>>(value),
     );
   }
 }
@@ -753,18 +802,19 @@ String _$loginNotifierHash() => r'e79f61deb6348f5d2d9b51431aa1f69c45e6095a';
 
 /// Login State Notifier - Fixed version
 
-abstract class _$LoginNotifier extends $Notifier<AsyncValue<User>> {
-  AsyncValue<User> build();
+abstract class _$LoginNotifier extends $Notifier<AsyncValue<UserEntity>> {
+  AsyncValue<UserEntity> build();
   @$mustCallSuper
   @override
   void runBuild() {
     final created = build();
-    final ref = this.ref as $Ref<AsyncValue<User>, AsyncValue<User>>;
+    final ref =
+        this.ref as $Ref<AsyncValue<UserEntity>, AsyncValue<UserEntity>>;
     final element =
         ref.element
             as $ClassProviderElement<
-              AnyNotifier<AsyncValue<User>, AsyncValue<User>>,
-              AsyncValue<User>,
+              AnyNotifier<AsyncValue<UserEntity>, AsyncValue<UserEntity>>,
+              AsyncValue<UserEntity>,
               Object?,
               Object?
             >;
@@ -779,7 +829,7 @@ const getUserProvider = GetUserNotifierProvider._();
 
 /// Get User State Notifier - Fixed version
 final class GetUserNotifierProvider
-    extends $NotifierProvider<GetUserNotifier, AsyncValue<User>> {
+    extends $NotifierProvider<GetUserNotifier, AsyncValue<UserEntity>> {
   /// Get User State Notifier - Fixed version
   const GetUserNotifierProvider._()
     : super(
@@ -800,10 +850,10 @@ final class GetUserNotifierProvider
   GetUserNotifier create() => GetUserNotifier();
 
   /// {@macro riverpod.override_with_value}
-  Override overrideWithValue(AsyncValue<User> value) {
+  Override overrideWithValue(AsyncValue<UserEntity> value) {
     return $ProviderOverride(
       origin: this,
-      providerOverride: $SyncValueProvider<AsyncValue<User>>(value),
+      providerOverride: $SyncValueProvider<AsyncValue<UserEntity>>(value),
     );
   }
 }
@@ -812,18 +862,19 @@ String _$getUserNotifierHash() => r'551ace6f970e9c58b0ccaab8b20e1b1c0cb7242f';
 
 /// Get User State Notifier - Fixed version
 
-abstract class _$GetUserNotifier extends $Notifier<AsyncValue<User>> {
-  AsyncValue<User> build();
+abstract class _$GetUserNotifier extends $Notifier<AsyncValue<UserEntity>> {
+  AsyncValue<UserEntity> build();
   @$mustCallSuper
   @override
   void runBuild() {
     final created = build();
-    final ref = this.ref as $Ref<AsyncValue<User>, AsyncValue<User>>;
+    final ref =
+        this.ref as $Ref<AsyncValue<UserEntity>, AsyncValue<UserEntity>>;
     final element =
         ref.element
             as $ClassProviderElement<
-              AnyNotifier<AsyncValue<User>, AsyncValue<User>>,
-              AsyncValue<User>,
+              AnyNotifier<AsyncValue<UserEntity>, AsyncValue<UserEntity>>,
+              AsyncValue<UserEntity>,
               Object?,
               Object?
             >;
@@ -883,6 +934,62 @@ abstract class _$SignOutNotifier extends $Notifier<AsyncValue<bool>> {
             as $ClassProviderElement<
               AnyNotifier<AsyncValue<bool>, AsyncValue<bool>>,
               AsyncValue<bool>,
+              Object?,
+              Object?
+            >;
+    element.handleValue(ref, created);
+  }
+}
+
+@ProviderFor(SignInWithEmailNotifier)
+const loginWithEmailProvider = LoginWithEmailNotifierProvider._();
+
+final class LoginWithEmailNotifierProvider
+    extends $NotifierProvider<SignInWithEmailNotifier, AsyncValue<UserEntity>> {
+  const LoginWithEmailNotifierProvider._()
+    : super(
+        from: null,
+        argument: null,
+        retry: null,
+        name: r'loginWithEmailProvider',
+        isAutoDispose: true,
+        dependencies: null,
+        $allTransitiveDependencies: null,
+      );
+
+  @override
+  String debugGetCreateSourceHash() => _$loginWithEmailNotifierHash();
+
+  @$internal
+  @override
+  SignInWithEmailNotifier create() => SignInWithEmailNotifier();
+
+  /// {@macro riverpod.override_with_value}
+  Override overrideWithValue(AsyncValue<UserEntity> value) {
+    return $ProviderOverride(
+      origin: this,
+      providerOverride: $SyncValueProvider<AsyncValue<UserEntity>>(value),
+    );
+  }
+}
+
+String _$loginWithEmailNotifierHash() =>
+    r'af75914c7261c143714b4738dd5473014c1ceee3';
+
+abstract class _$SignInWithEmailNotifier
+    extends $Notifier<AsyncValue<UserEntity>> {
+  AsyncValue<UserEntity> build();
+  @$mustCallSuper
+  @override
+  void runBuild() {
+    final created = build();
+    final ref =
+        this.ref as $Ref<AsyncValue<UserEntity>, AsyncValue<UserEntity>>;
+    final element =
+        ref.element
+            as $ClassProviderElement<
+              AnyNotifier<AsyncValue<UserEntity>, AsyncValue<UserEntity>>,
+              AsyncValue<UserEntity>,
               Object?,
               Object?
             >;

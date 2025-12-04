@@ -17,6 +17,8 @@ import 'package:food_delivery/features/product/presentation/state/product_state.
         searchQueryProvider,
         searchProductsProvider;
 
+import '../widgets/home_header.dart';
+
 class HomePage extends ConsumerWidget {
   const HomePage({super.key});
 
@@ -37,50 +39,57 @@ class HomePage extends ConsumerWidget {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              // const HomeHeader(),
+              const HomeHeader(),
               Expanded(
-                child: Column(
-                  children: [
-                    const HomeGreeting(),
-                    const HomeSearchBar(),
-                    Expanded(
-                      child: searchResultsAsync.when(
-                        data: (result) => result.products.isEmpty
-                            ? Center(
-                                child: Column(
-                                  mainAxisAlignment: MainAxisAlignment.center,
-                                  children: [
-                                    Icon(
-                                      Icons.search_off,
-                                      size: 64,
-                                      color: Colors.grey.shade400,
-                                    ),
-                                    const SizedBox(height: 16),
-                                    Text(
-                                      'لا توجد نتائج للبحث',
-                                      style: TextStyle(
-                                        fontSize: 18,
-                                        color: Colors.grey.shade600,
+                child: SingleChildScrollView(
+                  child: Column(
+                    children: [
+                      // Greeting
+                      const HomeGreeting(),
+
+                      // Search Bar
+                      const HomeSearchBar(),
+
+                      // result search
+                      Expanded(
+                        child: searchResultsAsync.when(
+                          data: (result) => result.products.isEmpty
+                              ? Center(
+                                  child: Column(
+                                    mainAxisAlignment: MainAxisAlignment.center,
+                                    children: [
+                                      Icon(
+                                        Icons.search_off,
+                                        size: 64,
+                                        color: Colors.grey.shade400,
                                       ),
-                                    ),
-                                  ],
+                                      const SizedBox(height: 16),
+                                      Text(
+                                        'لا توجد نتائج للبحث',
+                                        style: TextStyle(
+                                          fontSize: 18,
+                                          color: Colors.grey.shade600,
+                                        ),
+                                      ),
+                                    ],
+                                  ),
+                                )
+                              : ProductListSection(
+                                  title: 'نتائج البحث',
+                                  products: result.products,
+                                  dataSource: result.source,
+                                  onFavoriteTap: (product) =>
+                                      _onFavoriteTap(ref, product),
+                                  onAddToCart: (product) =>
+                                      _onAddToCart(context, ref, product),
                                 ),
-                              )
-                            : ProductListSection(
-                                title: 'نتائج البحث',
-                                products: result.products,
-                                dataSource: result.source,
-                                onFavoriteTap: (product) =>
-                                    _onFavoriteTap(ref, product),
-                                onAddToCart: (product) =>
-                                    _onAddToCart(context, ref, product),
-                              ),
-                        loading: () =>
-                            const Center(child: CircularProgressIndicator()),
-                        error: (error, stack) => _buildErrorWidget(error),
+                          loading: () =>
+                              const Center(child: CircularProgressIndicator()),
+                          error: (error, stack) => _buildErrorWidget(error),
+                        ),
                       ),
-                    ),
-                  ],
+                    ],
+                  ),
                 ),
               ),
             ],
@@ -97,7 +106,7 @@ class HomePage extends ConsumerWidget {
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             // // Header with menu and basket
-            // const HomeHeader(),
+            const HomeHeader(),
             Expanded(
               child: SingleChildScrollView(
                 child: Column(

@@ -1,5 +1,7 @@
 import 'dart:developer';
 
+import 'package:firebase_auth/firebase_auth.dart' as fAuth;
+
 import '../../domain/entities/user.dart';
 import '../../domain/repositories/auth_repository.dart';
 import '../datasources/domain/auth_remote_data_source.dart';
@@ -16,7 +18,7 @@ class AuthRepositoryImpl extends AuthRepository {
   });
 
   @override
-  Future<User> getUser(int userId) async {
+  Future<UserEntity> getUser(int userId) async {
     try {
       // Try to get from API first
       final remoteItems = await remoteDataSource.getUser(userId);
@@ -31,7 +33,7 @@ class AuthRepositoryImpl extends AuthRepository {
   }
 
   @override
-  Future<User> signIn(UserSignInDtosModel userSignIn) async {
+  Future<UserEntity> signIn(UserSignInDtosModel userSignIn) async {
     try {
       // Try to get from API first
       final remoteItems = await remoteDataSource.signIn(userSignIn);
@@ -46,7 +48,7 @@ class AuthRepositoryImpl extends AuthRepository {
   }
 
   @override
-  Future<User> login(UserLoginDtosModel userLogin) async {
+  Future<UserEntity> login(UserLoginDtosModel userLogin) async {
     try {
       // Try to get from API first
       final remoteItems = await remoteDataSource.login(userLogin);
@@ -75,6 +77,18 @@ class AuthRepositoryImpl extends AuthRepository {
       final localItems = localDataSource.signOut(userId);
       // Return empty list if local is also empty (cart is empty, not an error)
       return localItems;
+    }
+  }
+
+  @override
+  Future<fAuth.UserCredential> signWithEmail() async {
+    try {
+      // Try to get from API first
+      final remoteItems = await remoteDataSource.signInWithEmail();
+      // Sync to local
+      return remoteItems;
+    } catch (e) {
+      throw Exception('Network Error:(');
     }
   }
 }

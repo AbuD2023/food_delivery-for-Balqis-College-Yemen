@@ -5,7 +5,7 @@ import 'package:food_delivery/features/auth/domain/repositories/auth_repository.
 class LoginUsecase {
   final AuthRepository repository;
   LoginUsecase(this.repository);
-  Future<User> call(UserLoginDtosModel userLogin) async {
+  Future<UserEntity> call(UserLoginDtosModel userLogin) async {
     return await repository.login(userLogin);
   }
 }

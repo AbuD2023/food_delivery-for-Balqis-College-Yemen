@@ -9,6 +9,7 @@ import 'package:riverpod_annotation/riverpod_annotation.dart';
 import '../../data/datasources/domain/auth_remote_data_source.dart';
 import '../../data/datasources/local/auth_local_data_source.dart';
 import '../../data/repositories/auth_repository_impl.dart';
+import '../../domain/usecases/sign_in_with_email_usecase.dart';
 import '../../domain/usecases/sign_in_usecase.dart';
 
 import 'package:flutter/widgets.dart';
@@ -52,6 +53,12 @@ SignInUsecase signInUsecase(Ref ref) {
 LoginUsecase loginUsecase(Ref ref) {
   final repo = ref.watch(authRepositoryProvider);
   return LoginUsecase(repo);
+}
+
+@riverpod
+SignInWithEmailUsecase signInWithEmailUsecase(Ref ref) {
+  final repo = ref.watch(authRepositoryProvider);
+  return SignInWithEmailUsecase(repo);
 }
 
 @riverpod
@@ -128,10 +135,10 @@ class PhoneNumberController extends _$PhoneNumberController {
 @riverpod
 class SignInNotifier extends _$SignInNotifier {
   @override
-  AsyncValue<User> build() {
+  AsyncValue<UserEntity> build() {
     // Initial state - don't call signIn automatically
     return AsyncValue.data(
-      User(
+      UserEntity(
         id: -1,
         firstName: '',
         pass: '',
@@ -160,10 +167,10 @@ class SignInNotifier extends _$SignInNotifier {
 @riverpod
 class LoginNotifier extends _$LoginNotifier {
   @override
-  AsyncValue<User> build() {
+  AsyncValue<UserEntity> build() {
     // Initial state - don't call signIn automatically
     return AsyncValue.data(
-      User(
+      UserEntity(
         id: -1,
         firstName: '',
         pass: '',
@@ -181,7 +188,7 @@ class LoginNotifier extends _$LoginNotifier {
       final useCase = ref.read(loginUsecaseProvider);
       final user = userLoginDtosModel;
       final data = await useCase(user);
-      log(data.phoneNumber, name: 'Login:-> aurh_state');
+      log(data.phoneNumber, name: 'Login:-> auth_state');
       state = AsyncData(data);
     } catch (e, st) {
       state = AsyncError(e, st);
@@ -190,7 +197,7 @@ class LoginNotifier extends _$LoginNotifier {
 
   void clear() {
     state = AsyncValue.data(
-      User(
+      UserEntity(
         id: -1,
         firstName: '',
         pass: '',
@@ -206,10 +213,10 @@ class LoginNotifier extends _$LoginNotifier {
 @riverpod
 class GetUserNotifier extends _$GetUserNotifier {
   @override
-  AsyncValue<User> build() {
+  AsyncValue<UserEntity> build() {
     // Initial state - don't call signIn automatically
     return AsyncValue.data(
-      User(
+      UserEntity(
         id: -1,
         firstName: '',
         pass: '',
@@ -252,5 +259,58 @@ class SignOutNotifier extends _$SignOutNotifier {
     } catch (e, st) {
       state = AsyncError(e, st);
     }
+  }
+}
+
+@riverpod
+class SignInWithEmailNotifier extends _$SignInWithEmailNotifier {
+  @override
+  AsyncValue<UserEntity> build() {
+    // Initial state - don't call signIn automatically
+    return AsyncValue.data(
+      UserEntity(
+        id: -1,
+        firstName: '',
+        pass: '',
+        email: '',
+        age: '',
+        phoneNumber: '',
+      ),
+    );
+  }
+
+  /// Sign in method - called manually when user clicks the button
+  Future<void> signInWithEmail() async {
+    state = const AsyncLoading();
+    try {
+      final useCase = ref.read(loginWithEmailUsecaseProvider);
+      final data = await useCase();
+      log(data.user!.uid, name: 'loginWithEmail:-> auth_state');
+      final d = data.user!;
+      final userData = UserEntity(
+        id: d.uid,
+        firstName: d.displayName.toString(),
+        pass: '*******',
+        email: d.email.toString(),
+        age: '000',
+        phoneNumber: d.photoURL.toString(),
+      );
+      state = AsyncData(userData);
+    } catch (e, st) {
+      state = AsyncError(e, st);
+    }
+  }
+
+  void clear() {
+    state = AsyncValue.data(
+      UserEntity(
+        id: -1,
+        firstName: '',
+        pass: '',
+        email: '',
+        age: '',
+        phoneNumber: '',
+      ),
+    );
   }
 }

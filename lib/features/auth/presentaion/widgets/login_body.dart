@@ -11,7 +11,8 @@ import '../state/auth_state.dart'
         emailControllerProvider,
         loginProvider,
         obscureTextControllerProvider,
-        passControllerProvider;
+        passControllerProvider,
+        loginWithEmailProvider;
 
 class LoginBody extends StatelessWidget {
   const LoginBody({super.key});
@@ -171,6 +172,94 @@ class LoginBody extends StatelessWidget {
                                 )
                               : MyText(
                                   text: 'تسجيل دخول',
+                                  fontSize: 18,
+                                  color: Colors.white,
+                                ),
+                        );
+                      },
+                    ),
+                  ),
+                ),
+                SizedBox(height: 15),
+                Center(
+                  child: SizedBox(
+                    width: double.infinity,
+                    height: 60,
+                    child: Consumer(
+                      builder: (_, ref, _) {
+                        final loginWithEmailState = ref.watch(
+                          loginWithEmailProvider,
+                        );
+                        final isLoading = loginWithEmailState.isLoading;
+
+                        return ElevatedButton.icon(
+                          onPressed: isLoading
+                              ? null
+                              : () async {
+                                  if (key.currentState!.validate()) {
+                                    // Show loading dialog
+                                    showDialog(
+                                      barrierDismissible: false,
+                                      context: context,
+                                      builder: (context) => const AlertDialog(
+                                        title: Center(
+                                          child: CircularProgressIndicator(),
+                                        ),
+                                      ),
+                                    );
+
+                                    // Call sign in
+                                    await ref
+                                        .read(loginWithEmailProvider.notifier)
+                                        .signInWithEmail();
+
+                                    // Close loading dialog
+                                    if (context.mounted) {
+                                      Navigator.of(context).pop();
+                                    }
+
+                                    // Check result and navigate
+                                    final result = ref.read(
+                                      loginWithEmailProvider,
+                                    );
+                                    result.when(
+                                      data: (user) {
+                                        if (context.mounted) {
+                                          Navigator.of(
+                                            context,
+                                          ).pushAndRemoveUntil(
+                                            MaterialPageRoute(
+                                              builder: (context) =>
+                                                  const CustomDrawer(),
+                                              // const HomePage(),
+                                            ),
+                                            (route) => false,
+                                          );
+                                        }
+                                      },
+                                      loading: () {},
+                                      error: (error, stackTrace) {
+                                        if (context.mounted) {
+                                          ScaffoldMessenger.of(
+                                            context,
+                                          ).showSnackBar(
+                                            SnackBar(
+                                              content: Text('Error: $error'),
+                                              backgroundColor: Colors.red,
+                                            ),
+                                          );
+                                        }
+                                      },
+                                    );
+                                  }
+                                },
+                          icon: Icon(Icons.g_mobiledata),
+                          label: isLoading
+                              ? const CircularProgressIndicator(
+                                  color: Colors.white,
+                                )
+                              : MyText(
+                                  text: 'تسجيل دخول باستخدام Google',
                                   fontSize: 18,
                                   color: Colors.white,
                                 ),

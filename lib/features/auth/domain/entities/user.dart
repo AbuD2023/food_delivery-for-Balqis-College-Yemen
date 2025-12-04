@@ -1,11 +1,11 @@
-class User {
-  final int id;
+class UserEntity {
+  final dynamic id;
   final String firstName;
   final String pass;
   final String email;
   final String age;
   final String phoneNumber;
-  User({
+  UserEntity({
     required this.id,
     required this.firstName,
     required this.pass,

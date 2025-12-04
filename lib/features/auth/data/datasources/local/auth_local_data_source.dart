@@ -5,15 +5,15 @@ import '../../models/user_login_dtos_model.dart';
 import '../../models/user_sign_in_dtos_model.dart';
 
 abstract class AuthLocalDataSource {
-  Future<User> getUser(int userId);
-  Future<User> signIn(UserSignInDtosModel userSignIn);
-  Future<User> login(UserLoginDtosModel userLogin);
+  Future<UserEntity> getUser(int userId);
+  Future<UserEntity> signIn(UserSignInDtosModel userSignIn);
+  Future<UserEntity> login(UserLoginDtosModel userLogin);
   Future<bool> signOut(int userId);
 }
 
 class AuthLocalDataSourceImpl implements AuthLocalDataSource {
-  static final List<User> _userList = [
-    User(
+  static final List<UserEntity> _userList = [
+    UserEntity(
       id: 1,
       firstName: 'John Doe',
       pass: 'password123',
@@ -21,7 +21,7 @@ class AuthLocalDataSourceImpl implements AuthLocalDataSource {
       age: '25',
       phoneNumber: '1234567890',
     ),
-    User(
+    UserEntity(
       id: 2,
       firstName: 'AbuD Ali',
       pass: '123456789',
@@ -29,7 +29,7 @@ class AuthLocalDataSourceImpl implements AuthLocalDataSource {
       age: '30',
       phoneNumber: '0987654321',
     ),
-    User(
+    UserEntity(
       id: 3,
       firstName: 'Ali Ahmed',
       pass: '123456789',
@@ -40,7 +40,7 @@ class AuthLocalDataSourceImpl implements AuthLocalDataSource {
   ];
 
   @override
-  Future<User> getUser(int userId) {
+  Future<UserEntity> getUser(int userId) {
     return _userList
         .where((user) => user.id == userId)
         .map((user) => Future.value(user))
@@ -48,7 +48,7 @@ class AuthLocalDataSourceImpl implements AuthLocalDataSource {
   }
 
   @override
-  Future<User> login(UserLoginDtosModel userLogin) {
+  Future<UserEntity> login(UserLoginDtosModel userLogin) {
     return _userList
         .where(
           (user) =>
@@ -62,8 +62,8 @@ class AuthLocalDataSourceImpl implements AuthLocalDataSource {
   }
 
   @override
-  Future<User> signIn(UserSignInDtosModel userSignIn) {
-    final newUser = User(
+  Future<UserEntity> signIn(UserSignInDtosModel userSignIn) {
+    final newUser = UserEntity(
       id: _userList.length + 1,
       firstName: userSignIn.firstName,
       pass: userSignIn.pass,
