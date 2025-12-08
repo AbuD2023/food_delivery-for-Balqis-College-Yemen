@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:food_delivery/features/product/domain/entities/data_source.dart';
 import 'package:http/http.dart' as http;
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 
@@ -80,23 +81,61 @@ GetProductByIdUsecase getProductByIdUsecase(Ref ref) {
   return GetProductByIdUsecase(repository);
 }
 
-// State Providers
+// State Providers - Stream based for auto-updates
 @riverpod
-Future<ProductResult> recommendedProducts(Ref ref) async {
-  final useCase = ref.watch(getRecommendedProductsUsecaseProvider);
-  return await useCase();
+Stream<ProductResult> recommendedProducts(Ref ref) async* {
+  final repository = ref.watch(productRepositoryProvider);
+
+  // First, try to load from API and sync to local
+  try {
+    final useCase = ref.watch(getRecommendedProductsUsecaseProvider);
+    await useCase();
+  } catch (e) {
+    // If API fails, continue with local data
+  }
+
+  // Then watch local database for changes
+  await for (final products in repository.watchRecommendedProducts()) {
+    yield ProductResult(products: products, source: DataSource.local);
+  }
 }
 
 @riverpod
-Future<ProductResult> productsByCategory(Ref ref, String category) async {
-  final useCase = ref.watch(getProductsByCategoryUsecaseProvider);
-  return await useCase(category);
+Stream<ProductResult> productsByCategory(Ref ref, String category) async* {
+  final repository = ref.watch(productRepositoryProvider);
+
+  // First, try to load from API and sync to local
+  try {
+    final useCase = ref.watch(getProductsByCategoryUsecaseProvider);
+    await useCase(category);
+  } catch (e) {
+    // If API fails, continue with local data
+  }
+
+  // Then watch local database for changes
+  await for (final products in repository.watchProductsByCategory(category)) {
+    yield ProductResult(products: products, source: DataSource.local);
+  }
 }
 
 @riverpod
-Future<ProductEntity> productById(Ref ref, String productId) async {
-  final useCase = ref.watch(getProductByIdUsecaseProvider);
-  return await useCase(productId);
+Stream<ProductEntity> productById(Ref ref, String productId) async* {
+  final repository = ref.watch(productRepositoryProvider);
+
+  // First, try to load from API and sync to local
+  try {
+    final useCase = ref.watch(getProductByIdUsecaseProvider);
+    await useCase(productId);
+  } catch (e) {
+    // If API fails, continue with local data
+  }
+
+  // Then watch local database for changes
+  await for (final product in repository.watchProductById(productId)) {
+    if (product != null) {
+      yield product;
+    }
+  }
 }
 
 /// search products usecase

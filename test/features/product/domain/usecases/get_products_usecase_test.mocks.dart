@@ -116,6 +116,32 @@ class MockProductRepository extends _i1.Mock implements _i4.ProductRepository {
           as _i5.Stream<List<_i3.ProductEntity>>);
 
   @override
+  _i5.Stream<List<_i3.ProductEntity>> watchRecommendedProducts() =>
+      (super.noSuchMethod(
+            Invocation.method(#watchRecommendedProducts, []),
+            returnValue: _i5.Stream<List<_i3.ProductEntity>>.empty(),
+          )
+          as _i5.Stream<List<_i3.ProductEntity>>);
+
+  @override
+  _i5.Stream<List<_i3.ProductEntity>> watchProductsByCategory(
+    String? category,
+  ) =>
+      (super.noSuchMethod(
+            Invocation.method(#watchProductsByCategory, [category]),
+            returnValue: _i5.Stream<List<_i3.ProductEntity>>.empty(),
+          )
+          as _i5.Stream<List<_i3.ProductEntity>>);
+
+  @override
+  _i5.Stream<_i3.ProductEntity?> watchProductById(String? productId) =>
+      (super.noSuchMethod(
+            Invocation.method(#watchProductById, [productId]),
+            returnValue: _i5.Stream<_i3.ProductEntity?>.empty(),
+          )
+          as _i5.Stream<_i3.ProductEntity?>);
+
+  @override
   _i5.Future<_i2.ProductResult> searchProducts(String? query) =>
       (super.noSuchMethod(
             Invocation.method(#searchProducts, [query]),

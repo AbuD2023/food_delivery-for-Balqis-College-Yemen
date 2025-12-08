@@ -1,65 +1,105 @@
+import 'package:drift/drift.dart';
 import 'package:food_delivery/features/cart/data/models/cart_item_model.dart';
+import 'package:food_delivery/features/product/data/datasources/local/drift_database.dart';
 import 'package:food_delivery/features/product/data/datasources/local/product_local_data_source.dart';
+import 'package:food_delivery/features/product/data/models/product_model.dart';
+import 'package:food_delivery/features/cart/data/datasources/local/daos/cart_dao.dart';
 
 abstract class CartLocalDataSource {
-  List<CartItemModel> getCartItems();
+  Future<List<CartItemModel>> getCartItems();
   Future<void> addCartItem(CartItemModel item);
   Future<void> updateCartItem(String productId, int quantity);
   Future<void> removeCartItem(String productId);
   Future<void> clearCart();
+  Stream<List<CartItemModel>> watchCartItems();
 }
 
 class CartLocalDataSourceImpl implements CartLocalDataSource {
+  final AppDatabase db;
   final ProductLocalDataSource productDataSource;
-  static final List<CartItemModel> _cartItems = [];
 
-  CartLocalDataSourceImpl({required this.productDataSource});
+  CartLocalDataSourceImpl({required this.db, required this.productDataSource});
+
+  CartDao get cartDao => db.cartDao;
 
   @override
-  List<CartItemModel> getCartItems() {
-    return List.from(_cartItems);
+  Future<List<CartItemModel>> getCartItems() async {
+    final cartItems = await cartDao.getAllCartItems();
+    final List<CartItemModel> result = [];
+
+    for (final cartData in cartItems) {
+      // جلب بيانات المنتج من قاعدة البيانات
+      final product = await db.productDao.getProductById(cartData.productId);
+      if (product != null) {
+        final productModel = ProductModel.fromProductData(product);
+        result.add(
+          CartItemModel(product: productModel, quantity: cartData.quantity),
+        );
+      }
+    }
+
+    return result;
+  }
+
+  @override
+  Stream<List<CartItemModel>> watchCartItems() async* {
+    await for (final cartItems in cartDao.watchAll()) {
+      final List<CartItemModel> result = [];
+
+      for (final cartData in cartItems) {
+        // جلب بيانات المنتج من قاعدة البيانات
+        final product = await db.productDao.getProductById(cartData.productId);
+        if (product != null) {
+          final productModel = ProductModel.fromProductData(product);
+          result.add(
+            CartItemModel(product: productModel, quantity: cartData.quantity),
+          );
+        }
+      }
+
+      yield result;
+    }
   }
 
   @override
   Future<void> addCartItem(CartItemModel item) async {
-    final existingIndex = _cartItems.indexWhere(
-      (cartItem) => cartItem.product.id == item.product.id,
-    );
+    // التحقق من وجود العنصر في السلة
+    final existingItem = await cartDao.getCartItemByProductId(item.product.id);
 
-    if (existingIndex != -1) {
-      // Update quantity if item already exists
-      _cartItems[existingIndex] = CartItemModel(
-        product: item.product,
-        quantity: _cartItems[existingIndex].quantity + item.quantity,
-      );
+    if (existingItem != null) {
+      // تحديث الكمية إذا كان العنصر موجوداً
+      final newQuantity = existingItem.quantity + item.quantity;
+      await cartDao.updateCartItemQuantity(item.product.id, newQuantity);
     } else {
-      // Add new item
-      _cartItems.add(item);
+      // إضافة عنصر جديد
+      await cartDao.insertOrUpdateCartItem(
+        CartCompanion(
+          productId: Value(item.product.id),
+          quantity: Value(item.quantity),
+        ),
+      );
     }
   }
 
   @override
   Future<void> updateCartItem(String productId, int quantity) async {
-    final index = _cartItems.indexWhere((item) => item.product.id == productId);
-    if (index != -1) {
-      if (quantity > 0) {
-        _cartItems[index] = CartItemModel(
-          product: _cartItems[index].product,
-          quantity: quantity,
-        );
-      } else {
-        _cartItems.removeAt(index);
+    if (quantity > 0) {
+      final result = await cartDao.updateCartItemQuantity(productId, quantity);
+      if (!result) {
+        throw Exception('Failed to update cart item quantity');
       }
+    } else {
+      await cartDao.deleteCartItem(productId);
     }
   }
 
   @override
   Future<void> removeCartItem(String productId) async {
-    _cartItems.removeWhere((item) => item.product.id == productId);
+    await cartDao.deleteCartItem(productId);
   }
 
   @override
   Future<void> clearCart() async {
-    _cartItems.clear();
+    await cartDao.clearCart();
   }
 }

@@ -9,6 +9,9 @@ abstract class ProductRepository {
   Future<ProductEntity> getProductById(String productId);
 
   Stream<List<ProductEntity>> watchAllTasks();
+  Stream<List<ProductEntity>> watchRecommendedProducts();
+  Stream<List<ProductEntity>> watchProductsByCategory(String category);
+  Stream<ProductEntity?> watchProductById(String productId);
 
   // إضافة دالة البحث
   Future<ProductResult> searchProducts(String query);

@@ -18,6 +18,10 @@ class ProductDao extends DatabaseAccessor<AppDatabase> with _$ProductDaoMixin {
   Future<ProductData?> getProductById(String id) =>
       (select(product)..where((p) => p.id.equals(id))).getSingleOrNull();
 
+  // مشاهدة منتج بواسطة ID
+  Stream<ProductData?> watchProductById(String id) =>
+      (select(product)..where((p) => p.id.equals(id))).watchSingleOrNull();
+
   // إدراج منتج جديد
   Future<int> insertProduct(ProductCompanion productCompanion) =>
       into(product).insert(productCompanion);
@@ -46,6 +50,10 @@ class ProductDao extends DatabaseAccessor<AppDatabase> with _$ProductDaoMixin {
   // الحصول على المنتجات حسب الفئة
   Future<List<ProductData>> getProductsByCategory(String category) =>
       (select(product)..where((p) => p.category.equals(category))).get();
+
+  // مشاهدة المنتجات حسب الفئة
+  Stream<List<ProductData>> watchProductsByCategory(String category) =>
+      (select(product)..where((p) => p.category.equals(category))).watch();
 
   // تبديل حالة المفضلة
   Future<void> toggleFavorite(String id, bool isFavorite) {

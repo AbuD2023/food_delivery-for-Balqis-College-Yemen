@@ -276,58 +276,57 @@ class SignOutNotifier extends _$SignOutNotifier {
   }
 }
 
-@riverpod
-class SignInWithEmailNotifier extends _$SignInWithEmailNotifier {
-  @override
-  AsyncValue<UserEntity> build() {
-    // Initial state - don't call signIn automatically
-    return AsyncValue.data(
-      UserEntity(
-        id: -1,
-        firstName: '',
-        pass: '',
-        email: '',
-        age: '',
-        phoneNumber: '',
-        profileImage: null,
-      ),
-    );
-  }
+// @riverpod
+// class SignInWithEmailNotifier extends _$SignInWithEmailNotifier {
+//   @override
+//   AsyncValue<UserEntity> build() {
+//     // Initial state - don't call signIn automatically
+//     return AsyncValue.data(
+//       UserEntity(
+//         id: -1,
+//         firstName: '',
+//         pass: '',
+//         email: '',
+//         age: '',
+//         phoneNumber: '',
+//         profileImage: null,
+//       ),
+//     );
+//   }
+//   /// Sign in method - called manually when user clicks the button
+//   Future<void> signInWithEmail() async {
+//     state = const AsyncLoading();
+//     try {
+//       final useCase = ref.read(loginWithEmailUsecaseProvider);
+//       final data = await useCase();
+//       log(data.user!.uid, name: 'loginWithEmail:-> auth_state');
+//       final d = data.user!;
+//       final userData = UserEntity(
+//         id: d.uid,
+//         firstName: d.displayName ?? '',
+//         pass: '*******',
+//         email: d.email ?? '',
+//         age: '000',
+//         phoneNumber: d.phoneNumber ?? '',
+//         profileImage: d.photoURL,
+//       );
+//       state = AsyncData(userData);
+//     } catch (e, st) {
+//       state = AsyncError(e, st);
+//     }
+//   }
 
-  /// Sign in method - called manually when user clicks the button
-  Future<void> signInWithEmail() async {
-    state = const AsyncLoading();
-    try {
-      final useCase = ref.read(loginWithEmailUsecaseProvider);
-      final data = await useCase();
-      log(data.user!.uid, name: 'loginWithEmail:-> auth_state');
-      final d = data.user!;
-      final userData = UserEntity(
-        id: d.uid,
-        firstName: d.displayName ?? '',
-        pass: '*******',
-        email: d.email ?? '',
-        age: '000',
-        phoneNumber: d.phoneNumber ?? '',
-        profileImage: d.photoURL,
-      );
-      state = AsyncData(userData);
-    } catch (e, st) {
-      state = AsyncError(e, st);
-    }
-  }
-
-  void clear() {
-    state = AsyncValue.data(
-      UserEntity(
-        id: -1,
-        firstName: '',
-        pass: '',
-        email: '',
-        age: '',
-        phoneNumber: '',
-        profileImage: null,
-      ),
-    );
-  }
-}
+//   void clear() {
+//     state = AsyncValue.data(
+//       UserEntity(
+//         id: -1,
+//         firstName: '',
+//         pass: '',
+//         email: '',
+//         age: '',
+//         phoneNumber: '',
+//         profileImage: null,
+//       ),
+//     );
+//   }
+// }

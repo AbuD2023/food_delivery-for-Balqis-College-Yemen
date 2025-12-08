@@ -55,7 +55,7 @@ final class CartLocalDataSourceProvider
 }
 
 String _$cartLocalDataSourceHash() =>
-    r'd016916a3fa47bd43b4fada6efe0cd7fcd45fdb5';
+    r'b25eb24ac0f9d4c0d74bf00e15470ecb493d6125';
 
 @ProviderFor(cartRemoteDataSource)
 const cartRemoteDataSourceProvider = CartRemoteDataSourceProvider._();

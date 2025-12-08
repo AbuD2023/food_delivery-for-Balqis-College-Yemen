@@ -397,9 +397,9 @@ final class RecommendedProductsProvider
         $FunctionalProvider<
           AsyncValue<ProductResult>,
           ProductResult,
-          FutureOr<ProductResult>
+          Stream<ProductResult>
         >
-    with $FutureModifier<ProductResult>, $FutureProvider<ProductResult> {
+    with $FutureModifier<ProductResult>, $StreamProvider<ProductResult> {
   const RecommendedProductsProvider._()
     : super(
         from: null,
@@ -416,18 +416,18 @@ final class RecommendedProductsProvider
 
   @$internal
   @override
-  $FutureProviderElement<ProductResult> $createElement(
+  $StreamProviderElement<ProductResult> $createElement(
     $ProviderPointer pointer,
-  ) => $FutureProviderElement(pointer);
+  ) => $StreamProviderElement(pointer);
 
   @override
-  FutureOr<ProductResult> create(Ref ref) {
+  Stream<ProductResult> create(Ref ref) {
     return recommendedProducts(ref);
   }
 }
 
 String _$recommendedProductsHash() =>
-    r'e21662459aa0e16d36a6ad0c9020294192f884b4';
+    r'b49775b09f0c77c3ba1ce49577a119cbb57ce833';
 
 @ProviderFor(productsByCategory)
 const productsByCategoryProvider = ProductsByCategoryFamily._();
@@ -437,9 +437,9 @@ final class ProductsByCategoryProvider
         $FunctionalProvider<
           AsyncValue<ProductResult>,
           ProductResult,
-          FutureOr<ProductResult>
+          Stream<ProductResult>
         >
-    with $FutureModifier<ProductResult>, $FutureProvider<ProductResult> {
+    with $FutureModifier<ProductResult>, $StreamProvider<ProductResult> {
   const ProductsByCategoryProvider._({
     required ProductsByCategoryFamily super.from,
     required String super.argument,
@@ -463,12 +463,12 @@ final class ProductsByCategoryProvider
 
   @$internal
   @override
-  $FutureProviderElement<ProductResult> $createElement(
+  $StreamProviderElement<ProductResult> $createElement(
     $ProviderPointer pointer,
-  ) => $FutureProviderElement(pointer);
+  ) => $StreamProviderElement(pointer);
 
   @override
-  FutureOr<ProductResult> create(Ref ref) {
+  Stream<ProductResult> create(Ref ref) {
     final argument = this.argument as String;
     return productsByCategory(ref, argument);
   }
@@ -485,10 +485,10 @@ final class ProductsByCategoryProvider
 }
 
 String _$productsByCategoryHash() =>
-    r'3498ce5640fbdafa9518ea61c1409cc63740f342';
+    r'6b2ac63f7609406bcd6d864e03434063455710c5';
 
 final class ProductsByCategoryFamily extends $Family
-    with $FunctionalFamilyOverride<FutureOr<ProductResult>, String> {
+    with $FunctionalFamilyOverride<Stream<ProductResult>, String> {
   const ProductsByCategoryFamily._()
     : super(
         retry: null,
@@ -513,9 +513,9 @@ final class ProductByIdProvider
         $FunctionalProvider<
           AsyncValue<ProductEntity>,
           ProductEntity,
-          FutureOr<ProductEntity>
+          Stream<ProductEntity>
         >
-    with $FutureModifier<ProductEntity>, $FutureProvider<ProductEntity> {
+    with $FutureModifier<ProductEntity>, $StreamProvider<ProductEntity> {
   const ProductByIdProvider._({
     required ProductByIdFamily super.from,
     required String super.argument,
@@ -539,12 +539,12 @@ final class ProductByIdProvider
 
   @$internal
   @override
-  $FutureProviderElement<ProductEntity> $createElement(
+  $StreamProviderElement<ProductEntity> $createElement(
     $ProviderPointer pointer,
-  ) => $FutureProviderElement(pointer);
+  ) => $StreamProviderElement(pointer);
 
   @override
-  FutureOr<ProductEntity> create(Ref ref) {
+  Stream<ProductEntity> create(Ref ref) {
     final argument = this.argument as String;
     return productById(ref, argument);
   }
@@ -560,10 +560,10 @@ final class ProductByIdProvider
   }
 }
 
-String _$productByIdHash() => r'b50687f01985d4f39eff9b88ae553e9528761b58';
+String _$productByIdHash() => r'9a08c8d3150cda22bb1369a7490b1fd2f222a180';
 
 final class ProductByIdFamily extends $Family
-    with $FunctionalFamilyOverride<FutureOr<ProductEntity>, String> {
+    with $FunctionalFamilyOverride<Stream<ProductEntity>, String> {
   const ProductByIdFamily._()
     : super(
         retry: null,

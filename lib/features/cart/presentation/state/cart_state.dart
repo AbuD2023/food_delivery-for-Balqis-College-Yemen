@@ -2,7 +2,10 @@ import 'package:http/http.dart' as http;
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 
 import '../../../product/presentation/state/product_state.dart'
-    show productLocalDataSourceProvider, productRepositoryProvider;
+    show
+        appDatabaseProvider,
+        productLocalDataSourceProvider,
+        productRepositoryProvider;
 import '../../data/datasources/cart_local_data_source.dart';
 import '../../data/datasources/cart_remote_data_source.dart';
 import '../../data/repositories/cart_repository_impl.dart';
@@ -19,8 +22,12 @@ part 'cart_state.g.dart';
 // Data Source Providers
 @riverpod
 CartLocalDataSource cartLocalDataSource(Ref ref) {
+  final db = ref.watch(appDatabaseProvider);
   final productDataSource = ref.watch(productLocalDataSourceProvider);
-  return CartLocalDataSourceImpl(productDataSource: productDataSource);
+  return CartLocalDataSourceImpl(
+    db: db,
+    productDataSource: productDataSource,
+  );
 }
 
 @riverpod

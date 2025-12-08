@@ -210,6 +210,16 @@ class _State extends ConsumerState<CustomDrawer> {
                                     ),
                               SizedBox(height: 8),
                               Text(
+                                data.firstName.isNotEmpty
+                                    ? data.firstName
+                                    : 'Guest User',
+                                style: TextStyle(
+                                  color: Colors.white,
+                                  fontSize: 18,
+                                  fontWeight: FontWeight.bold,
+                                ),
+                              ),
+                              Text(
                                 data.email.isNotEmpty
                                     ? data.email
                                     : 'Guest User',
@@ -423,7 +433,8 @@ class _State extends ConsumerState<CustomDrawer> {
                                 ),
 
                                 onPressed: () {
-                                  Navigator.pop(context);
+                                  openDrawer();
+                                  // Navigator.pop(context);
                                 },
                                 child: Text(
                                   'Go Back',

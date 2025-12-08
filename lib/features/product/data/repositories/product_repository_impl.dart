@@ -135,6 +135,23 @@ class ProductRepositoryImpl implements ProductRepository {
   }
 
   @override
+  Stream<List<ProductEntity>> watchRecommendedProducts() {
+    return localDataSource.watchAllTasks().map(
+      (products) => products.where((p) => p.category == 'recommended').toList(),
+    );
+  }
+
+  @override
+  Stream<List<ProductEntity>> watchProductsByCategory(String category) {
+    return localDataSource.watchProductsByCategory(category);
+  }
+
+  @override
+  Stream<ProductEntity?> watchProductById(String productId) {
+    return localDataSource.watchProductById(productId);
+  }
+
+  @override
   Future<ProductResult> searchProducts(String query) async {
     try {
       // محاولة البحث في API

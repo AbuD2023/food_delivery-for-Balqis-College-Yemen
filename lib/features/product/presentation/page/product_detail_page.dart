@@ -45,8 +45,7 @@ class ProductDetailPage extends ConsumerWidget {
                     try {
                       final useCase = ref.read(toggleFavoriteUsecaseProvider);
                       await useCase(product.id);
-                      // Refresh product
-                      ref.invalidate(productByIdProvider(productId));
+                      // لا حاجة لـ refresh - Streams ستحدث تلقائياً من قاعدة البيانات
                     } catch (e) {
                       debugPrint('Error toggling favorite: $e');
                     }

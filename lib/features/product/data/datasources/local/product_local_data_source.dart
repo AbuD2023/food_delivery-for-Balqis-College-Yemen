@@ -12,6 +12,8 @@ abstract class ProductLocalDataSource {
   Stream<List<ProductEntity>> watchFavorites();
   Future<List<ProductModel>> searchProducts(String query);
   Future<List<ProductModel>> getProductsByCategory(String category);
+  Stream<List<ProductEntity>> watchProductsByCategory(String category);
+  Stream<ProductEntity?> watchProductById(String id);
   Future<void> toggleFavorite(String id, bool isFavorite);
 }
 
@@ -29,6 +31,15 @@ class ProductLocalDataSourceImpl implements ProductLocalDataSource {
   Future<ProductModel?> getProductById(String id) async {
     final product = await db.productDao.getProductById(id);
     return product != null ? ProductModel.fromProductData(product) : null;
+  }
+
+  @override
+  Stream<ProductEntity?> watchProductById(String id) {
+    return db.productDao
+        .watchProductById(id)
+        .map(
+          (data) => data != null ? ProductModel.fromProductData(data) : null,
+        );
   }
 
   @override
@@ -71,6 +82,16 @@ class ProductLocalDataSourceImpl implements ProductLocalDataSource {
   Future<List<ProductModel>> getProductsByCategory(String category) async {
     final products = await db.productDao.getProductsByCategory(category);
     return products.map((data) => ProductModel.fromProductData(data)).toList();
+  }
+
+  @override
+  Stream<List<ProductEntity>> watchProductsByCategory(String category) {
+    return db.productDao
+        .watchProductsByCategory(category)
+        .map(
+          (rows) =>
+              rows.map((data) => ProductModel.fromProductData(data)).toList(),
+        );
   }
 
   @override

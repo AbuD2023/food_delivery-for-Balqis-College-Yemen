@@ -9,15 +9,17 @@ import 'dart:io';
 import 'tables/product_table.dart';
 import 'daos/product_dao.dart';
 import 'seed_data.dart';
+import 'package:food_delivery/features/cart/data/datasources/local/tables/cart_table.dart';
+import 'package:food_delivery/features/cart/data/datasources/local/daos/cart_dao.dart';
 
 part 'drift_database.g.dart';
 
-@DriftDatabase(tables: [Product], daos: [ProductDao])
+@DriftDatabase(tables: [Product, Cart], daos: [ProductDao, CartDao])
 class AppDatabase extends _$AppDatabase {
   AppDatabase() : super(_openConnection());
 
   @override
-  int get schemaVersion => 1;
+  int get schemaVersion => 2;
 
   /// تهيئة قاعدة البيانات بالبيانات الأولية (تُستدعى مرة واحدة فقط)
   Future<void> seedInitialData() async {

@@ -17,8 +17,6 @@ import 'package:food_delivery/features/product/presentation/state/product_state.
         searchQueryProvider,
         searchProductsProvider;
 
-import '../widgets/home_header.dart';
-
 class HomePage extends ConsumerWidget {
   const HomePage({super.key});
 
@@ -190,12 +188,7 @@ class HomePage extends ConsumerWidget {
     try {
       final useCase = ref.read(toggleFavoriteUsecaseProvider);
       await useCase(product.id);
-      // Invalidate providers to refresh data
-      ref.invalidate(recommendedProductsProvider);
-      final selectedCategory = ref.read(selectedCategoryProvider);
-      ref.invalidate(
-        productsByCategoryProvider(selectedCategory.toLowerCase()),
-      );
+      // لا حاجة لـ refresh - Streams ستحدث تلقائياً من قاعدة البيانات
     } catch (e) {
       // Handle error
       debugPrint('Error toggling favorite: $e');
