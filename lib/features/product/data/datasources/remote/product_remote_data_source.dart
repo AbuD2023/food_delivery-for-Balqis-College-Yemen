@@ -283,7 +283,7 @@ class ProductRemoteDataSourceImpl implements ProductRemoteDataSource {
             );
           });
       data.listen((event) {
-        if (event.products.isNotEmpty) {
+        if (event.products.isEmpty) {
           throw Exception('Failed to add product');
         } else {}
       });
@@ -309,7 +309,7 @@ class ProductRemoteDataSourceImpl implements ProductRemoteDataSource {
             );
           });
       data.listen((event) {
-        if (event.products.isNotEmpty) {
+        if (event.products.isEmpty) {
           throw Exception('Failed to add product');
         } else {}
       });
