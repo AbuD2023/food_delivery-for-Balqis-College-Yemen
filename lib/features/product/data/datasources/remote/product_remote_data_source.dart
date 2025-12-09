@@ -284,12 +284,12 @@ class ProductRemoteDataSourceImpl implements ProductRemoteDataSource {
           });
       data.listen((event) {
         if (event.products.isEmpty) {
-          throw Exception('Failed to add product');
+          throw Exception('Failed to watchRecommendedProducts');
         } else {}
       });
       return data;
     } catch (e) {
-      throw Exception('Failed to add product: $e');
+      throw Exception('Failed to watchRecommendedProducts: $e');
     }
   }
 
@@ -310,12 +310,12 @@ class ProductRemoteDataSourceImpl implements ProductRemoteDataSource {
           });
       data.listen((event) {
         if (event.products.isEmpty) {
-          throw Exception('Failed to add product');
+          throw Exception('Failed to watchRecommendedProducts');
         } else {}
       });
       return data;
     } catch (e) {
-      throw Exception('Failed to add product: $e');
+      throw Exception('Failed to watchRecommendedProducts: $e');
     }
   }
 
@@ -335,12 +335,12 @@ class ProductRemoteDataSourceImpl implements ProductRemoteDataSource {
           });
       data.listen((event) {
         if (event == null) {
-          throw Exception('Failed to add product');
+          throw Exception('Failed to watchRecommendedProducts');
         } else {}
       });
       return data;
     } catch (e) {
-      throw Exception('Failed to add product: $e');
+      throw Exception('Failed to watchRecommendedProducts: $e');
     }
   }
 }
