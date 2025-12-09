@@ -34,13 +34,22 @@ class ProductDetailHeader extends StatelessWidget {
                 ],
               ),
               child: ClipOval(
-                child: Image.asset(
+                child: Image.network(
                   product.imagePath,
                   fit: BoxFit.cover,
                   errorBuilder: (context, error, stackTrace) {
-                    return Container(
-                      color: Colors.grey.shade200,
-                      child: const Icon(Icons.image_not_supported, size: 100),
+                    return Image.asset(
+                      product.imagePath,
+                      fit: BoxFit.cover,
+                      errorBuilder: (context, error, stackTrace) {
+                        return Container(
+                          color: Colors.grey.shade200,
+                          child: const Icon(
+                            Icons.image_not_supported,
+                            size: 100,
+                          ),
+                        );
+                      },
                     );
                   },
                 ),

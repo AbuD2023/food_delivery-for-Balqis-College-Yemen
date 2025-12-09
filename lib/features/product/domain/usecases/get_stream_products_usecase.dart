@@ -1,12 +1,13 @@
-import 'package:food_delivery/features/product/domain/entities/product.dart';
 import 'package:food_delivery/features/product/domain/repositories/product_repository.dart';
+
+import '../entities/product_result.dart';
 
 class GetStreamProductsUsecase {
   final ProductRepository repository;
 
   GetStreamProductsUsecase(this.repository);
 
-  Stream<List<ProductEntity>> call() {
+  Stream<ProductResult> call() {
     return repository.watchAllTasks();
   }
 }

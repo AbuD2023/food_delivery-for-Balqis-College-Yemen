@@ -157,10 +157,12 @@ class ProductDetailBody extends StatelessWidget {
                             ),
                           ),
                           const SizedBox(width: 12),
-                          MyText(
-                            text: ingredient,
-                            fontSize: 16,
-                            color: const Color(0xFF2C2C2C),
+                          Flexible(
+                            child: MyText(
+                              text: ingredient,
+                              fontSize: 16,
+                              color: const Color(0xFF2C2C2C),
+                            ),
                           ),
                         ],
                       ),

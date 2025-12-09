@@ -23,11 +23,25 @@ class CartItemWidget extends StatelessWidget {
           // Product Image
           ClipRRect(
             borderRadius: BorderRadius.circular(12),
-            child: Image.asset(
+            child: Image.network(
               cartItem.product.imagePath,
               width: 80,
               height: 80,
               fit: BoxFit.cover,
+              errorBuilder: (context, error, stackTrace) {
+                return Image.asset(
+                  cartItem.product.imagePath,
+                  width: 80,
+                  height: 80,
+                  fit: BoxFit.cover,
+                  errorBuilder: (context, error, stackTrace) {
+                    return Container(
+                      color: Colors.grey.shade200,
+                      child: const Icon(Icons.image_not_supported, size: 100),
+                    );
+                  },
+                );
+              },
             ),
           ),
           const SizedBox(width: 16),

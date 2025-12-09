@@ -1,5 +1,6 @@
-import 'package:food_delivery/features/product/domain/entities/product.dart';
-import 'package:food_delivery/features/product/domain/entities/product_result.dart';
+import '../../data/models/product_model.dart';
+import '../entities/product.dart';
+import '../entities/product_result.dart';
 
 abstract class ProductRepository {
   Future<ProductResult> getProducts();
@@ -8,11 +9,14 @@ abstract class ProductRepository {
   Future<ProductEntity> toggleFavorite(String productId);
   Future<ProductEntity> getProductById(String productId);
 
-  Stream<List<ProductEntity>> watchAllTasks();
-  Stream<List<ProductEntity>> watchRecommendedProducts();
-  Stream<List<ProductEntity>> watchProductsByCategory(String category);
+  Stream<ProductResult> watchAllTasks();
+  Stream<ProductResult> watchRecommendedProducts();
+  Stream<ProductResult> watchProductsByCategory(String category);
   Stream<ProductEntity?> watchProductById(String productId);
 
   // إضافة دالة البحث
   Future<ProductResult> searchProducts(String query);
+
+  //
+  Future<void> addProduct(ProductModel product);
 }

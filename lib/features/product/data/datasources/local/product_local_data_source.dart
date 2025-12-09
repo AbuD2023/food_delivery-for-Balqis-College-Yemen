@@ -2,17 +2,20 @@ import 'package:food_delivery/features/product/data/datasources/local/drift_data
 import 'package:food_delivery/features/product/data/models/product_model.dart';
 import 'package:food_delivery/features/product/domain/entities/product.dart';
 
+import '../../../domain/entities/data_source.dart';
+import '../../../domain/entities/product_result.dart';
+
 abstract class ProductLocalDataSource {
   Future<List<ProductModel>> getProducts();
   Future<ProductModel?> getProductById(String id);
   Future<void> updateProduct(ProductModel product);
   Future<void> insertProduct(ProductModel product);
   Future<void> deleteProduct(String id);
-  Stream<List<ProductEntity>> watchAllTasks();
+  Stream<ProductResult> watchAllTasks();
   Stream<List<ProductEntity>> watchFavorites();
   Future<List<ProductModel>> searchProducts(String query);
   Future<List<ProductModel>> getProductsByCategory(String category);
-  Stream<List<ProductEntity>> watchProductsByCategory(String category);
+  Stream<ProductResult> watchProductsByCategory(String category);
   Stream<ProductEntity?> watchProductById(String id);
   Future<void> toggleFavorite(String id, bool isFavorite);
 }
@@ -59,9 +62,14 @@ class ProductLocalDataSourceImpl implements ProductLocalDataSource {
   }
 
   @override
-  Stream<List<ProductEntity>> watchAllTasks() {
+  Stream<ProductResult> watchAllTasks() {
     return db.productDao.watchAll().map(
-      (rows) => rows.map((data) => ProductModel.fromProductData(data)).toList(),
+      (rows) => ProductResult(
+        products: rows
+            .map((data) => ProductModel.fromProductData(data))
+            .toList(),
+        source: DataSource.local,
+      ),
     );
   }
 
@@ -85,12 +93,16 @@ class ProductLocalDataSourceImpl implements ProductLocalDataSource {
   }
 
   @override
-  Stream<List<ProductEntity>> watchProductsByCategory(String category) {
+  Stream<ProductResult> watchProductsByCategory(String category) {
     return db.productDao
         .watchProductsByCategory(category)
         .map(
-          (rows) =>
-              rows.map((data) => ProductModel.fromProductData(data)).toList(),
+          (rows) => ProductResult(
+            products: rows
+                .map((data) => ProductModel.fromProductData(data))
+                .toList(),
+            source: DataSource.local,
+          ),
         );
   }
 

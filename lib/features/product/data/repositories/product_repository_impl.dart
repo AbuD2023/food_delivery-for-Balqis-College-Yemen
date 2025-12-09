@@ -1,3 +1,5 @@
+import 'dart:developer';
+
 import 'package:food_delivery/features/product/data/datasources/local/product_local_data_source.dart';
 import 'package:food_delivery/features/product/data/datasources/remote/product_remote_data_source.dart';
 import 'package:food_delivery/features/product/data/models/product_model.dart';
@@ -82,8 +84,13 @@ class ProductRepositoryImpl implements ProductRepository {
   @override
   Future<ProductEntity> toggleFavorite(String productId) async {
     try {
+      final product = await getProductById(productId);
+      log('ytyutuityyut');
       // محاولة تحديث في API
-      final updatedProduct = await remoteDataSource.toggleFavorite(productId);
+      final updatedProduct = await remoteDataSource.toggleFavorite(
+        productId,
+        !product.isFavorite,
+      );
       // حفظ التحديث محلياً
       await localDataSource.updateProduct(updatedProduct);
       return updatedProduct;
@@ -114,6 +121,7 @@ class ProductRepositoryImpl implements ProductRepository {
   @override
   Future<ProductEntity> getProductById(String productId) async {
     try {
+      log('messagemessagemessagemessagev');
       // محاولة جلب من API
       final product = await remoteDataSource.getProductById(productId);
       // حفظ محلياً
@@ -130,25 +138,62 @@ class ProductRepositoryImpl implements ProductRepository {
   }
 
   @override
-  Stream<List<ProductEntity>> watchAllTasks() {
-    return localDataSource.watchAllTasks();
+  Stream<ProductResult> watchAllTasks() {
+    try {
+      return remoteDataSource.watchAllTasks();
+    } catch (e) {
+      try {
+        return localDataSource.watchAllTasks();
+      } catch (e) {
+        throw Exception('Failed to watch products: $e');
+      }
+    }
   }
 
   @override
-  Stream<List<ProductEntity>> watchRecommendedProducts() {
-    return localDataSource.watchAllTasks().map(
-      (products) => products.where((p) => p.category == 'recommended').toList(),
-    );
+  Stream<ProductResult> watchRecommendedProducts() {
+    try {
+      return remoteDataSource.watchRecommendedProducts();
+    } catch (e) {
+      try {
+        return localDataSource.watchAllTasks().map(
+          (products) => ProductResult(
+            products: products.products
+                .where((p) => p.category == 'recommended')
+                .toList(),
+            source: DataSource.local,
+          ),
+        );
+      } catch (e) {
+        throw Exception('Failed to watch products: $e');
+      }
+    }
   }
 
   @override
-  Stream<List<ProductEntity>> watchProductsByCategory(String category) {
-    return localDataSource.watchProductsByCategory(category);
+  Stream<ProductResult> watchProductsByCategory(String category) {
+    try {
+      return remoteDataSource.watchProductsByCategory(category);
+    } catch (e) {
+      try {
+        return localDataSource.watchProductsByCategory(category);
+      } catch (e) {
+        throw Exception('Failed to watch products: $e');
+      }
+    }
   }
 
   @override
   Stream<ProductEntity?> watchProductById(String productId) {
-    return localDataSource.watchProductById(productId);
+    try {
+      return remoteDataSource.watchProductById(productId);
+    } catch (e) {
+      try {
+        return localDataSource.watchProductById(productId);
+      } catch (e) {
+        throw Exception('Failed to watch product: $e');
+      }
+    }
   }
 
   @override
@@ -158,7 +203,6 @@ class ProductRepositoryImpl implements ProductRepository {
       final remoteProducts = await remoteDataSource.searchProducts(query);
       return ProductResult(products: remoteProducts, source: DataSource.remote);
     } catch (e) {
-      // في حالة فشل API، استخدم البيانات المحلية
       final localProducts = await localDataSource.searchProducts(query);
       final queryLower = query.toLowerCase();
       final searchResults = localProducts
@@ -173,6 +217,15 @@ class ProductRepositoryImpl implements ProductRepository {
           )
           .toList();
       return ProductResult(products: searchResults, source: DataSource.local);
+    }
+  }
+
+  @override
+  Future<void> addProduct(ProductModel product) async {
+    try {
+      await remoteDataSource.addProduct(product);
+    } catch (e) {
+      throw Exception('Failed to add product: $e');
     }
   }
 }

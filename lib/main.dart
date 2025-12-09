@@ -5,7 +5,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:food_delivery/core/constants/app_them.dart';
 import 'package:firebase_core/firebase_core.dart';
-import 'package:food_delivery/features/home/presentaion/page/home_page.dart';
 
 import 'core/widgets/custom_drawer.dart';
 import 'features/splash/presentaion/page/splash_page.dart';

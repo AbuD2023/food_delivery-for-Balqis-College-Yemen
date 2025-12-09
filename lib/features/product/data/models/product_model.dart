@@ -26,7 +26,7 @@ class ProductModel extends ProductEntity {
       description: json['description'] as String?,
       ingredients: json['ingredients'] != null
           ? List<String>.from(json['ingredients'] as List)
-          : null,
+          : json['ingredients'],
     );
   }
 

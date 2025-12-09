@@ -9,7 +9,7 @@ extension DataSourceExtension on DataSource {
   String get displayName {
     switch (this) {
       case DataSource.remote:
-        return 'API';
+        return 'سحابي';
       case DataSource.local:
         return 'محلي';
     }

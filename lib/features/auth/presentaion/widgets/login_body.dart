@@ -11,8 +11,7 @@ import '../state/auth_state.dart'
         emailControllerProvider,
         loginProvider,
         obscureTextControllerProvider,
-        passControllerProvider,
-        loginWithEmailProvider;
+        passControllerProvider;
 
 class LoginBody extends StatelessWidget {
   const LoginBody({super.key});

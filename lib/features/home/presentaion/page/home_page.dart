@@ -16,6 +16,7 @@ import 'package:food_delivery/features/product/presentation/state/product_state.
         toggleFavoriteUsecaseProvider,
         searchQueryProvider,
         searchProductsProvider;
+import 'package:food_delivery/features/product/presentation/widgets/add_product_widget.dart';
 
 class HomePage extends ConsumerWidget {
   const HomePage({super.key});
@@ -174,12 +175,28 @@ class HomePage extends ConsumerWidget {
           ],
         ),
       ),
-      floatingActionButton: FloatingActionButton(
-        onPressed: () {
-          _retryCategoryProducts(ref);
-          // _retryRecommendedProducts(ref);
-        },
-        child: const Icon(Icons.refresh),
+      floatingActionButton: Column(
+        mainAxisAlignment: MainAxisAlignment.end,
+        children: [
+          FloatingActionButton(
+            onPressed: () {
+              _retryCategoryProducts(ref);
+              // _retryRecommendedProducts(ref);
+            },
+            child: const Icon(Icons.refresh),
+          ),
+          SizedBox(height: 25),
+          FloatingActionButton(
+            onPressed: () {
+              showDialog(
+                barrierDismissible: false,
+                context: context,
+                builder: (context) => AddProductWidget(),
+              );
+            },
+            child: const Icon(Icons.add),
+          ),
+        ],
       ),
     );
   }

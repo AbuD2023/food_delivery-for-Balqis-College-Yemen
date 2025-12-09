@@ -144,7 +144,7 @@ final class ProductRemoteDataSourceProvider
 }
 
 String _$productRemoteDataSourceHash() =>
-    r'daaf0bab03c2bb6e320d28189bbf7bebb0c0e7c8';
+    r'3e07b7224bc391d20a5afb76a90733e28a3bd90a';
 
 @ProviderFor(productRepository)
 const productRepositoryProvider = ProductRepositoryProvider._();
@@ -389,6 +389,107 @@ final class GetProductByIdUsecaseProvider
 String _$getProductByIdUsecaseHash() =>
     r'85bfbf538cf2c2f49742ffac5ddd18282b818fc4';
 
+@ProviderFor(addProductUsecase)
+const addProductUsecaseProvider = AddProductUsecaseProvider._();
+
+final class AddProductUsecaseProvider
+    extends
+        $FunctionalProvider<
+          AddProductUsecase,
+          AddProductUsecase,
+          AddProductUsecase
+        >
+    with $Provider<AddProductUsecase> {
+  const AddProductUsecaseProvider._()
+    : super(
+        from: null,
+        argument: null,
+        retry: null,
+        name: r'addProductUsecaseProvider',
+        isAutoDispose: true,
+        dependencies: null,
+        $allTransitiveDependencies: null,
+      );
+
+  @override
+  String debugGetCreateSourceHash() => _$addProductUsecaseHash();
+
+  @$internal
+  @override
+  $ProviderElement<AddProductUsecase> $createElement(
+    $ProviderPointer pointer,
+  ) => $ProviderElement(pointer);
+
+  @override
+  AddProductUsecase create(Ref ref) {
+    return addProductUsecase(ref);
+  }
+
+  /// {@macro riverpod.override_with_value}
+  Override overrideWithValue(AddProductUsecase value) {
+    return $ProviderOverride(
+      origin: this,
+      providerOverride: $SyncValueProvider<AddProductUsecase>(value),
+    );
+  }
+}
+
+String _$addProductUsecaseHash() => r'1c00efa9f6ea6db8c6aa5a5f057f860ee47b8a17';
+
+@ProviderFor(AddProductNotifier)
+const addProductProvider = AddProductNotifierProvider._();
+
+final class AddProductNotifierProvider
+    extends $NotifierProvider<AddProductNotifier, AsyncValue<bool>> {
+  const AddProductNotifierProvider._()
+    : super(
+        from: null,
+        argument: null,
+        retry: null,
+        name: r'addProductProvider',
+        isAutoDispose: true,
+        dependencies: null,
+        $allTransitiveDependencies: null,
+      );
+
+  @override
+  String debugGetCreateSourceHash() => _$addProductNotifierHash();
+
+  @$internal
+  @override
+  AddProductNotifier create() => AddProductNotifier();
+
+  /// {@macro riverpod.override_with_value}
+  Override overrideWithValue(AsyncValue<bool> value) {
+    return $ProviderOverride(
+      origin: this,
+      providerOverride: $SyncValueProvider<AsyncValue<bool>>(value),
+    );
+  }
+}
+
+String _$addProductNotifierHash() =>
+    r'817ddcdf855b5f94e8fb024e2a6f18837618e329';
+
+abstract class _$AddProductNotifier extends $Notifier<AsyncValue<bool>> {
+  AsyncValue<bool> build();
+  @$mustCallSuper
+  @override
+  void runBuild() {
+    final created = build();
+    final ref = this.ref as $Ref<AsyncValue<bool>, AsyncValue<bool>>;
+    final element =
+        ref.element
+            as $ClassProviderElement<
+              AnyNotifier<AsyncValue<bool>, AsyncValue<bool>>,
+              AsyncValue<bool>,
+              Object?,
+              Object?
+            >;
+    element.handleValue(ref, created);
+  }
+}
+
 @ProviderFor(recommendedProducts)
 const recommendedProductsProvider = RecommendedProductsProvider._();
 
@@ -427,7 +528,7 @@ final class RecommendedProductsProvider
 }
 
 String _$recommendedProductsHash() =>
-    r'b49775b09f0c77c3ba1ce49577a119cbb57ce833';
+    r'f8c2765b1446169fc297cc4e15e944c8ac0a42d1';
 
 @ProviderFor(productsByCategory)
 const productsByCategoryProvider = ProductsByCategoryFamily._();
@@ -485,7 +586,7 @@ final class ProductsByCategoryProvider
 }
 
 String _$productsByCategoryHash() =>
-    r'6b2ac63f7609406bcd6d864e03434063455710c5';
+    r'b82151b1685953cfbb908098bef44b889d685229';
 
 final class ProductsByCategoryFamily extends $Family
     with $FunctionalFamilyOverride<Stream<ProductResult>, String> {
@@ -827,6 +928,329 @@ abstract class _$SearchQuery extends $Notifier<String> {
             as $ClassProviderElement<
               AnyNotifier<String, String>,
               String,
+              Object?,
+              Object?
+            >;
+    element.handleValue(ref, created);
+  }
+}
+
+@ProviderFor(NameController)
+const nameControllerProvider = NameControllerProvider._();
+
+final class NameControllerProvider
+    extends $NotifierProvider<NameController, TextEditingController> {
+  const NameControllerProvider._()
+    : super(
+        from: null,
+        argument: null,
+        retry: null,
+        name: r'nameControllerProvider',
+        isAutoDispose: true,
+        dependencies: null,
+        $allTransitiveDependencies: null,
+      );
+
+  @override
+  String debugGetCreateSourceHash() => _$nameControllerHash();
+
+  @$internal
+  @override
+  NameController create() => NameController();
+
+  /// {@macro riverpod.override_with_value}
+  Override overrideWithValue(TextEditingController value) {
+    return $ProviderOverride(
+      origin: this,
+      providerOverride: $SyncValueProvider<TextEditingController>(value),
+    );
+  }
+}
+
+String _$nameControllerHash() => r'e569dcda8d0ae1245f9204c2c11d2d21d808befd';
+
+abstract class _$NameController extends $Notifier<TextEditingController> {
+  TextEditingController build();
+  @$mustCallSuper
+  @override
+  void runBuild() {
+    final created = build();
+    final ref = this.ref as $Ref<TextEditingController, TextEditingController>;
+    final element =
+        ref.element
+            as $ClassProviderElement<
+              AnyNotifier<TextEditingController, TextEditingController>,
+              TextEditingController,
+              Object?,
+              Object?
+            >;
+    element.handleValue(ref, created);
+  }
+}
+
+@ProviderFor(PriceController)
+const priceControllerProvider = PriceControllerProvider._();
+
+final class PriceControllerProvider
+    extends $NotifierProvider<PriceController, TextEditingController> {
+  const PriceControllerProvider._()
+    : super(
+        from: null,
+        argument: null,
+        retry: null,
+        name: r'priceControllerProvider',
+        isAutoDispose: true,
+        dependencies: null,
+        $allTransitiveDependencies: null,
+      );
+
+  @override
+  String debugGetCreateSourceHash() => _$priceControllerHash();
+
+  @$internal
+  @override
+  PriceController create() => PriceController();
+
+  /// {@macro riverpod.override_with_value}
+  Override overrideWithValue(TextEditingController value) {
+    return $ProviderOverride(
+      origin: this,
+      providerOverride: $SyncValueProvider<TextEditingController>(value),
+    );
+  }
+}
+
+String _$priceControllerHash() => r'745a41d05f5051d435b64f94a546b66fbb023bcd';
+
+abstract class _$PriceController extends $Notifier<TextEditingController> {
+  TextEditingController build();
+  @$mustCallSuper
+  @override
+  void runBuild() {
+    final created = build();
+    final ref = this.ref as $Ref<TextEditingController, TextEditingController>;
+    final element =
+        ref.element
+            as $ClassProviderElement<
+              AnyNotifier<TextEditingController, TextEditingController>,
+              TextEditingController,
+              Object?,
+              Object?
+            >;
+    element.handleValue(ref, created);
+  }
+}
+
+@ProviderFor(ImagePathController)
+const imagePathControllerProvider = ImagePathControllerProvider._();
+
+final class ImagePathControllerProvider
+    extends $NotifierProvider<ImagePathController, TextEditingController> {
+  const ImagePathControllerProvider._()
+    : super(
+        from: null,
+        argument: null,
+        retry: null,
+        name: r'imagePathControllerProvider',
+        isAutoDispose: true,
+        dependencies: null,
+        $allTransitiveDependencies: null,
+      );
+
+  @override
+  String debugGetCreateSourceHash() => _$imagePathControllerHash();
+
+  @$internal
+  @override
+  ImagePathController create() => ImagePathController();
+
+  /// {@macro riverpod.override_with_value}
+  Override overrideWithValue(TextEditingController value) {
+    return $ProviderOverride(
+      origin: this,
+      providerOverride: $SyncValueProvider<TextEditingController>(value),
+    );
+  }
+}
+
+String _$imagePathControllerHash() =>
+    r'c435d41838e7c6fcfdf4ac09a778be8e9249395f';
+
+abstract class _$ImagePathController extends $Notifier<TextEditingController> {
+  TextEditingController build();
+  @$mustCallSuper
+  @override
+  void runBuild() {
+    final created = build();
+    final ref = this.ref as $Ref<TextEditingController, TextEditingController>;
+    final element =
+        ref.element
+            as $ClassProviderElement<
+              AnyNotifier<TextEditingController, TextEditingController>,
+              TextEditingController,
+              Object?,
+              Object?
+            >;
+    element.handleValue(ref, created);
+  }
+}
+
+@ProviderFor(DescriptionController)
+const descriptionControllerProvider = DescriptionControllerProvider._();
+
+final class DescriptionControllerProvider
+    extends $NotifierProvider<DescriptionController, TextEditingController> {
+  const DescriptionControllerProvider._()
+    : super(
+        from: null,
+        argument: null,
+        retry: null,
+        name: r'descriptionControllerProvider',
+        isAutoDispose: true,
+        dependencies: null,
+        $allTransitiveDependencies: null,
+      );
+
+  @override
+  String debugGetCreateSourceHash() => _$descriptionControllerHash();
+
+  @$internal
+  @override
+  DescriptionController create() => DescriptionController();
+
+  /// {@macro riverpod.override_with_value}
+  Override overrideWithValue(TextEditingController value) {
+    return $ProviderOverride(
+      origin: this,
+      providerOverride: $SyncValueProvider<TextEditingController>(value),
+    );
+  }
+}
+
+String _$descriptionControllerHash() =>
+    r'36ba5093ed4b287ae8d27b3eb7b0b2b375a4d782';
+
+abstract class _$DescriptionController
+    extends $Notifier<TextEditingController> {
+  TextEditingController build();
+  @$mustCallSuper
+  @override
+  void runBuild() {
+    final created = build();
+    final ref = this.ref as $Ref<TextEditingController, TextEditingController>;
+    final element =
+        ref.element
+            as $ClassProviderElement<
+              AnyNotifier<TextEditingController, TextEditingController>,
+              TextEditingController,
+              Object?,
+              Object?
+            >;
+    element.handleValue(ref, created);
+  }
+}
+
+@ProviderFor(IngredientsController)
+const ingredientsControllerProvider = IngredientsControllerProvider._();
+
+final class IngredientsControllerProvider
+    extends $NotifierProvider<IngredientsController, List<String>> {
+  const IngredientsControllerProvider._()
+    : super(
+        from: null,
+        argument: null,
+        retry: null,
+        name: r'ingredientsControllerProvider',
+        isAutoDispose: true,
+        dependencies: null,
+        $allTransitiveDependencies: null,
+      );
+
+  @override
+  String debugGetCreateSourceHash() => _$ingredientsControllerHash();
+
+  @$internal
+  @override
+  IngredientsController create() => IngredientsController();
+
+  /// {@macro riverpod.override_with_value}
+  Override overrideWithValue(List<String> value) {
+    return $ProviderOverride(
+      origin: this,
+      providerOverride: $SyncValueProvider<List<String>>(value),
+    );
+  }
+}
+
+String _$ingredientsControllerHash() =>
+    r'6690a0fe753eb19fa29e6ae8687e43daedac875c';
+
+abstract class _$IngredientsController extends $Notifier<List<String>> {
+  List<String> build();
+  @$mustCallSuper
+  @override
+  void runBuild() {
+    final created = build();
+    final ref = this.ref as $Ref<List<String>, List<String>>;
+    final element =
+        ref.element
+            as $ClassProviderElement<
+              AnyNotifier<List<String>, List<String>>,
+              List<String>,
+              Object?,
+              Object?
+            >;
+    element.handleValue(ref, created);
+  }
+}
+
+@ProviderFor(CategoryController)
+const categoryControllerProvider = CategoryControllerProvider._();
+
+final class CategoryControllerProvider
+    extends $NotifierProvider<CategoryController, CategoryEnum> {
+  const CategoryControllerProvider._()
+    : super(
+        from: null,
+        argument: null,
+        retry: null,
+        name: r'categoryControllerProvider',
+        isAutoDispose: true,
+        dependencies: null,
+        $allTransitiveDependencies: null,
+      );
+
+  @override
+  String debugGetCreateSourceHash() => _$categoryControllerHash();
+
+  @$internal
+  @override
+  CategoryController create() => CategoryController();
+
+  /// {@macro riverpod.override_with_value}
+  Override overrideWithValue(CategoryEnum value) {
+    return $ProviderOverride(
+      origin: this,
+      providerOverride: $SyncValueProvider<CategoryEnum>(value),
+    );
+  }
+}
+
+String _$categoryControllerHash() =>
+    r'a2f7c24bd9e8df2539c61c76cfe242a3eaf8aeee';
+
+abstract class _$CategoryController extends $Notifier<CategoryEnum> {
+  CategoryEnum build();
+  @$mustCallSuper
+  @override
+  void runBuild() {
+    final created = build();
+    final ref = this.ref as $Ref<CategoryEnum, CategoryEnum>;
+    final element =
+        ref.element
+            as $ClassProviderElement<
+              AnyNotifier<CategoryEnum, CategoryEnum>,
+              CategoryEnum,
               Object?,
               Object?
             >;

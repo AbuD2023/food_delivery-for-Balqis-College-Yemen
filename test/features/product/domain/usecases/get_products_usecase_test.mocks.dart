@@ -5,6 +5,8 @@
 // ignore_for_file: no_leading_underscores_for_library_prefixes
 import 'dart:async' as _i5;
 
+import 'package:food_delivery/features/product/data/models/product_model.dart'
+    as _i6;
 import 'package:food_delivery/features/product/domain/entities/product.dart'
     as _i3;
 import 'package:food_delivery/features/product/domain/entities/product_result.dart'
@@ -108,30 +110,28 @@ class MockProductRepository extends _i1.Mock implements _i4.ProductRepository {
           as _i5.Future<_i3.ProductEntity>);
 
   @override
-  _i5.Stream<List<_i3.ProductEntity>> watchAllTasks() =>
+  _i5.Stream<_i2.ProductResult> watchAllTasks() =>
       (super.noSuchMethod(
             Invocation.method(#watchAllTasks, []),
-            returnValue: _i5.Stream<List<_i3.ProductEntity>>.empty(),
+            returnValue: _i5.Stream<_i2.ProductResult>.empty(),
           )
-          as _i5.Stream<List<_i3.ProductEntity>>);
+          as _i5.Stream<_i2.ProductResult>);
 
   @override
-  _i5.Stream<List<_i3.ProductEntity>> watchRecommendedProducts() =>
+  _i5.Stream<_i2.ProductResult> watchRecommendedProducts() =>
       (super.noSuchMethod(
             Invocation.method(#watchRecommendedProducts, []),
-            returnValue: _i5.Stream<List<_i3.ProductEntity>>.empty(),
+            returnValue: _i5.Stream<_i2.ProductResult>.empty(),
           )
-          as _i5.Stream<List<_i3.ProductEntity>>);
+          as _i5.Stream<_i2.ProductResult>);
 
   @override
-  _i5.Stream<List<_i3.ProductEntity>> watchProductsByCategory(
-    String? category,
-  ) =>
+  _i5.Stream<_i2.ProductResult> watchProductsByCategory(String? category) =>
       (super.noSuchMethod(
             Invocation.method(#watchProductsByCategory, [category]),
-            returnValue: _i5.Stream<List<_i3.ProductEntity>>.empty(),
+            returnValue: _i5.Stream<_i2.ProductResult>.empty(),
           )
-          as _i5.Stream<List<_i3.ProductEntity>>);
+          as _i5.Stream<_i2.ProductResult>);
 
   @override
   _i5.Stream<_i3.ProductEntity?> watchProductById(String? productId) =>
@@ -153,4 +153,13 @@ class MockProductRepository extends _i1.Mock implements _i4.ProductRepository {
             ),
           )
           as _i5.Future<_i2.ProductResult>);
+
+  @override
+  _i5.Future<void> addProduct(_i6.ProductModel? product) =>
+      (super.noSuchMethod(
+            Invocation.method(#addProduct, [product]),
+            returnValue: _i5.Future<void>.value(),
+            returnValueForMissingStub: _i5.Future<void>.value(),
+          )
+          as _i5.Future<void>);
 }

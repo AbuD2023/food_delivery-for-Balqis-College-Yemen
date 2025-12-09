@@ -1,11 +1,13 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
-import 'package:food_delivery/features/product/domain/entities/data_source.dart';
+import 'package:food_delivery/features/product/domain/usecases/add_product_usecase.dart';
 import 'package:http/http.dart' as http;
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 
 import '../../data/datasources/local/product_local_data_source.dart';
 import '../../data/datasources/local/drift_database.dart';
 import '../../data/datasources/remote/product_remote_data_source.dart';
+import '../../data/models/product_model.dart';
 import '../../data/repositories/product_repository_impl.dart';
 import '../../domain/entities/product_result.dart';
 import '../../domain/repositories/product_repository.dart';
@@ -42,7 +44,10 @@ ProductLocalDataSource productLocalDataSource(Ref ref) {
 
 @riverpod
 ProductRemoteDataSource productRemoteDataSource(Ref ref) {
-  return ProductRemoteDataSourceImpl(client: http.Client());
+  return ProductRemoteDataSourceImpl(
+    client: http.Client(),
+    firestore: FirebaseFirestore.instance,
+  );
 }
 
 // Repository Provider
@@ -81,6 +86,37 @@ GetProductByIdUsecase getProductByIdUsecase(Ref ref) {
   return GetProductByIdUsecase(repository);
 }
 
+@riverpod
+AddProductUsecase addProductUsecase(Ref ref) {
+  final repository = ref.watch(productRepositoryProvider);
+  return AddProductUsecase(repository);
+}
+
+// @riverpod
+// Future<void> addProduct(Ref ref, ProductModel product) async {
+//   final usecase = ref.watch(addProductUsecaseProvider);
+//   return await usecase(product);
+// }
+
+@riverpod
+class AddProductNotifier extends _$AddProductNotifier {
+  @override
+  AsyncValue<bool> build() {
+    return AsyncValue.data(false);
+  }
+
+  Future<void> add(ProductModel product) async {
+    state = const AsyncLoading();
+    try {
+      final usecase = ref.watch(addProductUsecaseProvider);
+      await usecase(product);
+      state = AsyncData(true);
+    } catch (e, st) {
+      state = AsyncError(e, st);
+    }
+  }
+}
+
 // State Providers - Stream based for auto-updates
 @riverpod
 Stream<ProductResult> recommendedProducts(Ref ref) async* {
@@ -96,7 +132,7 @@ Stream<ProductResult> recommendedProducts(Ref ref) async* {
 
   // Then watch local database for changes
   await for (final products in repository.watchRecommendedProducts()) {
-    yield ProductResult(products: products, source: DataSource.local);
+    yield products;
   }
 }
 
@@ -114,7 +150,7 @@ Stream<ProductResult> productsByCategory(Ref ref, String category) async* {
 
   // Then watch local database for changes
   await for (final products in repository.watchProductsByCategory(category)) {
-    yield ProductResult(products: products, source: DataSource.local);
+    yield products;
   }
 }
 
@@ -175,5 +211,106 @@ class SearchQuery extends _$SearchQuery {
 
   void clear() {
     state = '';
+  }
+}
+
+@riverpod
+class NameController extends _$NameController {
+  @override
+  TextEditingController build() {
+    final controller = TextEditingController();
+    ref.onDispose(() => controller.dispose());
+    return controller;
+  }
+}
+
+@riverpod
+class PriceController extends _$PriceController {
+  @override
+  TextEditingController build() {
+    final controller = TextEditingController();
+    ref.onDispose(() => controller.dispose());
+    return controller;
+  }
+}
+
+@riverpod
+class ImagePathController extends _$ImagePathController {
+  @override
+  TextEditingController build() {
+    final controller = TextEditingController();
+    ref.onDispose(() => controller.dispose());
+    return controller;
+  }
+}
+
+@riverpod
+class DescriptionController extends _$DescriptionController {
+  @override
+  TextEditingController build() {
+    final controller = TextEditingController();
+    ref.onDispose(() => controller.dispose());
+    return controller;
+  }
+}
+
+// @riverpod
+// class IngredientsController extends _$IngredientsController {
+//   @override
+//   List<String> build() {
+//     final controller = <String>[];
+//     ref.onDispose(() => controller.clear());
+//     return controller;
+//   }
+// }
+
+@riverpod
+class IngredientsController extends _$IngredientsController {
+  @override
+  List<String> build() {
+    return <String>[];
+  }
+
+  void setIngredients(String csv) {
+    final list = csv
+        .split(',')
+        .map((e) => e.trim())
+        .where((e) => e.isNotEmpty)
+        .toList();
+
+    state = List.unmodifiable(list);
+  }
+
+  void clearAll() {
+    state = <String>[];
+  }
+}
+
+enum CategoryEnum { recommended, hottest, popular, newCombo, top }
+
+// @riverpod
+// class CategoryController extends _$CategoryController {
+//   @override
+//   CategoryEnum build() {
+//     final controller = CategoryEnum.recommended;
+//     state = controller;
+//     // ref.onDispose(() => controller.clear());
+//     return controller;
+//     // return CategoryEnum.recommended;
+//   }
+// }
+@riverpod
+class CategoryController extends _$CategoryController {
+  @override
+  CategoryEnum build() {
+    return CategoryEnum.recommended;
+  }
+
+  void set(CategoryEnum category) {
+    state = category;
+  }
+
+  void clearAll() {
+    state = CategoryEnum.recommended;
   }
 }
