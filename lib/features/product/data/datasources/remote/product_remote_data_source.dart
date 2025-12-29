@@ -18,7 +18,7 @@ abstract class ProductRemoteDataSource {
   Future<List<ProductModel>> searchProducts(String query);
   //
   Future<void> addProduct(ProductModel product);
-
+  // from firebase
   Stream<ProductResult> watchAllTasks();
   Stream<ProductResult> watchRecommendedProducts();
   Stream<ProductResult> watchProductsByCategory(String category);

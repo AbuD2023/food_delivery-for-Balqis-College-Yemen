@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:food_delivery/features/animations/presentation/pages/custom_explicit_animation_page.dart';
 import 'package:food_delivery/features/cart/presentation/state/cart_state.dart'
     show addToCartUsecaseProvider, cartItemsProvider;
 import 'package:food_delivery/features/product/presentation/state/product_detail_state.dart'
@@ -26,9 +27,11 @@ class ProductDetailPage extends ConsumerWidget {
           data: (product) => Column(
             children: [
               // Header with back button
-              ProductDetailHeader(
-                product: product,
-                onBack: () => Navigator.of(context).pop(),
+              CustomExplicitAnimationPage(
+                child: ProductDetailHeader(
+                  product: product,
+                  onBack: () => Navigator.of(context).pop(),
+                ),
               ),
 
               // Body with product details

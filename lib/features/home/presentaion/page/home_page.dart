@@ -18,6 +18,9 @@ import 'package:food_delivery/features/product/presentation/state/product_state.
         searchProductsProvider;
 import 'package:food_delivery/features/product/presentation/widgets/add_product_widget.dart';
 
+import '../../../animations/presentation/pages/custom_platform_u_i_page.dart';
+import '../../../animations/presentation/pages/hero/custom_hero_list_page.dart';
+
 class HomePage extends ConsumerWidget {
   const HomePage({super.key});
 
@@ -195,6 +198,28 @@ class HomePage extends ConsumerWidget {
               );
             },
             child: const Icon(Icons.add),
+          ),
+          SizedBox(height: 25),
+          FloatingActionButton(
+            onPressed: () {
+              showDialog(
+                barrierDismissible: false,
+                context: context,
+                builder: (context) => CustomHeroListPage(),
+              );
+            },
+            child: const Icon(Icons.animation),
+          ),
+          SizedBox(height: 25),
+          FloatingActionButton(
+            onPressed: () {
+              showDialog(
+                barrierDismissible: false,
+                context: context,
+                builder: (context) => CustomPlatformUIPage(),
+              );
+            },
+            child: const Icon(Icons.upcoming),
           ),
         ],
       ),

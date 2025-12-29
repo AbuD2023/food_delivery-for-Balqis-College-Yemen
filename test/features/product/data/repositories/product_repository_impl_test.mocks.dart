@@ -76,13 +76,16 @@ class MockProductRemoteDataSource extends _i1.Mock
           as _i4.Future<List<_i2.ProductModel>>);
 
   @override
-  _i4.Future<_i2.ProductModel> toggleFavorite(String? productId) =>
+  _i4.Future<_i2.ProductModel> toggleFavorite(
+    String? productId,
+    bool? isFavorite,
+  ) =>
       (super.noSuchMethod(
-            Invocation.method(#toggleFavorite, [productId]),
+            Invocation.method(#toggleFavorite, [productId, isFavorite]),
             returnValue: _i4.Future<_i2.ProductModel>.value(
               _FakeProductModel_0(
                 this,
-                Invocation.method(#toggleFavorite, [productId]),
+                Invocation.method(#toggleFavorite, [productId, isFavorite]),
               ),
             ),
           )
