@@ -4,6 +4,8 @@ import 'package:food_delivery/core/widgets/custom_my_text.dart';
 import 'package:food_delivery/features/cart/presentation/page/cart_page.dart';
 import 'package:food_delivery/gen/assets.gen.dart';
 
+import '../../../native_integration/presentation/pages/event_channel_native_page.dart';
+
 class HomeHeader extends ConsumerWidget {
   final Widget? hamburgerMenu;
   const HomeHeader({super.key, this.hamburgerMenu});
@@ -28,6 +30,7 @@ class HomeHeader extends ConsumerWidget {
                     height: 24,
                   ),
                 ),
+            // EventChannelNativePage(),
             // Shopping basket
             GestureDetector(
               onTap: () {

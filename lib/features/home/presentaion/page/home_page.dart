@@ -20,6 +20,9 @@ import 'package:food_delivery/features/product/presentation/widgets/add_product_
 
 import '../../../animations/presentation/pages/custom_platform_u_i_page.dart';
 import '../../../animations/presentation/pages/hero/custom_hero_list_page.dart';
+import '../../../native_integration/presentation/pages/basic_message_channel_native_page.dart';
+import '../../../native_integration/presentation/pages/event_channel_native_page.dart';
+import '../../../native_integration/presentation/pages/method_channel_native_page.dart';
 
 class HomePage extends ConsumerWidget {
   const HomePage({super.key});
@@ -221,6 +224,40 @@ class HomePage extends ConsumerWidget {
             },
             child: const Icon(Icons.upcoming),
           ),
+          SizedBox(height: 25),
+          FloatingActionButton(
+            onPressed: () {
+              showDialog(
+                barrierDismissible: false,
+                context: context,
+                builder: (context) => MethodChannelNativePage(),
+              );
+            },
+            child: const Icon(Icons.battery_3_bar_rounded),
+          ),
+          // SizedBox(height: 25),
+          // FloatingActionButton(
+          //   onPressed: () {
+          //     showDialog(
+          //       barrierDismissible: false,
+          //       context: context,
+          //       builder: (context) => EventChannelNativePage(),
+          //     );
+          //   },
+          //   child: const Icon(Icons.battery_alert),
+          // ),
+          // EventChannelNativePage(),
+          SizedBox(height: 25),
+          // FloatingActionButton(
+          //   onPressed: () {
+          //     showDialog(
+          //       barrierDismissible: false,
+          //       context: context,
+          //       builder: (context) => BasicMessageChannelNativePage(),
+          //     );
+          //   },
+          //   child: const Icon(Icons.message),
+          // ),
         ],
       ),
     );
