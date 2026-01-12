@@ -1,0 +1,83 @@
+# ➡️ الاسم الذي سيظهر في تبويب Actions
+name: Flutter CI Pipeline
+
+# 🔹 on (Triggers)
+# 📌 يعني:
+
+# أي push على main
+
+# أي pull request إلى main
+# ➡️ يتم تشغيل الـ CI
+on:
+  push:
+    branches: [ "main" ]
+  pull_request:
+    branches: [ "main" ]
+
+# 🔹 jobs (المهام)
+# 📌 يعني:
+
+# ➡️ اسم المهمة
+# ➡️ يتم تشغيل المهمة على جهاز Ubuntu
+# ➡️ قائمة بالأوامر
+# اسم الـ Job
+
+# يمكن إضافة أكثر من Job لاحقًا
+jobs:
+  flutter-ci:
+    runs-on: ubuntu-latest
+    #GitHub يوفر جهاز افتراضي:
+    # Linux
+    # نظيف
+    # لا يوجد Flutter مثبت مسبقًا
+
+    steps:
+      # 1️⃣ تحميل الكود من المستودع
+      #📌 بدون هذه الخطوة:
+      # لا يوجد كود
+      # CI سيفشل فورًا
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      # 2️⃣ تثبيت Flutter
+      - name: Setup Flutter SDK
+      #📌 Action جاهزة تقوم بـ:
+      # تحميل Flutter
+      # ضبط PATH
+      # تفعيل cache
+        uses: subosito/flutter-action@v2
+        with:
+          flutter-version: '3.35.1' # يمكنك تغيير الإصدار حسب الحاجة
+          cache: true
+          # ✅ cache = تسريع الـ CI
+
+      # 3️⃣ التأكد من إصدار Flutter
+      - name: Flutter version
+        run: flutter --version
+
+      # 4️⃣ تحميل الحزم
+      - name: Install dependencies
+        run: flutter pub get
+      #         📌 يقوم بـ:
+      # قراءة pubspec.yaml
+      # تحميل جميع dependencies
+      # 🚫 بدونها:
+      # Build يفشل
+      # Tests تفشل
+
+      # 5️⃣ تحليل الكود
+      - name: Run Flutter Analyze
+        run: flutter analyze
+      #         يتحقق من:
+      # أخطاء Dart
+      # Lints
+      # مشاكل null-safety
+      # 🚨 أي Warning حرج = فشل CI (حسب الإعداد)
+
+      # 6️⃣ تشغيل الاختبارات
+      - name: Run Flutter Tests
+        run: flutter test
+      #         📌 يشغل:
+      # Unit Tests
+      # Widget Tests
+      # 🚫 إذا Test واحد فشل → CI يفشل
