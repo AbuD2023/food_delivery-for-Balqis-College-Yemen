@@ -1,6 +1,6 @@
 import 'dart:convert';
 
-import 'package:firebase_auth/firebase_auth.dart' as fAuth;
+import 'package:firebase_auth/firebase_auth.dart' as fauth;
 import 'package:google_sign_in/google_sign_in.dart';
 import 'package:http/http.dart' as http;
 
@@ -14,7 +14,7 @@ abstract class AuthRemoteDataSource {
   Future<UserEntity> getUser();
   Future<UserEntity> signIn(UserSignInDtosModel userSignIn);
   Future<UserEntity> login(UserLoginDtosModel userLogin);
-  Future<fAuth.UserCredential> signInWithEmail();
+  Future<fauth.UserCredential> signInWithEmail();
   Future<bool> signOut(dynamic userId);
 }
 
@@ -31,7 +31,7 @@ class AuthRemoteDataSourceImpl implements AuthRemoteDataSource {
   Future<UserEntity> getUser() async {
     try {
       // Prefer the currently signed-in Firebase user if available
-      final fAuth.User? current = fAuth.FirebaseAuth.instance.currentUser;
+      final fauth.User? current = fauth.FirebaseAuth.instance.currentUser;
       UserModel? userData;
 
       if (current != null) {
@@ -60,7 +60,7 @@ class AuthRemoteDataSourceImpl implements AuthRemoteDataSource {
       }
 
       // If there's no current user, wait for the next auth event (if any)
-      final fAuth.User? next = await fAuth.FirebaseAuth.instance
+      final fauth.User? next = await fauth.FirebaseAuth.instance
           .authStateChanges()
           .first;
       if (next != null) {
@@ -112,7 +112,7 @@ class AuthRemoteDataSourceImpl implements AuthRemoteDataSource {
   @override
   Future<UserEntity> login(UserLoginDtosModel userLogin) async {
     try {
-      final credential = await fAuth.FirebaseAuth.instance
+      final credential = await fauth.FirebaseAuth.instance
           .signInWithEmailAndPassword(
             email: userLogin.email,
             password: userLogin.pass,
@@ -150,7 +150,7 @@ class AuthRemoteDataSourceImpl implements AuthRemoteDataSource {
         throw Exception('Failed to load user profile. Data is Null');
       }
       //-----------------------
-    } on fAuth.FirebaseAuthException catch (e) {
+    } on fauth.FirebaseAuthException catch (e) {
       if (e.code == 'user-not-found') {
         throw Exception('No user found for that email.');
       } else if (e.code == 'wrong-password') {
@@ -185,7 +185,7 @@ class AuthRemoteDataSourceImpl implements AuthRemoteDataSource {
   @override
   Future<UserEntity> signIn(UserSignInDtosModel userSignIn) async {
     try {
-      final credential = await fAuth.FirebaseAuth.instance
+      final credential = await fauth.FirebaseAuth.instance
           .createUserWithEmailAndPassword(
             email: userSignIn.email,
             password: userSignIn.pass,
@@ -224,7 +224,7 @@ class AuthRemoteDataSourceImpl implements AuthRemoteDataSource {
         throw Exception('Failed to load user profile. Data is Null');
       }
       //-----------------------
-    } on fAuth.FirebaseAuthException catch (e) {
+    } on fauth.FirebaseAuthException catch (e) {
       if (e.code == 'weak-password') {
         throw Exception('The password provided is too weak.');
       } else if (e.code == 'email-already-in-use') {
@@ -255,7 +255,7 @@ class AuthRemoteDataSourceImpl implements AuthRemoteDataSource {
   }
 
   @override
-  Future<fAuth.UserCredential> signInWithEmail() async {
+  Future<fauth.UserCredential> signInWithEmail() async {
     try {
       // Trigger the authentication flow
       final GoogleSignInAccount googleUser = await GoogleSignIn.instance
@@ -265,13 +265,13 @@ class AuthRemoteDataSourceImpl implements AuthRemoteDataSource {
       final GoogleSignInAuthentication googleAuth = googleUser.authentication;
 
       // Create a new credential
-      final credential = fAuth.GoogleAuthProvider.credential(
+      final credential = fauth.GoogleAuthProvider.credential(
         // accessToken: googleAuth.accessToken,
         idToken: googleAuth.idToken,
       );
 
       // Once signed in, return the UserCredential
-      return await fAuth.FirebaseAuth.instance.signInWithCredential(credential);
+      return await fauth.FirebaseAuth.instance.signInWithCredential(credential);
     } catch (e) {
       throw Exception('Error to sign in with google: $e');
     }
@@ -280,7 +280,7 @@ class AuthRemoteDataSourceImpl implements AuthRemoteDataSource {
   @override
   Future<bool> signOut(dynamic userId) async {
     try {
-      await fAuth.FirebaseAuth.instance.signOut();
+      await fauth.FirebaseAuth.instance.signOut();
       return true;
     } catch (e) {
       try {

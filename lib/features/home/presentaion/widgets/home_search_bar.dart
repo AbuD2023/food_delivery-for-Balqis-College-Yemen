@@ -30,7 +30,7 @@ class HomeSearchBar extends ConsumerWidget {
                   ref.read(searchQueryProvider.notifier).setQuery(value);
                 },
                 decoration: InputDecoration(
-                  fillColor: AppTheme.shadow.withOpacity(0.02),
+                  fillColor: AppTheme.shadow.withAlpha((0.12 * 255).toInt()),
                   hintText: 'Search for fruit salad combos',
                   hintStyle: TextStyle(
                     color: Colors.grey.shade400,

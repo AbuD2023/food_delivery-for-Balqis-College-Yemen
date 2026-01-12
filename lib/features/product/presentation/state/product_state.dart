@@ -29,7 +29,7 @@ AppDatabase appDatabase(Ref ref) {
   // تهيئة قاعدة البيانات بالبيانات الأولية (غير متزامن)
   db.seedInitialData().catchError((error) {
     // يمكن إضافة معالجة للأخطاء هنا إذا لزم الأمر
-    print('Error seeding initial data: $error');
+    // print('Error seeding initial data: $error');
   });
 
   return db;

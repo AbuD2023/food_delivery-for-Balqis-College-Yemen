@@ -45,10 +45,10 @@ class ProductListSection extends StatelessWidget {
                     vertical: 6,
                   ),
                   decoration: BoxDecoration(
-                    color: dataSource!.color.withOpacity(0.1),
+                    color: dataSource!.color.withAlpha((0.1 * 255).toInt()),
                     borderRadius: BorderRadius.circular(20),
                     border: Border.all(
-                      color: dataSource!.color.withOpacity(0.3),
+                      color: dataSource!.color.withAlpha((0.2 * 255).toInt()),
                       width: 1,
                     ),
                   ),

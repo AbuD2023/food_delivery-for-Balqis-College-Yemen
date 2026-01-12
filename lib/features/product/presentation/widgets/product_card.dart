@@ -50,7 +50,7 @@ class ProductCard extends StatelessWidget {
                       shape: BoxShape.circle,
                       boxShadow: [
                         BoxShadow(
-                          color: Colors.grey.withOpacity(0.2),
+                          color: Colors.grey.withAlpha((0.2 * 255).toInt()),
                           blurRadius: 8,
                           offset: const Offset(0, 4),
                         ),
@@ -88,7 +88,7 @@ class ProductCard extends StatelessWidget {
                           shape: BoxShape.circle,
                           boxShadow: [
                             BoxShadow(
-                              color: Colors.grey.withOpacity(0.3),
+                              color: Colors.grey.withAlpha((0.3 * 255).toInt()),
                               blurRadius: 4,
                               offset: const Offset(0, 2),
                             ),
@@ -150,7 +150,7 @@ class ProductCard extends StatelessWidget {
                       shape: BoxShape.circle,
                       boxShadow: [
                         BoxShadow(
-                          color: const Color(0xFFFFA451).withOpacity(0.3),
+                          color: const Color(0xFFFFA451).withAlpha((0.3 * 255).toInt()),
                           blurRadius: 8,
                           offset: const Offset(0, 4),
                         ),

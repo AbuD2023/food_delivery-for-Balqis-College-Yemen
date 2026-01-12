@@ -27,7 +27,7 @@ class ProductDetailHeader extends StatelessWidget {
                 shape: BoxShape.circle,
                 boxShadow: [
                   BoxShadow(
-                    color: Colors.black.withOpacity(0.1),
+                    color: Colors.black.withAlpha((0.1 * 255).toInt()),
                     blurRadius: 20,
                     offset: const Offset(0, 10),
                   ),
@@ -73,7 +73,7 @@ class ProductDetailHeader extends StatelessWidget {
                   borderRadius: BorderRadius.circular(20),
                   boxShadow: [
                     BoxShadow(
-                      color: Colors.black.withOpacity(0.1),
+                      color: Colors.black.withAlpha((0.1 * 255).toInt()),
                       blurRadius: 4,
                       offset: const Offset(0, 2),
                     ),

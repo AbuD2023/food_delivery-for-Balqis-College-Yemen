@@ -110,7 +110,7 @@ class ProductDetailPage extends ConsumerWidget {
                     error.toString(),
                     textAlign: TextAlign.center,
                     style: TextStyle(
-                      color: Colors.white.withOpacity(0.8),
+                      color: Colors.white.withAlpha((0.8 * 255).toInt()),
                       fontSize: 14,
                     ),
                   ),
@@ -126,7 +126,9 @@ class ProductDetailPage extends ConsumerWidget {
                     style: TextStyle(color: Colors.white),
                   ),
                   style: ElevatedButton.styleFrom(
-                    backgroundColor: Colors.white.withOpacity(0.2),
+                    backgroundColor: Colors.white.withAlpha(
+                      (0.2 * 255).toInt(),
+                    ),
                   ),
                 ),
               ],

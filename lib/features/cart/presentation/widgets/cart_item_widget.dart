@@ -75,7 +75,7 @@ class CartItemWidget extends StatelessWidget {
                         height: 28,
                         decoration: BoxDecoration(
                           color: cartItem.quantity > 1
-                              ? const Color(0xFFFFA451).withOpacity(0.2)
+                              ? const Color(0xFFFFA451).withAlpha((0.12 * 255).toInt())
                               : Colors.grey.shade200,
                           borderRadius: BorderRadius.circular(8),
                         ),
@@ -110,7 +110,7 @@ class CartItemWidget extends StatelessWidget {
                         width: 28,
                         height: 28,
                         decoration: BoxDecoration(
-                          color: const Color(0xFFFFA451).withOpacity(0.2),
+                          color: const Color(0xFFFFA451).withAlpha((0.12 * 255).toInt()),
                           borderRadius: BorderRadius.circular(8),
                         ),
                         child: const Icon(

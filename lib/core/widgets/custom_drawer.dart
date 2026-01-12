@@ -172,9 +172,8 @@ class _State extends ConsumerState<CustomDrawer> {
                                           return Container(
                                             width: 80,
                                             height: 80,
-                                            color: Colors.white.withOpacity(
-                                              0.2,
-                                            ),
+                                            color: Colors.white
+                                              ..withAlpha((0.2 * 255).toInt()),
                                             child: Center(
                                               child: CircularProgressIndicator(
                                                 value:
@@ -196,8 +195,8 @@ class _State extends ConsumerState<CustomDrawer> {
                                               return Container(
                                                 width: 80,
                                                 height: 80,
-                                                color: Colors.white.withOpacity(
-                                                  0.2,
+                                                color: Colors.white.withAlpha(
+                                                  (0.2 * 255).toInt(),
                                                 ),
                                                 child: Icon(
                                                   Icons.account_circle,
@@ -369,7 +368,7 @@ class _State extends ConsumerState<CustomDrawer> {
                 setState(() {});
               },
               child: AnimatedContainer(
-                duration: Duration(milliseconds: 200),
+                duration: const Duration(milliseconds: 200),
                 decoration: BoxDecoration(
                   color: Colors.white,
                   borderRadius: d1Open
@@ -377,7 +376,12 @@ class _State extends ConsumerState<CustomDrawer> {
                       : BorderRadius.circular(0),
                 ),
                 transform: Matrix4.translationValues(xOffset, yOffset, 0)
-                  ..scale(scaleFactor)
+                  ..scaleByDouble(
+                    scaleFactor,
+                    scaleFactor,
+                    1.0,
+                    1.0,
+                  ) // ✅ الحل هنا
                   ..rotateZ(angle),
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.center,
@@ -386,7 +390,6 @@ class _State extends ConsumerState<CustomDrawer> {
                     HomeHeader(
                       hamburgerMenu: GestureDetector(
                         onTap: () {
-                          // Scaffold.of(context).openDrawer();
                           if (d1Open) {
                             closeDrawer();
                           } else {
@@ -400,7 +403,7 @@ class _State extends ConsumerState<CustomDrawer> {
                           setState(() {});
                         },
                         child: d1Open
-                            ? Icon(Icons.arrow_back, size: 24)
+                            ? const Icon(Icons.arrow_back, size: 24)
                             : Image.asset(
                                 Assets.icons.drawer.path,
                                 width: 24,
@@ -408,7 +411,6 @@ class _State extends ConsumerState<CustomDrawer> {
                               ),
                       ),
                     ),
-
                     Expanded(
                       child: Container(
                         alignment: Alignment.center,
@@ -417,26 +419,24 @@ class _State extends ConsumerState<CustomDrawer> {
                           children: [
                             if (!getData[isSelected].isPage) ...[
                               getData[isSelected].launchWidget ?? Container(),
-                              SizedBox(height: 16),
+                              const SizedBox(height: 16),
                               ElevatedButton(
                                 style: ButtonStyle(
                                   backgroundColor:
-                                      MaterialStateProperty.all<Color>(
+                                      WidgetStateProperty.all<Color>(
                                         AppTheme.shadow,
                                       ),
-                                  padding: MaterialStateProperty.all(
-                                    const EdgeInsets.only(left: 15, right: 15),
+                                  padding: WidgetStateProperty.all(
+                                    const EdgeInsets.symmetric(horizontal: 15),
                                   ),
-                                  shadowColor: MaterialStateProperty.all(
+                                  shadowColor: WidgetStateProperty.all(
                                     Colors.transparent,
                                   ),
                                 ),
-
                                 onPressed: () {
                                   openDrawer();
-                                  // Navigator.pop(context);
                                 },
-                                child: Text(
+                                child: const Text(
                                   'Go Back',
                                   style: TextStyle(
                                     color: Colors.white,
@@ -458,6 +458,97 @@ class _State extends ConsumerState<CustomDrawer> {
                   ],
                 ),
               ),
+
+              // AnimatedContainer(
+              //   duration: Duration(milliseconds: 200),
+              //   decoration: BoxDecoration(
+              //     color: Colors.white,
+              //     borderRadius: d1Open
+              //         ? BorderRadius.circular(16)
+              //         : BorderRadius.circular(0),
+              //   ),
+              //   // transform: Matrix4.translationValues(xOffset, yOffset, 0)
+              //   //   ..scale(scaleFactor)
+              //   //   ..rotateZ(angle),
+              //   child: Column(
+              //     crossAxisAlignment: CrossAxisAlignment.center,
+              //     mainAxisSize: MainAxisSize.max,
+              //     children: [
+              //       HomeHeader(
+              //         hamburgerMenu: GestureDetector(
+              //           onTap: () {
+              //             // Scaffold.of(context).openDrawer();
+              //             if (d1Open) {
+              //               closeDrawer();
+              //             } else {
+              //               xOffset = 200;
+              //               yOffset = 80;
+              //               scaleFactor = 0.8;
+              //               angle = 6.18;
+              //               d1Open = true;
+              //               setStatusBarColor(AppTheme.accent);
+              //             }
+              //             setState(() {});
+              //           },
+              //           child: d1Open
+              //               ? Icon(Icons.arrow_back, size: 24)
+              //               : Image.asset(
+              //                   Assets.icons.drawer.path,
+              //                   width: 24,
+              //                   height: 24,
+              //                 ),
+              //         ),
+              //       ),
+
+              //       Expanded(
+              //         child: Container(
+              //           alignment: Alignment.center,
+              //           child: Column(
+              //             mainAxisSize: MainAxisSize.min,
+              //             children: [
+              //               if (!getData[isSelected].isPage) ...[
+              //                 getData[isSelected].launchWidget ?? Container(),
+              //                 SizedBox(height: 16),
+              //                 ElevatedButton(
+              //                   style: ButtonStyle(
+              //                     backgroundColor:
+              //                         WidgetStateProperty.all<Color>(
+              //                           AppTheme.shadow,
+              //                         ),
+              //                     padding: WidgetStateProperty.all(
+              //                       const EdgeInsets.only(left: 15, right: 15),
+              //                     ),
+              //                     shadowColor: WidgetStateProperty.all(
+              //                       Colors.transparent,
+              //                     ),
+              //                   ),
+
+              //                   onPressed: () {
+              //                     openDrawer();
+              //                     // Navigator.pop(context);
+              //                   },
+              //                   child: Text(
+              //                     'Go Back',
+              //                     style: TextStyle(
+              //                       color: Colors.white,
+              //                       fontWeight: FontWeight.bold,
+              //                     ),
+              //                   ),
+              //                 ),
+              //               ] else ...[
+              //                 Expanded(
+              //                   child:
+              //                       getData[isSelected].launchWidget ??
+              //                       Container(),
+              //                 ),
+              //               ],
+              //             ],
+              //           ),
+              //         ),
+              //       ),
+              //     ],
+              //   ),
+              // ),
             ),
           ],
         ),

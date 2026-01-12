@@ -1,6 +1,6 @@
 import 'dart:developer';
 
-import 'package:firebase_auth/firebase_auth.dart' as fAuth;
+import 'package:firebase_auth/firebase_auth.dart' as fauth;
 
 import '../../domain/entities/user_entity.dart';
 import '../../domain/repositories/auth_repository.dart';
@@ -81,7 +81,7 @@ class AuthRepositoryImpl extends AuthRepository {
   }
 
   @override
-  Future<fAuth.UserCredential> signWithEmail() async {
+  Future<fauth.UserCredential> signWithEmail() async {
     try {
       // Try to get from API first
       final remoteItems = await remoteDataSource.signInWithEmail();

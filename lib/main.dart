@@ -69,9 +69,9 @@ void main() async {
   // عند حدوث تغيير في الرمز المميز للمستخدم الحالي
   FirebaseAuth.instance.idTokenChanges().listen((User? user) {
     if (user == null) {
-      print('User is currently signed out!');
+      // print('User is currently signed out!');
     } else {
-      print('User is signed in!');
+      // print('User is signed in!');
     }
   });
 
@@ -91,9 +91,9 @@ void main() async {
   // updateProfile()
   FirebaseAuth.instance.userChanges().listen((User? user) {
     if (user == null) {
-      print('User is currently signed out!');
+      // print('User is currently signed out!');
     } else {
-      print('User is signed in!');
+      // print('User is signed in!');
     }
   });
   runApp(ProviderScope(child: const MyApp()));

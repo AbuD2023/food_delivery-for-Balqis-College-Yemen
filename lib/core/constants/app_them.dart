@@ -27,7 +27,6 @@ class AppTheme {
     final textTheme = _buildTextTheme(base.textTheme);
 
     return base.copyWith(
-      useMaterial3: true,
       brightness: Brightness.light,
       primaryColor: _primary,
       scaffoldBackgroundColor: _background,
@@ -74,7 +73,7 @@ class AppTheme {
       outlinedButtonTheme: OutlinedButtonThemeData(
         style: OutlinedButton.styleFrom(
           foregroundColor: _primary,
-          side: BorderSide(color: _primary.withOpacity(0.16)),
+          side: BorderSide(color: _primary.withAlpha((0.16 * 255).toInt())),
           padding: EdgeInsets.symmetric(vertical: 12, horizontal: 16),
           shape: RoundedRectangleBorder(
             borderRadius: BorderRadius.circular(12),
@@ -142,7 +141,7 @@ class AppTheme {
       // Chips (used for tags like 'Popular', 'New')
       chipTheme: ChipThemeData(
         backgroundColor: Colors.grey.shade100,
-        selectedColor: _primary.withOpacity(0.12),
+        selectedColor: _primary.withAlpha((0.12 * 255).toInt()),
         labelStyle: TextStyle(
           fontFamily: _fontFamily,
           fontWeight: FontWeight.w500,
@@ -156,7 +155,7 @@ class AppTheme {
 
       // Snackbars - مخصصة للأخطاء
       snackBarTheme: SnackBarThemeData(
-        backgroundColor: _danger.withOpacity(0.95),
+        backgroundColor: _danger.withAlpha((0.95 * 255).toInt()),
         contentTextStyle: TextStyle(
           color: Colors.white,
           fontFamily: _fontFamily,
@@ -175,13 +174,14 @@ class AppTheme {
 
       // Switch theme (بديل عن toggleableActiveColor)
       switchTheme: SwitchThemeData(
-        thumbColor: MaterialStateProperty.resolveWith((states) {
-          if (states.contains(MaterialState.selected)) return _primary;
+        thumbColor: WidgetStateProperty.resolveWith((states) {
+          if (states.contains(WidgetState.selected)) return _primary;
           return Colors.grey.shade300;
         }),
-        trackColor: MaterialStateProperty.resolveWith((states) {
-          if (states.contains(MaterialState.selected))
-            return _primary.withOpacity(0.5);
+        trackColor: WidgetStateProperty.resolveWith((states) {
+          if (states.contains(WidgetState.selected)) {
+            return _primary.withAlpha((0.5 * 255).toInt());
+          }
           return Colors.grey.shade300;
         }),
       ),
@@ -191,7 +191,6 @@ class AppTheme {
         seedColor: _primary,
         primary: _primary,
         secondary: _accent,
-        background: _background,
         surface: _surface,
         error: _danger, // ← إضافة لون الأخطاء إلى الـ ColorScheme
         onPrimary: _onPrimary,
