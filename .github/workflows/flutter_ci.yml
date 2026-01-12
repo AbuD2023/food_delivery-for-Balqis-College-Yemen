@@ -75,8 +75,8 @@ jobs:
       # 🚨 أي Warning حرج = فشل CI (حسب الإعداد)
 
       # 6️⃣ تشغيل الاختبارات
-      # - name: Run Flutter Tests
-      #   run: flutter test
+      - name: Run Flutter Tests
+        run: flutter test
       #         📌 يشغل:
       # Unit Tests
       # Widget Tests
@@ -85,6 +85,9 @@ jobs:
       # المرحلة (اختياري): Build APK
       - name: Build APK
         run: flutter build apk --debug
+      
+      - name: Release APK
+        run: flutter build apk --release
       #         📌 ينشئ:
       # ملف APK لتثبيته على أجهزة Android
       # 🚫 إذا فشل الـ Build → CI يفشل
