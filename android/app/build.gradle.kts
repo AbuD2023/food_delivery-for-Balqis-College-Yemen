@@ -8,6 +8,23 @@ plugins {
     id("dev.flutter.flutter-gradle-plugin")
 }
 
+// val localProperties = Properties()
+// val localPropertiesFile = rootProject.file("local.properties")
+// if (localPropertiesFile.exists()) {
+//     localPropertiesFile.inputStream().use { localProperties.load(it) }
+// }
+
+// val flutterVersionCode = localProperties.getProperty("flutter.versionCode")?.toIntOrNull() ?: 1
+// val flutterVersionName = localProperties.getProperty("flutter.versionName") ?: "1.0"
+
+// --- keystore (مشروط) ---
+val keystoreProperties = Properties()
+val keystorePropertiesFile = rootProject.file("key.properties")
+if (keystorePropertiesFile.exists()) {
+    keystorePropertiesFile.inputStream().use { keystoreProperties.load(it) }
+}
+
+
 android {
     namespace = "com.mid.food_delivery"
     compileSdk = flutter.compileSdkVersion
@@ -33,11 +50,45 @@ android {
         versionName = flutter.versionName
     }
 
+    signingConfigs {
+        // أنشئ release فقط إذا توفّر الملف والقيم ليست فارغة
+        if (keystorePropertiesFile.exists()) {
+            val storeFilePath = keystoreProperties["storeFile"]?.toString()?.trim()
+            val keyAliasVal   = keystoreProperties["keyAlias"]?.toString()?.trim()
+            val keyPassVal    = keystoreProperties["keyPassword"]?.toString()?.trim()
+            val storePassVal  = keystoreProperties["storePassword"]?.toString()?.trim()
+
+            if (!storeFilePath.isNullOrEmpty()
+                && !keyAliasVal.isNullOrEmpty()
+                && !keyPassVal.isNullOrEmpty()
+                && !storePassVal.isNullOrEmpty()
+            ) {
+                create("release") {
+                    keyAlias = keyAliasVal
+                    keyPassword = keyPassVal
+                    storeFile = file(storeFilePath)
+                    storePassword = storePassVal
+                }
+            }
+        }
+        // debug يستخدم debug.keystore الافتراضي
+    }
+
     buildTypes {
-        release {
-            // TODO: Add your own signing config for the release build.
-            // Signing with the debug keys for now, so `flutter run --release` works.
-            signingConfig = signingConfigs.getByName("debug")
+        getByName("debug") {
+            // لا تربطه بتوقيع release
+            isMinifyEnabled = false
+            isShrinkResources = false
+        }
+        getByName("release") {
+            // اربط توقيع release فقط إذا تم إنشاؤه فعلاً
+            signingConfigs.findByName("release")?.let { signingConfig = it }
+            isMinifyEnabled = false
+            isShrinkResources = false
+            proguardFiles(
+                getDefaultProguardFile("proguard-android-optimize.txt"),
+                "proguard-rules.pro"
+            )
         }
     }
 }

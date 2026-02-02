@@ -10,7 +10,7 @@ part of 'auth_state.dart';
 // ignore_for_file: type=lint, type=warning
 
 @ProviderFor(authLocalDataSource)
-const authLocalDataSourceProvider = AuthLocalDataSourceProvider._();
+final authLocalDataSourceProvider = AuthLocalDataSourceProvider._();
 
 final class AuthLocalDataSourceProvider
     extends
@@ -20,7 +20,7 @@ final class AuthLocalDataSourceProvider
           AuthLocalDataSource
         >
     with $Provider<AuthLocalDataSource> {
-  const AuthLocalDataSourceProvider._()
+  AuthLocalDataSourceProvider._()
     : super(
         from: null,
         argument: null,
@@ -58,7 +58,7 @@ String _$authLocalDataSourceHash() =>
     r'f28d447c0de8bc28b70a84c9bea5a099791a93ba';
 
 @ProviderFor(authRemoteDataSource)
-const authRemoteDataSourceProvider = AuthRemoteDataSourceProvider._();
+final authRemoteDataSourceProvider = AuthRemoteDataSourceProvider._();
 
 final class AuthRemoteDataSourceProvider
     extends
@@ -68,7 +68,7 @@ final class AuthRemoteDataSourceProvider
           AuthRemoteDataSource
         >
     with $Provider<AuthRemoteDataSource> {
-  const AuthRemoteDataSourceProvider._()
+  AuthRemoteDataSourceProvider._()
     : super(
         from: null,
         argument: null,
@@ -108,7 +108,7 @@ String _$authRemoteDataSourceHash() =>
 /// Repository provider
 
 @ProviderFor(authRepository)
-const authRepositoryProvider = AuthRepositoryProvider._();
+final authRepositoryProvider = AuthRepositoryProvider._();
 
 /// Repository provider
 
@@ -121,7 +121,7 @@ final class AuthRepositoryProvider
         >
     with $Provider<AuthRepositoryImpl> {
   /// Repository provider
-  const AuthRepositoryProvider._()
+  AuthRepositoryProvider._()
     : super(
         from: null,
         argument: null,
@@ -160,7 +160,7 @@ String _$authRepositoryHash() => r'd85cdd6d964b8b5f1e5489d1da8ca65fa31ab5e8';
 /// UseCase provider
 
 @ProviderFor(signInUsecase)
-const signInUsecaseProvider = SignInUsecaseProvider._();
+final signInUsecaseProvider = SignInUsecaseProvider._();
 
 /// UseCase provider
 
@@ -168,7 +168,7 @@ final class SignInUsecaseProvider
     extends $FunctionalProvider<SignInUsecase, SignInUsecase, SignInUsecase>
     with $Provider<SignInUsecase> {
   /// UseCase provider
-  const SignInUsecaseProvider._()
+  SignInUsecaseProvider._()
     : super(
         from: null,
         argument: null,
@@ -204,12 +204,12 @@ final class SignInUsecaseProvider
 String _$signInUsecaseHash() => r'5014b6234cc8bab4d3c5ebbbc7d4bbe4f9bf2951';
 
 @ProviderFor(loginUsecase)
-const loginUsecaseProvider = LoginUsecaseProvider._();
+final loginUsecaseProvider = LoginUsecaseProvider._();
 
 final class LoginUsecaseProvider
     extends $FunctionalProvider<LoginUsecase, LoginUsecase, LoginUsecase>
     with $Provider<LoginUsecase> {
-  const LoginUsecaseProvider._()
+  LoginUsecaseProvider._()
     : super(
         from: null,
         argument: null,
@@ -245,7 +245,7 @@ final class LoginUsecaseProvider
 String _$loginUsecaseHash() => r'e4e2d90cb5db9c371285006973a60782351116ee';
 
 @ProviderFor(signInWithEmailUsecase)
-const signInWithEmailUsecaseProvider = SignInWithEmailUsecaseProvider._();
+final signInWithEmailUsecaseProvider = SignInWithEmailUsecaseProvider._();
 
 final class SignInWithEmailUsecaseProvider
     extends
@@ -255,7 +255,7 @@ final class SignInWithEmailUsecaseProvider
           SignInWithEmailUsecase
         >
     with $Provider<SignInWithEmailUsecase> {
-  const SignInWithEmailUsecaseProvider._()
+  SignInWithEmailUsecaseProvider._()
     : super(
         from: null,
         argument: null,
@@ -293,12 +293,12 @@ String _$signInWithEmailUsecaseHash() =>
     r'5d2dfcd4ab1adbccece36917b5e1caeb6d3b3699';
 
 @ProviderFor(getUserUsecase)
-const getUserUsecaseProvider = GetUserUsecaseProvider._();
+final getUserUsecaseProvider = GetUserUsecaseProvider._();
 
 final class GetUserUsecaseProvider
     extends $FunctionalProvider<GetUserUsecase, GetUserUsecase, GetUserUsecase>
     with $Provider<GetUserUsecase> {
-  const GetUserUsecaseProvider._()
+  GetUserUsecaseProvider._()
     : super(
         from: null,
         argument: null,
@@ -334,12 +334,12 @@ final class GetUserUsecaseProvider
 String _$getUserUsecaseHash() => r'571e950afe75428289e538ac0d2bc5272f1021bd';
 
 @ProviderFor(signOutUsecase)
-const signOutUsecaseProvider = SignOutUsecaseProvider._();
+final signOutUsecaseProvider = SignOutUsecaseProvider._();
 
 final class SignOutUsecaseProvider
     extends $FunctionalProvider<SignOutUsecase, SignOutUsecase, SignOutUsecase>
     with $Provider<SignOutUsecase> {
-  const SignOutUsecaseProvider._()
+  SignOutUsecaseProvider._()
     : super(
         from: null,
         argument: null,
@@ -377,13 +377,13 @@ String _$signOutUsecaseHash() => r'288a7cdf56fcdb5af302660ee153f8107543e1bf';
 /// Text Editing Controller Providers with proper disposal
 
 @ProviderFor(FirstNameController)
-const firstNameControllerProvider = FirstNameControllerProvider._();
+final firstNameControllerProvider = FirstNameControllerProvider._();
 
 /// Text Editing Controller Providers with proper disposal
 final class FirstNameControllerProvider
     extends $NotifierProvider<FirstNameController, TextEditingController> {
   /// Text Editing Controller Providers with proper disposal
-  const FirstNameControllerProvider._()
+  FirstNameControllerProvider._()
     : super(
         from: null,
         argument: null,
@@ -420,7 +420,6 @@ abstract class _$FirstNameController extends $Notifier<TextEditingController> {
   @$mustCallSuper
   @override
   void runBuild() {
-    final created = build();
     final ref = this.ref as $Ref<TextEditingController, TextEditingController>;
     final element =
         ref.element
@@ -430,16 +429,16 @@ abstract class _$FirstNameController extends $Notifier<TextEditingController> {
               Object?,
               Object?
             >;
-    element.handleValue(ref, created);
+    element.handleCreate(ref, build);
   }
 }
 
 @ProviderFor(PassController)
-const passControllerProvider = PassControllerProvider._();
+final passControllerProvider = PassControllerProvider._();
 
 final class PassControllerProvider
     extends $NotifierProvider<PassController, TextEditingController> {
-  const PassControllerProvider._()
+  PassControllerProvider._()
     : super(
         from: null,
         argument: null,
@@ -473,7 +472,6 @@ abstract class _$PassController extends $Notifier<TextEditingController> {
   @$mustCallSuper
   @override
   void runBuild() {
-    final created = build();
     final ref = this.ref as $Ref<TextEditingController, TextEditingController>;
     final element =
         ref.element
@@ -483,16 +481,16 @@ abstract class _$PassController extends $Notifier<TextEditingController> {
               Object?,
               Object?
             >;
-    element.handleValue(ref, created);
+    element.handleCreate(ref, build);
   }
 }
 
 @ProviderFor(ObscureTextController)
-const obscureTextControllerProvider = ObscureTextControllerProvider._();
+final obscureTextControllerProvider = ObscureTextControllerProvider._();
 
 final class ObscureTextControllerProvider
     extends $NotifierProvider<ObscureTextController, bool> {
-  const ObscureTextControllerProvider._()
+  ObscureTextControllerProvider._()
     : super(
         from: null,
         argument: null,
@@ -527,7 +525,6 @@ abstract class _$ObscureTextController extends $Notifier<bool> {
   @$mustCallSuper
   @override
   void runBuild() {
-    final created = build();
     final ref = this.ref as $Ref<bool, bool>;
     final element =
         ref.element
@@ -537,16 +534,16 @@ abstract class _$ObscureTextController extends $Notifier<bool> {
               Object?,
               Object?
             >;
-    element.handleValue(ref, created);
+    element.handleCreate(ref, build);
   }
 }
 
 @ProviderFor(EmailController)
-const emailControllerProvider = EmailControllerProvider._();
+final emailControllerProvider = EmailControllerProvider._();
 
 final class EmailControllerProvider
     extends $NotifierProvider<EmailController, TextEditingController> {
-  const EmailControllerProvider._()
+  EmailControllerProvider._()
     : super(
         from: null,
         argument: null,
@@ -580,7 +577,6 @@ abstract class _$EmailController extends $Notifier<TextEditingController> {
   @$mustCallSuper
   @override
   void runBuild() {
-    final created = build();
     final ref = this.ref as $Ref<TextEditingController, TextEditingController>;
     final element =
         ref.element
@@ -590,16 +586,16 @@ abstract class _$EmailController extends $Notifier<TextEditingController> {
               Object?,
               Object?
             >;
-    element.handleValue(ref, created);
+    element.handleCreate(ref, build);
   }
 }
 
 @ProviderFor(AgeController)
-const ageControllerProvider = AgeControllerProvider._();
+final ageControllerProvider = AgeControllerProvider._();
 
 final class AgeControllerProvider
     extends $NotifierProvider<AgeController, TextEditingController> {
-  const AgeControllerProvider._()
+  AgeControllerProvider._()
     : super(
         from: null,
         argument: null,
@@ -633,7 +629,6 @@ abstract class _$AgeController extends $Notifier<TextEditingController> {
   @$mustCallSuper
   @override
   void runBuild() {
-    final created = build();
     final ref = this.ref as $Ref<TextEditingController, TextEditingController>;
     final element =
         ref.element
@@ -643,16 +638,16 @@ abstract class _$AgeController extends $Notifier<TextEditingController> {
               Object?,
               Object?
             >;
-    element.handleValue(ref, created);
+    element.handleCreate(ref, build);
   }
 }
 
 @ProviderFor(PhoneNumberController)
-const phoneNumberControllerProvider = PhoneNumberControllerProvider._();
+final phoneNumberControllerProvider = PhoneNumberControllerProvider._();
 
 final class PhoneNumberControllerProvider
     extends $NotifierProvider<PhoneNumberController, TextEditingController> {
-  const PhoneNumberControllerProvider._()
+  PhoneNumberControllerProvider._()
     : super(
         from: null,
         argument: null,
@@ -688,7 +683,6 @@ abstract class _$PhoneNumberController
   @$mustCallSuper
   @override
   void runBuild() {
-    final created = build();
     final ref = this.ref as $Ref<TextEditingController, TextEditingController>;
     final element =
         ref.element
@@ -698,20 +692,20 @@ abstract class _$PhoneNumberController
               Object?,
               Object?
             >;
-    element.handleValue(ref, created);
+    element.handleCreate(ref, build);
   }
 }
 
 /// Sign In State Notifier - Fixed version
 
 @ProviderFor(SignInNotifier)
-const signInProvider = SignInNotifierProvider._();
+final signInProvider = SignInNotifierProvider._();
 
 /// Sign In State Notifier - Fixed version
 final class SignInNotifierProvider
     extends $NotifierProvider<SignInNotifier, AsyncValue<UserEntity>> {
   /// Sign In State Notifier - Fixed version
-  const SignInNotifierProvider._()
+  SignInNotifierProvider._()
     : super(
         from: null,
         argument: null,
@@ -747,7 +741,6 @@ abstract class _$SignInNotifier extends $Notifier<AsyncValue<UserEntity>> {
   @$mustCallSuper
   @override
   void runBuild() {
-    final created = build();
     final ref =
         this.ref as $Ref<AsyncValue<UserEntity>, AsyncValue<UserEntity>>;
     final element =
@@ -758,20 +751,20 @@ abstract class _$SignInNotifier extends $Notifier<AsyncValue<UserEntity>> {
               Object?,
               Object?
             >;
-    element.handleValue(ref, created);
+    element.handleCreate(ref, build);
   }
 }
 
 /// Login State Notifier - Fixed version
 
 @ProviderFor(LoginNotifier)
-const loginProvider = LoginNotifierProvider._();
+final loginProvider = LoginNotifierProvider._();
 
 /// Login State Notifier - Fixed version
 final class LoginNotifierProvider
     extends $NotifierProvider<LoginNotifier, AsyncValue<UserEntity>> {
   /// Login State Notifier - Fixed version
-  const LoginNotifierProvider._()
+  LoginNotifierProvider._()
     : super(
         from: null,
         argument: null,
@@ -807,7 +800,6 @@ abstract class _$LoginNotifier extends $Notifier<AsyncValue<UserEntity>> {
   @$mustCallSuper
   @override
   void runBuild() {
-    final created = build();
     final ref =
         this.ref as $Ref<AsyncValue<UserEntity>, AsyncValue<UserEntity>>;
     final element =
@@ -818,20 +810,20 @@ abstract class _$LoginNotifier extends $Notifier<AsyncValue<UserEntity>> {
               Object?,
               Object?
             >;
-    element.handleValue(ref, created);
+    element.handleCreate(ref, build);
   }
 }
 
 /// Get User State Notifier - Fixed version
 
 @ProviderFor(GetUserNotifier)
-const getUserProvider = GetUserNotifierProvider._();
+final getUserProvider = GetUserNotifierProvider._();
 
 /// Get User State Notifier - Fixed version
 final class GetUserNotifierProvider
     extends $NotifierProvider<GetUserNotifier, AsyncValue<UserEntity>> {
   /// Get User State Notifier - Fixed version
-  const GetUserNotifierProvider._()
+  GetUserNotifierProvider._()
     : super(
         from: null,
         argument: null,
@@ -867,7 +859,6 @@ abstract class _$GetUserNotifier extends $Notifier<AsyncValue<UserEntity>> {
   @$mustCallSuper
   @override
   void runBuild() {
-    final created = build();
     final ref =
         this.ref as $Ref<AsyncValue<UserEntity>, AsyncValue<UserEntity>>;
     final element =
@@ -878,20 +869,20 @@ abstract class _$GetUserNotifier extends $Notifier<AsyncValue<UserEntity>> {
               Object?,
               Object?
             >;
-    element.handleValue(ref, created);
+    element.handleCreate(ref, build);
   }
 }
 
 /// Sign Out User State Notifier - Fixed version
 
 @ProviderFor(SignOutNotifier)
-const signOutProvider = SignOutNotifierProvider._();
+final signOutProvider = SignOutNotifierProvider._();
 
 /// Sign Out User State Notifier - Fixed version
 final class SignOutNotifierProvider
     extends $NotifierProvider<SignOutNotifier, AsyncValue<bool>> {
   /// Sign Out User State Notifier - Fixed version
-  const SignOutNotifierProvider._()
+  SignOutNotifierProvider._()
     : super(
         from: null,
         argument: null,
@@ -927,7 +918,6 @@ abstract class _$SignOutNotifier extends $Notifier<AsyncValue<bool>> {
   @$mustCallSuper
   @override
   void runBuild() {
-    final created = build();
     final ref = this.ref as $Ref<AsyncValue<bool>, AsyncValue<bool>>;
     final element =
         ref.element
@@ -937,6 +927,6 @@ abstract class _$SignOutNotifier extends $Notifier<AsyncValue<bool>> {
               Object?,
               Object?
             >;
-    element.handleValue(ref, created);
+    element.handleCreate(ref, build);
   }
 }

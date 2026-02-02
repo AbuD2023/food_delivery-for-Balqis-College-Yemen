@@ -10,7 +10,7 @@ part of 'cart_state.dart';
 // ignore_for_file: type=lint, type=warning
 
 @ProviderFor(cartLocalDataSource)
-const cartLocalDataSourceProvider = CartLocalDataSourceProvider._();
+final cartLocalDataSourceProvider = CartLocalDataSourceProvider._();
 
 final class CartLocalDataSourceProvider
     extends
@@ -20,7 +20,7 @@ final class CartLocalDataSourceProvider
           CartLocalDataSource
         >
     with $Provider<CartLocalDataSource> {
-  const CartLocalDataSourceProvider._()
+  CartLocalDataSourceProvider._()
     : super(
         from: null,
         argument: null,
@@ -58,7 +58,7 @@ String _$cartLocalDataSourceHash() =>
     r'b25eb24ac0f9d4c0d74bf00e15470ecb493d6125';
 
 @ProviderFor(cartRemoteDataSource)
-const cartRemoteDataSourceProvider = CartRemoteDataSourceProvider._();
+final cartRemoteDataSourceProvider = CartRemoteDataSourceProvider._();
 
 final class CartRemoteDataSourceProvider
     extends
@@ -68,7 +68,7 @@ final class CartRemoteDataSourceProvider
           CartRemoteDataSource
         >
     with $Provider<CartRemoteDataSource> {
-  const CartRemoteDataSourceProvider._()
+  CartRemoteDataSourceProvider._()
     : super(
         from: null,
         argument: null,
@@ -106,12 +106,12 @@ String _$cartRemoteDataSourceHash() =>
     r'e1610b2d6fc90f169354048e6b4195af274a5598';
 
 @ProviderFor(cartRepository)
-const cartRepositoryProvider = CartRepositoryProvider._();
+final cartRepositoryProvider = CartRepositoryProvider._();
 
 final class CartRepositoryProvider
     extends $FunctionalProvider<CartRepository, CartRepository, CartRepository>
     with $Provider<CartRepository> {
-  const CartRepositoryProvider._()
+  CartRepositoryProvider._()
     : super(
         from: null,
         argument: null,
@@ -147,7 +147,7 @@ final class CartRepositoryProvider
 String _$cartRepositoryHash() => r'e5e58a9b98bef8073bf99dbf05bafdf03c24faf4';
 
 @ProviderFor(addToCartUsecase)
-const addToCartUsecaseProvider = AddToCartUsecaseProvider._();
+final addToCartUsecaseProvider = AddToCartUsecaseProvider._();
 
 final class AddToCartUsecaseProvider
     extends
@@ -157,7 +157,7 @@ final class AddToCartUsecaseProvider
           AddToCartUsecase
         >
     with $Provider<AddToCartUsecase> {
-  const AddToCartUsecaseProvider._()
+  AddToCartUsecaseProvider._()
     : super(
         from: null,
         argument: null,
@@ -193,7 +193,7 @@ final class AddToCartUsecaseProvider
 String _$addToCartUsecaseHash() => r'53f23b9e3d69f30ea13324816ff83bb0dc21b49b';
 
 @ProviderFor(getCartItemsUsecase)
-const getCartItemsUsecaseProvider = GetCartItemsUsecaseProvider._();
+final getCartItemsUsecaseProvider = GetCartItemsUsecaseProvider._();
 
 final class GetCartItemsUsecaseProvider
     extends
@@ -203,7 +203,7 @@ final class GetCartItemsUsecaseProvider
           GetCartItemsUsecase
         >
     with $Provider<GetCartItemsUsecase> {
-  const GetCartItemsUsecaseProvider._()
+  GetCartItemsUsecaseProvider._()
     : super(
         from: null,
         argument: null,
@@ -241,7 +241,7 @@ String _$getCartItemsUsecaseHash() =>
     r'e31189c4f43d38f39ad583ed42d5c72e8930bdda';
 
 @ProviderFor(updateCartQuantityUsecase)
-const updateCartQuantityUsecaseProvider = UpdateCartQuantityUsecaseProvider._();
+final updateCartQuantityUsecaseProvider = UpdateCartQuantityUsecaseProvider._();
 
 final class UpdateCartQuantityUsecaseProvider
     extends
@@ -251,7 +251,7 @@ final class UpdateCartQuantityUsecaseProvider
           UpdateCartQuantityUsecase
         >
     with $Provider<UpdateCartQuantityUsecase> {
-  const UpdateCartQuantityUsecaseProvider._()
+  UpdateCartQuantityUsecaseProvider._()
     : super(
         from: null,
         argument: null,
@@ -289,7 +289,7 @@ String _$updateCartQuantityUsecaseHash() =>
     r'a0ecc6140843d0eeb69c723a7a5529b10ac89f28';
 
 @ProviderFor(removeFromCartUsecase)
-const removeFromCartUsecaseProvider = RemoveFromCartUsecaseProvider._();
+final removeFromCartUsecaseProvider = RemoveFromCartUsecaseProvider._();
 
 final class RemoveFromCartUsecaseProvider
     extends
@@ -299,7 +299,7 @@ final class RemoveFromCartUsecaseProvider
           RemoveFromCartUsecase
         >
     with $Provider<RemoveFromCartUsecase> {
-  const RemoveFromCartUsecaseProvider._()
+  RemoveFromCartUsecaseProvider._()
     : super(
         from: null,
         argument: null,
@@ -337,7 +337,7 @@ String _$removeFromCartUsecaseHash() =>
     r'7284e5f16a815dd1b6ed7fa81ce4f80a50898903';
 
 @ProviderFor(clearCartUsecase)
-const clearCartUsecaseProvider = ClearCartUsecaseProvider._();
+final clearCartUsecaseProvider = ClearCartUsecaseProvider._();
 
 final class ClearCartUsecaseProvider
     extends
@@ -347,7 +347,7 @@ final class ClearCartUsecaseProvider
           ClearCartUsecase
         >
     with $Provider<ClearCartUsecase> {
-  const ClearCartUsecaseProvider._()
+  ClearCartUsecaseProvider._()
     : super(
         from: null,
         argument: null,
@@ -383,7 +383,7 @@ final class ClearCartUsecaseProvider
 String _$clearCartUsecaseHash() => r'238efd8d78a66df7d74681be9a588875e768756a';
 
 @ProviderFor(cartItems)
-const cartItemsProvider = CartItemsProvider._();
+final cartItemsProvider = CartItemsProvider._();
 
 final class CartItemsProvider
     extends
@@ -395,7 +395,7 @@ final class CartItemsProvider
     with
         $FutureModifier<List<CartItemEntity>>,
         $FutureProvider<List<CartItemEntity>> {
-  const CartItemsProvider._()
+  CartItemsProvider._()
     : super(
         from: null,
         argument: null,

@@ -10,11 +10,11 @@ part of 'home_state.dart';
 // ignore_for_file: type=lint, type=warning
 
 @ProviderFor(SelectedCategory)
-const selectedCategoryProvider = SelectedCategoryProvider._();
+final selectedCategoryProvider = SelectedCategoryProvider._();
 
 final class SelectedCategoryProvider
     extends $NotifierProvider<SelectedCategory, String> {
-  const SelectedCategoryProvider._()
+  SelectedCategoryProvider._()
     : super(
         from: null,
         argument: null,
@@ -48,7 +48,6 @@ abstract class _$SelectedCategory extends $Notifier<String> {
   @$mustCallSuper
   @override
   void runBuild() {
-    final created = build();
     final ref = this.ref as $Ref<String, String>;
     final element =
         ref.element
@@ -58,12 +57,12 @@ abstract class _$SelectedCategory extends $Notifier<String> {
               Object?,
               Object?
             >;
-    element.handleValue(ref, created);
+    element.handleCreate(ref, build);
   }
 }
 
 @ProviderFor(categoryProducts)
-const categoryProductsProvider = CategoryProductsProvider._();
+final categoryProductsProvider = CategoryProductsProvider._();
 
 final class CategoryProductsProvider
     extends
@@ -73,7 +72,7 @@ final class CategoryProductsProvider
           FutureOr<ProductResult>
         >
     with $FutureModifier<ProductResult>, $FutureProvider<ProductResult> {
-  const CategoryProductsProvider._()
+  CategoryProductsProvider._()
     : super(
         from: null,
         argument: null,

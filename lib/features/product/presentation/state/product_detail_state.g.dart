@@ -10,11 +10,11 @@ part of 'product_detail_state.dart';
 // ignore_for_file: type=lint, type=warning
 
 @ProviderFor(ProductQuantity)
-const productQuantityProvider = ProductQuantityFamily._();
+final productQuantityProvider = ProductQuantityFamily._();
 
 final class ProductQuantityProvider
     extends $NotifierProvider<ProductQuantity, int> {
-  const ProductQuantityProvider._({
+  ProductQuantityProvider._({
     required ProductQuantityFamily super.from,
     required String super.argument,
   }) : super(
@@ -62,7 +62,7 @@ String _$productQuantityHash() => r'4e449f7c3dd9f68db9384ee454b06cd0f8e9361f';
 
 final class ProductQuantityFamily extends $Family
     with $ClassFamilyOverride<ProductQuantity, int, int, int, String> {
-  const ProductQuantityFamily._()
+  ProductQuantityFamily._()
     : super(
         retry: null,
         name: r'productQuantityProvider',
@@ -86,7 +86,6 @@ abstract class _$ProductQuantity extends $Notifier<int> {
   @$mustCallSuper
   @override
   void runBuild() {
-    final created = build(_$args);
     final ref = this.ref as $Ref<int, int>;
     final element =
         ref.element
@@ -96,6 +95,6 @@ abstract class _$ProductQuantity extends $Notifier<int> {
               Object?,
               Object?
             >;
-    element.handleValue(ref, created);
+    element.handleCreate(ref, () => build(_$args));
   }
 }

@@ -10,12 +10,12 @@ part of 'product_state.dart';
 // ignore_for_file: type=lint, type=warning
 
 @ProviderFor(appDatabase)
-const appDatabaseProvider = AppDatabaseProvider._();
+final appDatabaseProvider = AppDatabaseProvider._();
 
 final class AppDatabaseProvider
     extends $FunctionalProvider<AppDatabase, AppDatabase, AppDatabase>
     with $Provider<AppDatabase> {
-  const AppDatabaseProvider._()
+  AppDatabaseProvider._()
     : super(
         from: null,
         argument: null,
@@ -48,10 +48,10 @@ final class AppDatabaseProvider
   }
 }
 
-String _$appDatabaseHash() => r'b3bedcfc13caa79cce9dc5ae8b5094c1253148f6';
+String _$appDatabaseHash() => r'0a273bfc7ab7bd6b40093399ec028f2a5d0c98d5';
 
 @ProviderFor(productLocalDataSource)
-const productLocalDataSourceProvider = ProductLocalDataSourceProvider._();
+final productLocalDataSourceProvider = ProductLocalDataSourceProvider._();
 
 final class ProductLocalDataSourceProvider
     extends
@@ -61,7 +61,7 @@ final class ProductLocalDataSourceProvider
           ProductLocalDataSource
         >
     with $Provider<ProductLocalDataSource> {
-  const ProductLocalDataSourceProvider._()
+  ProductLocalDataSourceProvider._()
     : super(
         from: null,
         argument: null,
@@ -99,7 +99,7 @@ String _$productLocalDataSourceHash() =>
     r'3b33956a61a50feacf9feaa47bce8efd11d7bf98';
 
 @ProviderFor(productRemoteDataSource)
-const productRemoteDataSourceProvider = ProductRemoteDataSourceProvider._();
+final productRemoteDataSourceProvider = ProductRemoteDataSourceProvider._();
 
 final class ProductRemoteDataSourceProvider
     extends
@@ -109,7 +109,7 @@ final class ProductRemoteDataSourceProvider
           ProductRemoteDataSource
         >
     with $Provider<ProductRemoteDataSource> {
-  const ProductRemoteDataSourceProvider._()
+  ProductRemoteDataSourceProvider._()
     : super(
         from: null,
         argument: null,
@@ -147,7 +147,7 @@ String _$productRemoteDataSourceHash() =>
     r'3e07b7224bc391d20a5afb76a90733e28a3bd90a';
 
 @ProviderFor(productRepository)
-const productRepositoryProvider = ProductRepositoryProvider._();
+final productRepositoryProvider = ProductRepositoryProvider._();
 
 final class ProductRepositoryProvider
     extends
@@ -157,7 +157,7 @@ final class ProductRepositoryProvider
           ProductRepository
         >
     with $Provider<ProductRepository> {
-  const ProductRepositoryProvider._()
+  ProductRepositoryProvider._()
     : super(
         from: null,
         argument: null,
@@ -194,7 +194,7 @@ final class ProductRepositoryProvider
 String _$productRepositoryHash() => r'267ac183f961009b278b9bce1f88a6e838694a8a';
 
 @ProviderFor(getRecommendedProductsUsecase)
-const getRecommendedProductsUsecaseProvider =
+final getRecommendedProductsUsecaseProvider =
     GetRecommendedProductsUsecaseProvider._();
 
 final class GetRecommendedProductsUsecaseProvider
@@ -205,7 +205,7 @@ final class GetRecommendedProductsUsecaseProvider
           GetRecommendedProductsUsecase
         >
     with $Provider<GetRecommendedProductsUsecase> {
-  const GetRecommendedProductsUsecaseProvider._()
+  GetRecommendedProductsUsecaseProvider._()
     : super(
         from: null,
         argument: null,
@@ -245,7 +245,7 @@ String _$getRecommendedProductsUsecaseHash() =>
     r'dab3ee3405425e755d2c8e94a2a33f0fcc784bc7';
 
 @ProviderFor(getProductsByCategoryUsecase)
-const getProductsByCategoryUsecaseProvider =
+final getProductsByCategoryUsecaseProvider =
     GetProductsByCategoryUsecaseProvider._();
 
 final class GetProductsByCategoryUsecaseProvider
@@ -256,7 +256,7 @@ final class GetProductsByCategoryUsecaseProvider
           GetProductsByCategoryUsecase
         >
     with $Provider<GetProductsByCategoryUsecase> {
-  const GetProductsByCategoryUsecaseProvider._()
+  GetProductsByCategoryUsecaseProvider._()
     : super(
         from: null,
         argument: null,
@@ -294,7 +294,7 @@ String _$getProductsByCategoryUsecaseHash() =>
     r'7d7765178e03e738da4824fb8fa08ef271318d36';
 
 @ProviderFor(toggleFavoriteUsecase)
-const toggleFavoriteUsecaseProvider = ToggleFavoriteUsecaseProvider._();
+final toggleFavoriteUsecaseProvider = ToggleFavoriteUsecaseProvider._();
 
 final class ToggleFavoriteUsecaseProvider
     extends
@@ -304,7 +304,7 @@ final class ToggleFavoriteUsecaseProvider
           ToggleFavoriteUsecase
         >
     with $Provider<ToggleFavoriteUsecase> {
-  const ToggleFavoriteUsecaseProvider._()
+  ToggleFavoriteUsecaseProvider._()
     : super(
         from: null,
         argument: null,
@@ -342,7 +342,7 @@ String _$toggleFavoriteUsecaseHash() =>
     r'48ba14050e23ab04b467533b723c0fd13ae93046';
 
 @ProviderFor(getProductByIdUsecase)
-const getProductByIdUsecaseProvider = GetProductByIdUsecaseProvider._();
+final getProductByIdUsecaseProvider = GetProductByIdUsecaseProvider._();
 
 final class GetProductByIdUsecaseProvider
     extends
@@ -352,7 +352,7 @@ final class GetProductByIdUsecaseProvider
           GetProductByIdUsecase
         >
     with $Provider<GetProductByIdUsecase> {
-  const GetProductByIdUsecaseProvider._()
+  GetProductByIdUsecaseProvider._()
     : super(
         from: null,
         argument: null,
@@ -390,7 +390,7 @@ String _$getProductByIdUsecaseHash() =>
     r'85bfbf538cf2c2f49742ffac5ddd18282b818fc4';
 
 @ProviderFor(addProductUsecase)
-const addProductUsecaseProvider = AddProductUsecaseProvider._();
+final addProductUsecaseProvider = AddProductUsecaseProvider._();
 
 final class AddProductUsecaseProvider
     extends
@@ -400,7 +400,7 @@ final class AddProductUsecaseProvider
           AddProductUsecase
         >
     with $Provider<AddProductUsecase> {
-  const AddProductUsecaseProvider._()
+  AddProductUsecaseProvider._()
     : super(
         from: null,
         argument: null,
@@ -437,11 +437,11 @@ final class AddProductUsecaseProvider
 String _$addProductUsecaseHash() => r'1c00efa9f6ea6db8c6aa5a5f057f860ee47b8a17';
 
 @ProviderFor(AddProductNotifier)
-const addProductProvider = AddProductNotifierProvider._();
+final addProductProvider = AddProductNotifierProvider._();
 
 final class AddProductNotifierProvider
     extends $NotifierProvider<AddProductNotifier, AsyncValue<bool>> {
-  const AddProductNotifierProvider._()
+  AddProductNotifierProvider._()
     : super(
         from: null,
         argument: null,
@@ -476,7 +476,6 @@ abstract class _$AddProductNotifier extends $Notifier<AsyncValue<bool>> {
   @$mustCallSuper
   @override
   void runBuild() {
-    final created = build();
     final ref = this.ref as $Ref<AsyncValue<bool>, AsyncValue<bool>>;
     final element =
         ref.element
@@ -486,12 +485,12 @@ abstract class _$AddProductNotifier extends $Notifier<AsyncValue<bool>> {
               Object?,
               Object?
             >;
-    element.handleValue(ref, created);
+    element.handleCreate(ref, build);
   }
 }
 
 @ProviderFor(recommendedProducts)
-const recommendedProductsProvider = RecommendedProductsProvider._();
+final recommendedProductsProvider = RecommendedProductsProvider._();
 
 final class RecommendedProductsProvider
     extends
@@ -501,7 +500,7 @@ final class RecommendedProductsProvider
           Stream<ProductResult>
         >
     with $FutureModifier<ProductResult>, $StreamProvider<ProductResult> {
-  const RecommendedProductsProvider._()
+  RecommendedProductsProvider._()
     : super(
         from: null,
         argument: null,
@@ -531,7 +530,7 @@ String _$recommendedProductsHash() =>
     r'f8c2765b1446169fc297cc4e15e944c8ac0a42d1';
 
 @ProviderFor(productsByCategory)
-const productsByCategoryProvider = ProductsByCategoryFamily._();
+final productsByCategoryProvider = ProductsByCategoryFamily._();
 
 final class ProductsByCategoryProvider
     extends
@@ -541,7 +540,7 @@ final class ProductsByCategoryProvider
           Stream<ProductResult>
         >
     with $FutureModifier<ProductResult>, $StreamProvider<ProductResult> {
-  const ProductsByCategoryProvider._({
+  ProductsByCategoryProvider._({
     required ProductsByCategoryFamily super.from,
     required String super.argument,
   }) : super(
@@ -590,7 +589,7 @@ String _$productsByCategoryHash() =>
 
 final class ProductsByCategoryFamily extends $Family
     with $FunctionalFamilyOverride<Stream<ProductResult>, String> {
-  const ProductsByCategoryFamily._()
+  ProductsByCategoryFamily._()
     : super(
         retry: null,
         name: r'productsByCategoryProvider',
@@ -607,7 +606,7 @@ final class ProductsByCategoryFamily extends $Family
 }
 
 @ProviderFor(productById)
-const productByIdProvider = ProductByIdFamily._();
+final productByIdProvider = ProductByIdFamily._();
 
 final class ProductByIdProvider
     extends
@@ -617,7 +616,7 @@ final class ProductByIdProvider
           Stream<ProductEntity>
         >
     with $FutureModifier<ProductEntity>, $StreamProvider<ProductEntity> {
-  const ProductByIdProvider._({
+  ProductByIdProvider._({
     required ProductByIdFamily super.from,
     required String super.argument,
   }) : super(
@@ -665,7 +664,7 @@ String _$productByIdHash() => r'9a08c8d3150cda22bb1369a7490b1fd2f222a180';
 
 final class ProductByIdFamily extends $Family
     with $FunctionalFamilyOverride<Stream<ProductEntity>, String> {
-  const ProductByIdFamily._()
+  ProductByIdFamily._()
     : super(
         retry: null,
         name: r'productByIdProvider',
@@ -684,7 +683,7 @@ final class ProductByIdFamily extends $Family
 /// search products usecase
 
 @ProviderFor(searchProductsUsecase)
-const searchProductsUsecaseProvider = SearchProductsUsecaseProvider._();
+final searchProductsUsecaseProvider = SearchProductsUsecaseProvider._();
 
 /// search products usecase
 
@@ -697,7 +696,7 @@ final class SearchProductsUsecaseProvider
         >
     with $Provider<SearchProductsUsecase> {
   /// search products usecase
-  const SearchProductsUsecaseProvider._()
+  SearchProductsUsecaseProvider._()
     : super(
         from: null,
         argument: null,
@@ -737,7 +736,7 @@ String _$searchProductsUsecaseHash() =>
 /// search products
 
 @ProviderFor(searchProducts)
-const searchProductsProvider = SearchProductsFamily._();
+final searchProductsProvider = SearchProductsFamily._();
 
 /// search products
 
@@ -750,7 +749,7 @@ final class SearchProductsProvider
         >
     with $FutureModifier<ProductResult>, $FutureProvider<ProductResult> {
   /// search products
-  const SearchProductsProvider._({
+  SearchProductsProvider._({
     required SearchProductsFamily super.from,
     required String super.argument,
   }) : super(
@@ -800,7 +799,7 @@ String _$searchProductsHash() => r'978bc24065740d3c869f9272034c5892081f3276';
 
 final class SearchProductsFamily extends $Family
     with $FunctionalFamilyOverride<FutureOr<ProductResult>, String> {
-  const SearchProductsFamily._()
+  SearchProductsFamily._()
     : super(
         retry: null,
         name: r'searchProductsProvider',
@@ -821,13 +820,13 @@ final class SearchProductsFamily extends $Family
 /// search controller
 
 @ProviderFor(SearchController)
-const searchControllerProvider = SearchControllerProvider._();
+final searchControllerProvider = SearchControllerProvider._();
 
 /// search controller
 final class SearchControllerProvider
     extends $NotifierProvider<SearchController, TextEditingController> {
   /// search controller
-  const SearchControllerProvider._()
+  SearchControllerProvider._()
     : super(
         from: null,
         argument: null,
@@ -863,7 +862,6 @@ abstract class _$SearchController extends $Notifier<TextEditingController> {
   @$mustCallSuper
   @override
   void runBuild() {
-    final created = build();
     final ref = this.ref as $Ref<TextEditingController, TextEditingController>;
     final element =
         ref.element
@@ -873,19 +871,19 @@ abstract class _$SearchController extends $Notifier<TextEditingController> {
               Object?,
               Object?
             >;
-    element.handleValue(ref, created);
+    element.handleCreate(ref, build);
   }
 }
 
 /// search query
 
 @ProviderFor(SearchQuery)
-const searchQueryProvider = SearchQueryProvider._();
+final searchQueryProvider = SearchQueryProvider._();
 
 /// search query
 final class SearchQueryProvider extends $NotifierProvider<SearchQuery, String> {
   /// search query
-  const SearchQueryProvider._()
+  SearchQueryProvider._()
     : super(
         from: null,
         argument: null,
@@ -921,7 +919,6 @@ abstract class _$SearchQuery extends $Notifier<String> {
   @$mustCallSuper
   @override
   void runBuild() {
-    final created = build();
     final ref = this.ref as $Ref<String, String>;
     final element =
         ref.element
@@ -931,16 +928,16 @@ abstract class _$SearchQuery extends $Notifier<String> {
               Object?,
               Object?
             >;
-    element.handleValue(ref, created);
+    element.handleCreate(ref, build);
   }
 }
 
 @ProviderFor(NameController)
-const nameControllerProvider = NameControllerProvider._();
+final nameControllerProvider = NameControllerProvider._();
 
 final class NameControllerProvider
     extends $NotifierProvider<NameController, TextEditingController> {
-  const NameControllerProvider._()
+  NameControllerProvider._()
     : super(
         from: null,
         argument: null,
@@ -974,7 +971,6 @@ abstract class _$NameController extends $Notifier<TextEditingController> {
   @$mustCallSuper
   @override
   void runBuild() {
-    final created = build();
     final ref = this.ref as $Ref<TextEditingController, TextEditingController>;
     final element =
         ref.element
@@ -984,16 +980,16 @@ abstract class _$NameController extends $Notifier<TextEditingController> {
               Object?,
               Object?
             >;
-    element.handleValue(ref, created);
+    element.handleCreate(ref, build);
   }
 }
 
 @ProviderFor(PriceController)
-const priceControllerProvider = PriceControllerProvider._();
+final priceControllerProvider = PriceControllerProvider._();
 
 final class PriceControllerProvider
     extends $NotifierProvider<PriceController, TextEditingController> {
-  const PriceControllerProvider._()
+  PriceControllerProvider._()
     : super(
         from: null,
         argument: null,
@@ -1027,7 +1023,6 @@ abstract class _$PriceController extends $Notifier<TextEditingController> {
   @$mustCallSuper
   @override
   void runBuild() {
-    final created = build();
     final ref = this.ref as $Ref<TextEditingController, TextEditingController>;
     final element =
         ref.element
@@ -1037,16 +1032,16 @@ abstract class _$PriceController extends $Notifier<TextEditingController> {
               Object?,
               Object?
             >;
-    element.handleValue(ref, created);
+    element.handleCreate(ref, build);
   }
 }
 
 @ProviderFor(ImagePathController)
-const imagePathControllerProvider = ImagePathControllerProvider._();
+final imagePathControllerProvider = ImagePathControllerProvider._();
 
 final class ImagePathControllerProvider
     extends $NotifierProvider<ImagePathController, TextEditingController> {
-  const ImagePathControllerProvider._()
+  ImagePathControllerProvider._()
     : super(
         from: null,
         argument: null,
@@ -1081,7 +1076,6 @@ abstract class _$ImagePathController extends $Notifier<TextEditingController> {
   @$mustCallSuper
   @override
   void runBuild() {
-    final created = build();
     final ref = this.ref as $Ref<TextEditingController, TextEditingController>;
     final element =
         ref.element
@@ -1091,16 +1085,16 @@ abstract class _$ImagePathController extends $Notifier<TextEditingController> {
               Object?,
               Object?
             >;
-    element.handleValue(ref, created);
+    element.handleCreate(ref, build);
   }
 }
 
 @ProviderFor(DescriptionController)
-const descriptionControllerProvider = DescriptionControllerProvider._();
+final descriptionControllerProvider = DescriptionControllerProvider._();
 
 final class DescriptionControllerProvider
     extends $NotifierProvider<DescriptionController, TextEditingController> {
-  const DescriptionControllerProvider._()
+  DescriptionControllerProvider._()
     : super(
         from: null,
         argument: null,
@@ -1136,7 +1130,6 @@ abstract class _$DescriptionController
   @$mustCallSuper
   @override
   void runBuild() {
-    final created = build();
     final ref = this.ref as $Ref<TextEditingController, TextEditingController>;
     final element =
         ref.element
@@ -1146,16 +1139,16 @@ abstract class _$DescriptionController
               Object?,
               Object?
             >;
-    element.handleValue(ref, created);
+    element.handleCreate(ref, build);
   }
 }
 
 @ProviderFor(IngredientsController)
-const ingredientsControllerProvider = IngredientsControllerProvider._();
+final ingredientsControllerProvider = IngredientsControllerProvider._();
 
 final class IngredientsControllerProvider
     extends $NotifierProvider<IngredientsController, List<String>> {
-  const IngredientsControllerProvider._()
+  IngredientsControllerProvider._()
     : super(
         from: null,
         argument: null,
@@ -1190,7 +1183,6 @@ abstract class _$IngredientsController extends $Notifier<List<String>> {
   @$mustCallSuper
   @override
   void runBuild() {
-    final created = build();
     final ref = this.ref as $Ref<List<String>, List<String>>;
     final element =
         ref.element
@@ -1200,16 +1192,16 @@ abstract class _$IngredientsController extends $Notifier<List<String>> {
               Object?,
               Object?
             >;
-    element.handleValue(ref, created);
+    element.handleCreate(ref, build);
   }
 }
 
 @ProviderFor(CategoryController)
-const categoryControllerProvider = CategoryControllerProvider._();
+final categoryControllerProvider = CategoryControllerProvider._();
 
 final class CategoryControllerProvider
     extends $NotifierProvider<CategoryController, CategoryEnum> {
-  const CategoryControllerProvider._()
+  CategoryControllerProvider._()
     : super(
         from: null,
         argument: null,
@@ -1244,7 +1236,6 @@ abstract class _$CategoryController extends $Notifier<CategoryEnum> {
   @$mustCallSuper
   @override
   void runBuild() {
-    final created = build();
     final ref = this.ref as $Ref<CategoryEnum, CategoryEnum>;
     final element =
         ref.element
@@ -1254,6 +1245,6 @@ abstract class _$CategoryController extends $Notifier<CategoryEnum> {
               Object?,
               Object?
             >;
-    element.handleValue(ref, created);
+    element.handleCreate(ref, build);
   }
 }
